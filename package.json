@@ -1,0 +1,63 @@
+{
+  "name": "industrial-automation-website",
+  "version": "0.1.0",
+  "description": "Industrial Automation Website",
+  "private": true,
+  "engines": {
+    "node": ">=18.14.0"
+  },
+  "scripts": {
+    "start": "vite",
+    "preview": "vite preview",
+    "build": "vite build",
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
+    "prettier": "prettier --check src/**/*.{js,jsx,ts,tsx,json}",
+    "pretty": "prettier --write src/**/*.{js,jsx,ts,tsx,json}",
+    "storybook": "storybook dev -p 6006",
+    "storybook-build": "storybook build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.14.1",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.4",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/react-redux": "^7.1.25",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^13.2.2",
+    "postcss": "^8.4.31",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^4.9.5",
+    "vite": "5.0.5"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint",
+      "prettier --check"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
