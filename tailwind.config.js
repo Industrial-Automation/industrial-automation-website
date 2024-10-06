@@ -18,7 +18,8 @@ module.exports = {
         purple: '#D93FFF',
         gray: '#8D9093',
         black: '#1F1F1F',
-        skyblue: '#6BCAED'
+        skyblue: '#6BCAED',
+        midnight: '#020A13'
       },
       subtone: {
         white: {
@@ -32,6 +33,9 @@ module.exports = {
         skyblue: {
           1: '#5bb3d6',
           2: '#8be3fd'
+        },
+        black: {
+          1: '#000000B3'
         }
       }
     },
@@ -40,6 +44,10 @@ module.exports = {
       josefin: ['Josefin Sans', ...defaultTheme.fontFamily.sans]
     },
     extend: {
+      boxShadow: {
+        skyblue: '0px 0px 25px 0px rgba(29, 155, 217, 1)',
+        gray: '0px 0px 4px 2px rgba(0, 0, 0, 0.15)'
+      },
       backgroundImage: {
         'main-bg': "url('src/assets/images/main-bg.png')"
       }

@@ -1,5 +1,7 @@
 import { Text } from 'src/components/Text';
+import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
+import { ModalNames } from 'src/constants/modals';
 
 import Translations from './translations';
 
@@ -27,6 +29,24 @@ const menu = [
 ];
 
 export const Header = () => {
+  const modal = useModal();
+
+  const handleOnLogin = () => {
+    modal({
+      name: ModalNames.SignIn,
+      show: true,
+      isOverlay: true,
+      frame: {
+        type: 'modal',
+        props: {}
+      },
+      variant: {
+        type: 'signIn',
+        props: {}
+      }
+    });
+  };
+
   return (
     <div className='flex flex-row items-center justify-between'>
       <div className='flex flex-row items-center gap-10'>
@@ -51,6 +71,7 @@ export const Header = () => {
         iconSize='md'
         iconColor='subtone-skyblue-2'
         label={Translations.loginBtn}
+        onClick={handleOnLogin}
       />
     </div>
   );

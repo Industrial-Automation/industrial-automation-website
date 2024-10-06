@@ -3,9 +3,13 @@ import React, { useMemo } from 'react';
 import { merge } from 'src/utils';
 
 import User from 'src/assets/icons/user.svg';
+import Close from 'src/assets/icons/close.svg';
+import Checkmark from 'src/assets/icons/checkmark.svg';
 
 const Icon = Object.freeze({
-  user: User
+  user: User,
+  close: Close,
+  checkmark: Checkmark
 });
 
 const IconSizes = Object.freeze({
