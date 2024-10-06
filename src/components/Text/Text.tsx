@@ -25,8 +25,8 @@ const alignClasses = {
 };
 
 const iconPosClasses = {
-  left: '[&>span]:-order-1',
-  right: '[&>span]:order-none'
+  left: 'flex-row-reverse',
+  right: 'flex-row'
 };
 
 export interface TextType {

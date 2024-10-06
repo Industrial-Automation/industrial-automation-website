@@ -22,8 +22,8 @@ const sizeClasses = {
 };
 
 const iconPosClasses = {
-  left: '[&>span]:order-none',
-  right: '[&>span]:order-1'
+  left: 'flex-row',
+  right: 'flex-row-reverse'
 };
 
 interface ButtonType {
