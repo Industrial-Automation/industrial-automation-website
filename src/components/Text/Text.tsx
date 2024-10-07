@@ -15,7 +15,10 @@ const variantClasses = {
   base_extrabold: 'text-base font-extrabold',
   sm_extrabold: 'text-sm font-extrabold',
   sm_bold: 'text-sm font-bold',
-  sm_medium: 'text-sm font-medium'
+  sm_medium: 'text-sm font-medium',
+  xs_extrabold: 'text-xs font-extrabold',
+  xs_bold: 'text-xs font-bold',
+  xs_medium: 'text-xs font-medium'
 };
 
 const alignClasses = {
