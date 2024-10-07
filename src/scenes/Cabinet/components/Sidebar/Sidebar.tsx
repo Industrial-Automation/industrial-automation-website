@@ -69,7 +69,7 @@ export const Sidebar = () => {
         {Translations.title}
       </Text>
 
-      <div className='mb-10 mt-3 flex flex-row items-center gap-2 rounded-2xl p-2 ring-1 ring-main-white'>
+      <div className='mb-10 mt-3 flex flex-row items-center gap-2 rounded-lg p-2 ring-1 ring-main-white'>
         <img className='h-8 w-8 object-cover' src={Avatar} alt='avatar' />
 
         <div className='flex flex-col gap-1 pt-0.5'>
