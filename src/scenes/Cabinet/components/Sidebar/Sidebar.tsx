@@ -1,3 +1,6 @@
+import { useLocation } from 'react-router-dom';
+
+import { Paths } from 'src/routes';
 import { Text, TextType } from 'src/components/Text';
 
 import Translations from './translations';
@@ -8,22 +11,22 @@ const mainMenu = [
   {
     title: Translations.profile,
     icon: 'profile',
-    link: '/profile'
+    link: Paths.Profile
   },
   {
     title: Translations.projects,
     icon: 'folder',
-    link: '/projects'
+    link: Paths.Projects
   },
   {
     title: Translations.security,
     icon: 'security',
-    link: '/security'
+    link: Paths.Security
   },
   {
     title: Translations.settings,
     icon: 'settings',
-    link: '/projects'
+    link: Paths.Settings
   }
 ];
 
@@ -41,7 +44,7 @@ const additionalMenu = [
 ];
 
 export const Sidebar = () => {
-  const activeLink = '/profile';
+  const location = useLocation();
 
   const getMenuItemClass = (menuItem: (typeof mainMenu | typeof additionalMenu)[number]) =>
     [
@@ -52,7 +55,7 @@ export const Sidebar = () => {
       'font-lato',
       'text-main-white',
       'hover:bg-subtone-skyblue-1',
-      activeLink === menuItem.link && 'bg-subtone-skyblue-1'
+      location.pathname === menuItem.link && 'bg-subtone-skyblue-1'
     ]
       .filter(Boolean)
       .join(' ');

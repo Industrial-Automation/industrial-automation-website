@@ -2,26 +2,36 @@ import React, { useMemo } from 'react';
 
 import { merge } from 'src/utils';
 
+import Bulb from 'src/assets/icons/bulb.svg';
 import Help from 'src/assets/icons/help.svg';
 import Exit from 'src/assets/icons/exit.svg';
 import User from 'src/assets/icons/user.svg';
+import Text from 'src/assets/icons/text.svg';
 import Close from 'src/assets/icons/close.svg';
+import Input from 'src/assets/icons/input.svg';
 import Folder from 'src/assets/icons/folder.svg';
 import Profile from 'src/assets/icons/profile.svg';
 import Security from 'src/assets/icons/security.svg';
 import Settings from 'src/assets/icons/settings.svg';
 import Checkmark from 'src/assets/icons/checkmark.svg';
+import ArrowLeft from 'src/assets/icons/arrow-left.svg';
+import ArrowRight from 'src/assets/icons/arrow-right.svg';
 
 const Icon = Object.freeze({
+  bulb: Bulb,
   help: Help,
   exit: Exit,
   user: User,
+  text: Text,
   close: Close,
+  input: Input,
   folder: Folder,
   profile: Profile,
   security: Security,
   settings: Settings,
-  checkmark: Checkmark
+  checkmark: Checkmark,
+  arrow_left: ArrowLeft,
+  arrow_right: ArrowRight
 });
 
 const IconSizes = Object.freeze({
