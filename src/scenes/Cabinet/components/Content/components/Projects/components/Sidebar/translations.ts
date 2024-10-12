@@ -1,5 +1,8 @@
 const Translations = {
-  title: 'Projects'
+  title: 'Projects',
+
+  schemaBtn: 'Schema',
+  controlBtn: 'Control'
 };
 
 export default Translations;
