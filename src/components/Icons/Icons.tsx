@@ -10,6 +10,7 @@ import Text from 'src/assets/icons/text.svg';
 import Close from 'src/assets/icons/close.svg';
 import Input from 'src/assets/icons/input.svg';
 import Folder from 'src/assets/icons/folder.svg';
+import Upload from 'src/assets/icons/upload.svg';
 import Profile from 'src/assets/icons/profile.svg';
 import Security from 'src/assets/icons/security.svg';
 import Settings from 'src/assets/icons/settings.svg';
@@ -26,6 +27,7 @@ const Icon = Object.freeze({
   close: Close,
   input: Input,
   folder: Folder,
+  upload: Upload,
   profile: Profile,
   security: Security,
   settings: Settings,
