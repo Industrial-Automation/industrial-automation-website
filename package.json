@@ -12,9 +12,7 @@
     "build": "vite build",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "prettier": "prettier --check src/**/*.{js,jsx,ts,tsx,json}",
-    "pretty": "prettier --write src/**/*.{js,jsx,ts,tsx,json}",
-    "storybook": "storybook dev -p 6006",
-    "storybook-build": "storybook build"
+    "pretty": "prettier --write src/**/*.{js,jsx,ts,tsx,json}"
   },
   "dependencies": {
     "react": "^18.2.0",
