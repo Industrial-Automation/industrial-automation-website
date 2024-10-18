@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+
+import { Paths } from 'src/routes';
 import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
@@ -31,7 +34,21 @@ const menu = [
 export const Header = () => {
   const modal = useModal();
 
+  const navigate = useNavigate();
+
   const handleOnLogin = () => {
+    const auth = sessionStorage.getItem('auth');
+
+    if (auth) {
+      const { loggedIn } = JSON.parse(auth);
+
+      if (loggedIn) {
+        navigate(Paths.Projects);
+
+        return;
+      }
+    }
+
     modal({
       name: ModalNames.SignIn,
       show: true,

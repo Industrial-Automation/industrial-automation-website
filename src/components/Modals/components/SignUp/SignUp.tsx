@@ -6,6 +6,7 @@ import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
 import { Checkbox } from 'src/components/Checkbox';
+import { fetchRegistration } from 'src/reducers/auth';
 
 import Translations from './translations';
 
@@ -40,6 +41,25 @@ export const SignUp: React.FC = () => {
         props: {}
       }
     });
+  };
+
+  const handleSignUp = async () => {
+    if (isAcceptTerms) {
+      const { data } = await fetchRegistration({
+        first_name: firstName,
+        last_name: lastName,
+        phone,
+        email,
+        password
+      });
+
+      if (data?.user?.id) {
+        modal({
+          name: ModalNames.SignUp,
+          show: false
+        });
+      }
+    }
   };
 
   return (
@@ -121,7 +141,7 @@ export const SignUp: React.FC = () => {
           color='skyblue'
           size='md'
           label={Translations.signUpBtn}
-          onClick={() => {}}
+          onClick={handleSignUp}
         />
 
         <Button

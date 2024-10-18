@@ -13,7 +13,17 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.loggedIn) {
+    const auth = sessionStorage.getItem('auth');
+
+    if (!auth) {
+      navigate(Paths.Main);
+
+      return;
+    }
+
+    const { loggedIn } = JSON.parse(auth);
+
+    if (!loggedIn) {
       navigate(Paths.Main);
     }
   }, [auth.loggedIn, navigate]);

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { Paths } from 'src/routes';
 import { Text } from 'src/components/Text';
 import { Input } from 'src/components/Input';
 import { useModal } from 'src/hooks/useModal';
+import { fetchLogin } from 'src/reducers/auth';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
 import { Checkbox } from 'src/components/Checkbox';
@@ -11,6 +14,8 @@ import Translations from './translations';
 
 export const SignIn: React.FC = () => {
   const modal = useModal();
+
+  const navigate = useNavigate();
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +43,7 @@ export const SignIn: React.FC = () => {
     });
   };
 
-  const handleOnSignUp = () => {
+  const handleSignUp = () => {
     modal({
       name: ModalNames.SignIn,
       show: false
@@ -57,6 +62,25 @@ export const SignIn: React.FC = () => {
         props: {}
       }
     });
+  };
+
+  const handleSignIn = async () => {
+    if (login && password) {
+      const { data } = await fetchLogin({
+        email: login,
+        password,
+        rememberMe: isRemember
+      });
+
+      if (data?.user?.id) {
+        modal({
+          name: ModalNames.SignIn,
+          show: false
+        });
+
+        navigate(Paths.Projects);
+      }
+    }
   };
 
   return (
@@ -110,7 +134,7 @@ export const SignIn: React.FC = () => {
         color='skyblue'
         size='md'
         label={Translations.signInBtn}
-        onClick={() => {}}
+        onClick={handleSignIn}
       />
 
       <Button
@@ -119,7 +143,7 @@ export const SignIn: React.FC = () => {
         color='skyblue'
         size='md'
         label={Translations.newAccountBtn}
-        onClick={handleOnSignUp}
+        onClick={handleSignUp}
       />
     </div>
   );

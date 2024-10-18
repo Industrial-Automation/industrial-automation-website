@@ -7,6 +7,10 @@ export interface AuthStateType {
 }
 
 export const types = {
+  REGISTRATION_REQUEST: 'AUTH/REGISTRATION_REQUEST',
+  REGISTRATION_SUCCESS: 'AUTH/REGISTRATION_SUCCESS',
+  REGISTRATION_FAILURE: 'AUTH/REGISTRATION_FAILURE',
+
   LOGIN_REQUEST: 'AUTH/LOGIN_REQUEST',
   LOGIN_SUCCESS: 'AUTH/LOGIN_SUCCESS',
   LOGIN_FAILURE: 'AUTH/LOGIN_FAILURE',
@@ -21,11 +25,21 @@ export const initialState: AuthStateType = {
   user: null
 };
 
-export const fetchLogin = () => {
+export const fetchRegistration = (data: Record<string, unknown>) => {
+  return apiHelper({
+    types: [types.REGISTRATION_REQUEST, types.REGISTRATION_SUCCESS, types.REGISTRATION_FAILURE],
+    method: 'POST',
+    url: '/auth/sign-up',
+    data
+  });
+};
+
+export const fetchLogin = (data: Record<string, unknown>) => {
   return apiHelper({
     types: [types.LOGIN_REQUEST, types.LOGIN_SUCCESS, types.LOGIN_FAILURE],
     method: 'POST',
-    url: '/auth/sign-out'
+    url: '/auth/sign-in',
+    data
   });
 };
 
@@ -39,19 +53,29 @@ export const fetchLogout = () => {
 
 export default function (state = initialState, action: ActionDispatchType) {
   switch (action.type) {
+    case types.REGISTRATION_REQUEST:
     case types.LOGIN_REQUEST:
     case types.LOGOUT_REQUEST: {
       return { ...state, isLoading: true, error: null };
     }
 
+    case types.REGISTRATION_SUCCESS: {
+      return { ...state };
+    }
+
     case types.LOGIN_SUCCESS: {
-      return { ...state, loggedIn: true, user: action.data };
+      sessionStorage.setItem('auth', JSON.stringify({ loggedIn: true }));
+
+      return { ...state, user: action.data };
     }
 
     case types.LOGOUT_SUCCESS: {
-      return { ...state, loggedIn: false, user: null };
+      sessionStorage.removeItem('auth');
+
+      return { ...state, user: null };
     }
 
+    case types.REGISTRATION_FAILURE:
     case types.LOGIN_FAILURE:
     case types.LOGOUT_FAILURE:
       return { ...state, isLoading: false, error: action.error };
