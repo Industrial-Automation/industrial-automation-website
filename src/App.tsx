@@ -1,18 +1,30 @@
-import { BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { Routes } from './routes';
+import { AuthStateType } from 'src/reducers/auth';
+
+import { Paths, Routes } from './routes';
 import { ModalProvider, Modals } from './components/Modals';
 
 function App() {
+  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.loggedIn) {
+      navigate(Paths.Main);
+    }
+  }, [auth.loggedIn, navigate]);
+
   return (
-    <div>
-      <BrowserRouter>
-        <ModalProvider>
-          <Routes />
-          <Modals />
-        </ModalProvider>
-      </BrowserRouter>
-    </div>
+    <>
+      <ModalProvider>
+        <Routes />
+        <Modals />
+      </ModalProvider>
+    </>
   );
 }
 
