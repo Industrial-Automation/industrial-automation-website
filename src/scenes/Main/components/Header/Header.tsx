@@ -11,23 +11,24 @@ import Translations from './translations';
 const menu = [
   {
     title: Translations.home,
-    link: '/'
+    link: '/',
+    isActive: true
   },
   {
     title: Translations.pricing,
-    link: '/'
+    link: '/pricing'
   },
   {
     title: Translations.features,
-    link: '/'
+    link: '/features'
   },
   {
     title: Translations.about,
-    link: '/'
+    link: '/about'
   },
   {
     title: Translations.contact,
-    link: '/'
+    link: '/contact'
   }
 ];
 
@@ -35,6 +36,11 @@ export const Header = () => {
   const modal = useModal();
 
   const navigate = useNavigate();
+
+  const getItemMenuClass = (item: (typeof menu)[number]) =>
+    ['font-josefin', 'text-main-white', item.isActive && 'underline underline-offset-8']
+      .filter(Boolean)
+      .join(' ');
 
   const handleOnLogin = () => {
     const auth = sessionStorage.getItem('auth');
@@ -66,18 +72,32 @@ export const Header = () => {
 
   return (
     <div className='flex flex-row items-center justify-between'>
-      <div className='flex flex-row items-center gap-10'>
-        {menu.map((item, index) => (
-          <Text
-            key={index}
-            as='a'
-            variant='base_medium'
-            href={item.link}
-            className='font-josefin text-main-white'
-          >
-            {item.title}
-          </Text>
-        ))}
+      <div className='flex flex-row items-center gap-24'>
+        <Text
+          as='a'
+          variant='header_3'
+          href={'/'}
+          icon='mechanism'
+          iconSize='sm'
+          iconPosition='left'
+          className='gap-3 font-josefin text-main-skyblue'
+        >
+          {Translations.logo}
+        </Text>
+
+        <div className='flex flex-row items-center gap-10'>
+          {menu.map((item, index) => (
+            <Text
+              key={index}
+              as='a'
+              variant='base_medium'
+              href={item.link}
+              className={getItemMenuClass(item)}
+            >
+              {item.title}
+            </Text>
+          ))}
+        </div>
       </div>
 
       <Button

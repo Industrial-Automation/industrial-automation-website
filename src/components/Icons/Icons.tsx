@@ -15,6 +15,7 @@ import Profile from 'src/assets/icons/profile.svg';
 import Security from 'src/assets/icons/security.svg';
 import Settings from 'src/assets/icons/settings.svg';
 import Checkmark from 'src/assets/icons/checkmark.svg';
+import Mechanism from 'src/assets/icons/mechanism.svg';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg';
 import ArrowRight from 'src/assets/icons/arrow-right.svg';
 
@@ -32,6 +33,7 @@ const Icon = Object.freeze({
   security: Security,
   settings: Settings,
   checkmark: Checkmark,
+  mechanism: Mechanism,
   arrow_left: ArrowLeft,
   arrow_right: ArrowRight
 });
