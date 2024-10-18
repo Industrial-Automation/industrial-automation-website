@@ -72,7 +72,7 @@ export const Header = () => {
 
   return (
     <div className='flex flex-row items-center justify-between'>
-      <div className='flex flex-row items-center gap-24'>
+      <div className='flex flex-row items-center gap-20'>
         <Text
           as='a'
           variant='header_3'
