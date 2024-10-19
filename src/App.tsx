@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthStateType } from 'src/reducers/auth';
+import { AuthStateType, fetchMe } from 'src/reducers/auth';
 
 import { Paths, Routes } from './routes';
 import { ModalProvider, Modals } from './components/Modals';
@@ -13,20 +13,20 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const auth = sessionStorage.getItem('auth');
+    const getLoggedUser = async () => {
+      const { data } = await fetchMe();
 
-    if (!auth) {
-      navigate(Paths.Main);
+      if (data.user) {
+        return;
+      }
 
-      return;
+      navigate(Paths.Main, { replace: true });
+    };
+
+    if (!auth.user) {
+      getLoggedUser();
     }
-
-    const { loggedIn } = JSON.parse(auth);
-
-    if (!loggedIn) {
-      navigate(Paths.Main);
-    }
-  }, [auth.loggedIn, navigate]);
+  }, [auth.user, navigate]);
 
   return (
     <>

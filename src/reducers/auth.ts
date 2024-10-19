@@ -2,7 +2,6 @@ import { apiHelper } from 'src/utils';
 import { ActionDispatchType } from 'src/store';
 
 export interface AuthStateType {
-  loggedIn: boolean;
   user: Record<string, unknown> | null;
 }
 
@@ -17,11 +16,14 @@ export const types = {
 
   LOGOUT_REQUEST: 'AUTH/LOGOUT_REQUEST',
   LOGOUT_SUCCESS: 'AUTH/LOGOUT_SUCCESS',
-  LOGOUT_FAILURE: 'AUTH/LOGOUT_FAILURE'
+  LOGOUT_FAILURE: 'AUTH/LOGOUT_FAILURE',
+
+  ME_REQUEST: 'AUTH/ME_REQUEST',
+  ME_SUCCESS: 'AUTH/ME_SUCCESS',
+  ME_FAILURE: 'AUTH/ME_FAILURE'
 };
 
 export const initialState: AuthStateType = {
-  loggedIn: false,
   user: null
 };
 
@@ -51,11 +53,19 @@ export const fetchLogout = () => {
   });
 };
 
+export const fetchMe = () => {
+  return apiHelper({
+    types: [types.ME_REQUEST, types.ME_SUCCESS, types.ME_FAILURE],
+    url: '/auth/me'
+  });
+};
+
 export default function (state = initialState, action: ActionDispatchType) {
   switch (action.type) {
     case types.REGISTRATION_REQUEST:
     case types.LOGIN_REQUEST:
-    case types.LOGOUT_REQUEST: {
+    case types.LOGOUT_REQUEST:
+    case types.ME_REQUEST: {
       return { ...state, isLoading: true, error: null };
     }
 
@@ -63,21 +73,19 @@ export default function (state = initialState, action: ActionDispatchType) {
       return { ...state };
     }
 
-    case types.LOGIN_SUCCESS: {
-      sessionStorage.setItem('auth', JSON.stringify({ loggedIn: true }));
-
-      return { ...state, user: action.data };
+    case types.LOGIN_SUCCESS:
+    case types.ME_SUCCESS: {
+      return { ...state, user: action.data?.data?.user || null };
     }
 
     case types.LOGOUT_SUCCESS: {
-      sessionStorage.removeItem('auth');
-
       return { ...state, user: null };
     }
 
     case types.REGISTRATION_FAILURE:
     case types.LOGIN_FAILURE:
     case types.LOGOUT_FAILURE:
+    case types.ME_FAILURE:
       return { ...state, isLoading: false, error: action.error };
 
     default:

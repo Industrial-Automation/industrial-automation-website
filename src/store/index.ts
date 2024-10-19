@@ -3,9 +3,15 @@ import { applyMiddleware, createStore, Dispatch } from 'redux';
 
 import appReducers from 'src/reducers';
 
+interface DataResponseType {
+  message: string;
+  status: string;
+  data?: Record<string, unknown> | null;
+}
+
 export interface ActionDispatchType {
   type: string;
-  data?: Record<string, unknown>;
+  data?: DataResponseType;
   error?: unknown;
 }
 

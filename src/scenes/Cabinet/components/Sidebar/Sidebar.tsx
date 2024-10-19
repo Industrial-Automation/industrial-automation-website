@@ -1,12 +1,13 @@
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { Paths } from 'src/routes';
 import { trimUrl } from 'src/utils';
+import { Icons } from 'src/components/Icons';
+import { AuthStateType } from 'src/reducers/auth';
 import { Text, TextType } from 'src/components/Text';
 
 import Translations from './translations';
-
-import Avatar from 'src/assets/images/avatar.png';
 
 const mainMenu = [
   {
@@ -45,6 +46,8 @@ const additionalMenu = [
 ];
 
 export const Sidebar = () => {
+  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+
   const location = useLocation();
 
   const getMenuItemClass = (menuItem: (typeof mainMenu | typeof additionalMenu)[number]) =>
@@ -74,15 +77,15 @@ export const Sidebar = () => {
       </Text>
 
       <div className='mb-10 mt-3 flex flex-row items-center gap-2 rounded-lg p-2 ring-1 ring-main-white'>
-        <img className='h-8 w-8 object-cover' src={Avatar} alt='avatar' />
+        <Icons variant='profile_card' size='md' color='white' />
 
-        <div className='flex flex-col gap-1 pt-0.5'>
+        <div className='flex flex-col pt-0.5'>
           <Text as='p' variant='sm_bold' className='font-lato text-main-skyblue'>
-            Test Testik
+            {`${auth.user?.first_name || ''} ${auth.user?.last_name || ''}`}
           </Text>
 
           <Text as='p' variant='xs_bold' className='font-lato text-main-white'>
-            test.testovich.eng2024@gmail.com
+            {`${auth.user?.email || ''}`}
           </Text>
         </div>
       </div>

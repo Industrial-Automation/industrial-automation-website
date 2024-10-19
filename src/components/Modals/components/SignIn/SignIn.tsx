@@ -78,7 +78,7 @@ export const SignIn: React.FC = () => {
           show: false
         });
 
-        navigate(Paths.Projects);
+        navigate(Paths.Projects, { replace: true });
       }
     }
   };

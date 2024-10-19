@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Paths } from 'src/routes';
@@ -5,6 +6,7 @@ import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
+import { AuthStateType } from 'src/reducers/auth';
 
 import Translations from './translations';
 
@@ -33,6 +35,8 @@ const menu = [
 ];
 
 export const Header = () => {
+  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+
   const modal = useModal();
 
   const navigate = useNavigate();
@@ -43,16 +47,10 @@ export const Header = () => {
       .join(' ');
 
   const handleOnLogin = () => {
-    const auth = sessionStorage.getItem('auth');
+    if (auth.user) {
+      navigate(Paths.Projects, { replace: true });
 
-    if (auth) {
-      const { loggedIn } = JSON.parse(auth);
-
-      if (loggedIn) {
-        navigate(Paths.Projects);
-
-        return;
-      }
+      return;
     }
 
     modal({

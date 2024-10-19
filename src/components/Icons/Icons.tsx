@@ -18,6 +18,7 @@ import Checkmark from 'src/assets/icons/checkmark.svg';
 import Mechanism from 'src/assets/icons/mechanism.svg';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg';
 import ArrowRight from 'src/assets/icons/arrow-right.svg';
+import ProfileCard from 'src/assets/icons/profile-card.svg';
 
 const Icon = Object.freeze({
   bulb: Bulb,
@@ -35,7 +36,8 @@ const Icon = Object.freeze({
   checkmark: Checkmark,
   mechanism: Mechanism,
   arrow_left: ArrowLeft,
-  arrow_right: ArrowRight
+  arrow_right: ArrowRight,
+  profile_card: ProfileCard
 });
 
 const IconSizes = Object.freeze({
