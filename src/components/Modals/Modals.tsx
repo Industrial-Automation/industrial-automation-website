@@ -8,7 +8,9 @@ import { Modal } from './components/Modal';
 import { Popup } from './components/Popup';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
+import { AddProject } from './components/AddProject';
 import { ArrowModal } from './components/ArrowModal';
+import { ProjectMenu } from './components/ProjectMenu';
 import { ConfirmCode } from './components/ConfirmCode';
 import { ResetPassword } from './components/ResetPassword';
 import { ForgotPassword } from './components/ForgotPassword';
@@ -16,6 +18,8 @@ import { ForgotPassword } from './components/ForgotPassword';
 export const ModalVariants = {
   signIn: SignIn,
   signUp: SignUp,
+  addProject: AddProject,
+  projectMenu: ProjectMenu,
   confirmCode: ConfirmCode,
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword

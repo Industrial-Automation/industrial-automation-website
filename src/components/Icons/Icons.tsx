@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { merge } from 'src/utils';
 
 import Bulb from 'src/assets/icons/bulb.svg';
+import File from 'src/assets/icons/file.svg';
 import Help from 'src/assets/icons/help.svg';
 import Exit from 'src/assets/icons/exit.svg';
 import User from 'src/assets/icons/user.svg';
@@ -19,9 +20,12 @@ import Mechanism from 'src/assets/icons/mechanism.svg';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg';
 import ArrowRight from 'src/assets/icons/arrow-right.svg';
 import ProfileCard from 'src/assets/icons/profile-card.svg';
+import DotsVertical from 'src/assets/icons/dots-vertical.svg';
+import DotsHorizontal from 'src/assets/icons/dots-horizontal.svg';
 
 const Icon = Object.freeze({
   bulb: Bulb,
+  file: File,
   help: Help,
   exit: Exit,
   user: User,
@@ -37,7 +41,9 @@ const Icon = Object.freeze({
   mechanism: Mechanism,
   arrow_left: ArrowLeft,
   arrow_right: ArrowRight,
-  profile_card: ProfileCard
+  profile_card: ProfileCard,
+  dots_vertical: DotsVertical,
+  dots_horizontal: DotsHorizontal
 });
 
 const IconSizes = Object.freeze({

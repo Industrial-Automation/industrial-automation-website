@@ -8,7 +8,7 @@ import { Paths, Routes } from './routes';
 import { ModalProvider, Modals } from './components/Modals';
 
 function App() {
-  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+  const { user } = useSelector<any>((state) => state.auth) as AuthStateType;
 
   const navigate = useNavigate();
 
@@ -23,10 +23,10 @@ function App() {
       navigate(Paths.Main, { replace: true });
     };
 
-    if (!auth.user) {
+    if (!user) {
       getLoggedUser();
     }
-  }, [auth.user, navigate]);
+  }, [user, navigate]);
 
   return (
     <>

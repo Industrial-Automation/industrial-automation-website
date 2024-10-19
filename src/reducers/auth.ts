@@ -1,8 +1,17 @@
 import { apiHelper } from 'src/utils';
 import { ActionDispatchType } from 'src/store';
 
+export interface LoggedUserType {
+  id: string;
+  email: string;
+  phone: string;
+  first_name: string;
+  last_name: string;
+  is_confirmed: boolean;
+}
+
 export interface AuthStateType {
-  user: Record<string, unknown> | null;
+  user: LoggedUserType | null;
 }
 
 export const types = {

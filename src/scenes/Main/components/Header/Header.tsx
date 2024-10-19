@@ -35,7 +35,7 @@ const menu = [
 ];
 
 export const Header = () => {
-  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+  const { user } = useSelector<any>((state) => state.auth) as AuthStateType;
 
   const modal = useModal();
 
@@ -47,7 +47,7 @@ export const Header = () => {
       .join(' ');
 
   const handleOnLogin = () => {
-    if (auth.user) {
+    if (user) {
       navigate(Paths.Projects, { replace: true });
 
       return;

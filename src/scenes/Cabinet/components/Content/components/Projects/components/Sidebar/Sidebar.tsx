@@ -1,58 +1,76 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Paths } from 'src/routes';
 import { Text } from 'src/components/Text';
+import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
+import { ModalNames } from 'src/constants/modals';
+import { fetchGetProjects, ProjectsStateType } from 'src/reducers/projects';
 
 import Translations from './translations';
 
-const projects = [
-  {
-    id: 1,
-    name: 'Project 1'
-  },
-  {
-    id: 2,
-    name: 'Project 2'
-  },
-  {
-    id: 3,
-    name: 'Project 3'
-  },
-  {
-    id: 4,
-    name: 'Project 4'
-  },
-  {
-    id: 5,
-    name: 'Project 5'
-  },
-  {
-    id: 6,
-    name: 'Project 6'
-  },
-  {
-    id: 7,
-    name: 'Project 7'
-  }
-];
-
 export const Sidebar = () => {
+  const { projects } = useSelector<any>((state) => state.projects) as ProjectsStateType;
+
   const params = useParams();
+
+  const modal = useModal();
 
   const getProjectClass = (project: (typeof projects)[number]) =>
     [
-      'gap-3',
+      'flex',
+      'flex-row',
+      'items-center',
+      'justify-between',
       'rounded-lg',
-      'px-2',
-      'py-3',
-      'font-lato',
-      'text-main-white',
+      'py-2',
+      'pl-2',
       'hover:bg-subtone-skyblue-1',
-      params.id === project.id.toString() && 'bg-subtone-skyblue-1'
+      params.id === project.id && 'bg-subtone-skyblue-1'
     ]
       .filter(Boolean)
       .join(' ');
+
+  const handleOpenProjectMenu = (e: MouseEvent) => {
+    const element = e.target as HTMLButtonElement;
+
+    modal({
+      name: ModalNames.ProjectMenu,
+      show: true,
+      frame: {
+        type: 'arrowModal',
+        props: { element, size: 'sm' }
+      },
+      variant: {
+        type: 'projectMenu',
+        props: {}
+      }
+    });
+  };
+
+  const handleAddProject = () => {
+    modal({
+      name: ModalNames.AddProject,
+      show: true,
+      isOverlay: true,
+      frame: {
+        type: 'modal',
+        props: {}
+      },
+      variant: {
+        type: 'addProject',
+        props: {}
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (!projects.length) {
+      fetchGetProjects();
+    }
+  }, [projects.length]);
 
   return (
     <div className='flex h-full w-72 flex-col justify-between border-r-4 border-r-main-midnight p-3 pr-1'>
@@ -63,36 +81,61 @@ export const Sidebar = () => {
 
         <div className='modal-scrollbar flex flex-col gap-2 overflow-y-auto pr-2'>
           {projects.map((project) => (
-            <Text
-              key={project.id}
-              as='a'
-              variant='sm_medium'
-              href={`${Paths.Projects}/${project.id}`}
-              className={getProjectClass(project)}
-            >
-              {project.name}
-            </Text>
+            <div key={project.id} className={getProjectClass(project)}>
+              <Text
+                as='a'
+                variant='sm_medium'
+                align='right'
+                href={`${Paths.Projects}/${project.id}`}
+                icon='file'
+                iconSize='xs'
+                iconPosition='left'
+                iconColor='white'
+                className='w-full gap-2 font-lato text-main-white'
+              >
+                {project.name}
+              </Text>
+
+              <Button
+                className='w-fit !rounded-full'
+                icon='dots_vertical'
+                iconSize='xs'
+                iconColor='white'
+                onClick={handleOpenProjectMenu}
+              />
+            </div>
           ))}
         </div>
       </div>
 
-      <div className='flex h-1/5 items-end pr-1'>
-        <Button
-          className='w-1/2 !rounded-r-none'
-          variant='primary'
-          color='skyblue'
-          size='sm'
-          label={Translations.schemaBtn}
-          onClick={() => {}}
-        />
+      <div className='flex h-1/5 w-full flex-col justify-end pr-1'>
+        <div className='mb-10 flex'>
+          <Button
+            className='w-1/2 !rounded-r-none'
+            variant='primary'
+            color='skyblue'
+            size='sm'
+            label={Translations.schemaBtn}
+            onClick={() => {}}
+          />
+
+          <Button
+            className='w-1/2 !rounded-l-none'
+            variant='primary'
+            color='white'
+            size='sm'
+            label={Translations.controlBtn}
+            onClick={() => {}}
+          />
+        </div>
 
         <Button
-          className='w-1/2 !rounded-l-none'
+          className=''
           variant='primary'
-          color='white'
+          color='gray'
           size='sm'
-          label={Translations.controlBtn}
-          onClick={() => {}}
+          label={Translations.addProjectBtn}
+          onClick={handleAddProject}
         />
       </div>
     </div>

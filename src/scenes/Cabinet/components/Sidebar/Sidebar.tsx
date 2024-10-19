@@ -46,7 +46,7 @@ const additionalMenu = [
 ];
 
 export const Sidebar = () => {
-  const auth = useSelector<any>((state) => state.auth) as AuthStateType;
+  const { user } = useSelector<any>((state) => state.auth) as AuthStateType;
 
   const location = useLocation();
 
@@ -81,11 +81,11 @@ export const Sidebar = () => {
 
         <div className='flex flex-col pt-0.5'>
           <Text as='p' variant='sm_bold' className='font-lato text-main-skyblue'>
-            {`${auth.user?.first_name || ''} ${auth.user?.last_name || ''}`}
+            {`${user?.first_name || ''} ${user?.last_name || ''}`}
           </Text>
 
           <Text as='p' variant='xs_bold' className='font-lato text-main-white'>
-            {`${auth.user?.email || ''}`}
+            {`${user?.email || ''}`}
           </Text>
         </div>
       </div>

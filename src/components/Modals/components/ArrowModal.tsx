@@ -8,7 +8,7 @@ import { useClickOutside } from 'src/hooks/useClickOutside';
 import { ModalFrameDefaultProps, ModalVariantProps, ModalVariants } from '../Modals';
 
 const sizeClasses = {
-  sm: 'w-1/4 max-h-60',
+  sm: 'w-1/6 max-h-60',
   md: 'w-2/6 max-h-80',
   lg: 'w-3/6 max-h-96'
 };
@@ -63,7 +63,7 @@ export const ArrowModal: React.FC<ArrowModalType> = (props) => {
         'flex-col',
         'items-center',
         'justify-center',
-        'bg-main-white',
+        'bg-main-midnight',
         sizeClasses[propsWithDefault.size]
       ].join(' '),
     [propsWithDefault.size]

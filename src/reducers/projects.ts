@@ -1,6 +1,17 @@
 import { apiHelper } from 'src/utils';
 import { ActionDispatchType } from 'src/store';
 
+export interface ProjectType {
+  id: string;
+  name: string;
+  created_at: string;
+  last_updated_at: string;
+}
+
+export interface ProjectsStateType {
+  projects: ProjectType[];
+}
+
 export const types = {
   GET_PROJECTS_REQUEST: 'PROJECTS/GET_PROJECTS_REQUEST',
   GET_PROJECTS_SUCCESS: 'PROJECTS/GET_PROJECTS_SUCCESS',
@@ -11,7 +22,7 @@ export const types = {
   CREATE_PROJECT_FAILURE: 'PROJECTS/CREATE_PROJECT_FAILURE'
 };
 
-export const initialState = {
+export const initialState: ProjectsStateType = {
   projects: []
 };
 
@@ -49,10 +60,10 @@ export default function (state = initialState, action: ActionDispatchType) {
       return { ...state, isLoading: true, error: null };
 
     case types.GET_PROJECTS_SUCCESS:
-      return { ...state, projects: action.data };
+      return { ...state, projects: action.data?.data?.projects || [] };
 
     case types.CREATE_PROJECT_SUCCESS:
-      return { ...state, projects: { ...state.projects, ...action.data } };
+      return { ...state, projects: [...state.projects, ...([action.data?.data?.project] || [])] };
 
     case types.GET_PROJECTS_FAILURE:
     case types.CREATE_PROJECT_FAILURE:
