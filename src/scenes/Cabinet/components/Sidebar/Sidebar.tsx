@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { Paths } from 'src/routes';
+import { trimUrl } from 'src/utils';
 import { Text, TextType } from 'src/components/Text';
 
 import Translations from './translations';
@@ -55,7 +56,7 @@ export const Sidebar = () => {
       'font-lato',
       'text-main-white',
       'hover:bg-subtone-skyblue-1',
-      location.pathname === menuItem.link && 'bg-subtone-skyblue-1'
+      trimUrl(location.pathname, 2) === menuItem.link && 'bg-subtone-skyblue-1'
     ]
       .filter(Boolean)
       .join(' ');
