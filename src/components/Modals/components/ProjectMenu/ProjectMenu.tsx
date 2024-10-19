@@ -6,7 +6,7 @@ import { ModalNames } from 'src/constants/modals';
 
 import Translations from './translations';
 
-export const ProjectMenu: React.FC = () => {
+export const ProjectMenu: React.FC<{ id: string }> = ({ id }) => {
   const modal = useModal();
 
   const buttonClass = useMemo(
@@ -29,8 +29,17 @@ export const ProjectMenu: React.FC = () => {
 
   const handleRenameProject = () => {
     modal({
-      name: ModalNames.AddProject,
-      show: false
+      name: ModalNames.UpdateProject,
+      show: true,
+      isOverlay: true,
+      frame: {
+        type: 'modal',
+        props: {}
+      },
+      variant: {
+        type: 'updateProject',
+        props: { id }
+      }
     });
   };
 

@@ -33,7 +33,7 @@ export const Sidebar = () => {
       .filter(Boolean)
       .join(' ');
 
-  const handleOpenProjectMenu = (e: MouseEvent) => {
+  const handleOpenProjectMenu = (e: MouseEvent, id: string) => {
     const element = e.target as HTMLButtonElement;
 
     modal({
@@ -45,7 +45,7 @@ export const Sidebar = () => {
       },
       variant: {
         type: 'projectMenu',
-        props: {}
+        props: { id }
       }
     });
   };
@@ -101,7 +101,7 @@ export const Sidebar = () => {
                 icon='dots_vertical'
                 iconSize='xs'
                 iconColor='white'
-                onClick={handleOpenProjectMenu}
+                onClick={(e) => handleOpenProjectMenu(e, project.id)}
               />
             </div>
           ))}

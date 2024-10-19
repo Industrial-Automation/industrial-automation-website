@@ -12,6 +12,7 @@ import { AddProject } from './components/AddProject';
 import { ProjectMenu } from './components/ProjectMenu';
 import { ConfirmCode } from './components/ConfirmCode';
 import { ContextModal } from './components/ContextModal';
+import { UpdateProject } from './components/UpdateProject';
 import { ResetPassword } from './components/ResetPassword';
 import { ForgotPassword } from './components/ForgotPassword';
 
@@ -21,6 +22,7 @@ export const ModalVariants = {
   addProject: AddProject,
   projectMenu: ProjectMenu,
   confirmCode: ConfirmCode,
+  updateProject: UpdateProject,
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword
 };
