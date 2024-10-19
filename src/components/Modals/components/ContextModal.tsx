@@ -8,12 +8,12 @@ import { useClickOutside } from 'src/hooks/useClickOutside';
 import { ModalFrameDefaultProps, ModalVariantProps, ModalVariants } from '../Modals';
 
 const sizeClasses = {
-  sm: 'w-1/6 max-h-60',
-  md: 'w-2/6 max-h-80',
-  lg: 'w-3/6 max-h-96'
+  sm: 'w-44 max-h-40',
+  md: 'w-52 max-h-52',
+  lg: 'w-60 max-h-60'
 };
 
-type ArrowModalType = {
+type ContextModalType = {
   readonly className?: React.HTMLAttributes<HTMLDivElement>['className'];
 
   readonly size?: keyof typeof sizeClasses;
@@ -21,11 +21,11 @@ type ArrowModalType = {
   readonly element: Element;
 } & ModalFrameDefaultProps<ModalNames, keyof typeof ModalVariants>;
 
-export const ArrowModal: React.FC<ArrowModalType> = (props) => {
+export const ContextModal: React.FC<ContextModalType> = (props) => {
   const propsWithDefault = merge(
     {
       size: 'md'
-    } as Required<ArrowModalType>,
+    } as Required<ContextModalType>,
     props
   );
 
@@ -50,8 +50,8 @@ export const ArrowModal: React.FC<ArrowModalType> = (props) => {
       const { left, top, height, width } = propsWithDefault.element.getBoundingClientRect();
 
       setModalPosition({
-        left: left + width / 1.5 - modalRef.current.offsetWidth,
-        top: top + height
+        left: left + width + 25,
+        top: top - height
       });
     }
   }, [modalRef, propsWithDefault.element]);
@@ -64,31 +64,22 @@ export const ArrowModal: React.FC<ArrowModalType> = (props) => {
         'items-center',
         'justify-center',
         'bg-main-midnight',
-        sizeClasses[propsWithDefault.size]
+        'rounded-lg',
+        sizeClasses[propsWithDefault.size],
+        propsWithDefault.className
       ].join(' '),
-    [propsWithDefault.size]
+    [propsWithDefault.className, propsWithDefault.size]
   );
 
   return (
     <div className='absolute w-full' style={modalPosition}>
-      <div ref={modalRef} className='flex flex-col items-end'>
-        <div
-          className={[
-            'h-0 w-0',
-            'border-l-[10px] border-l-transparent',
-            'border-b-[17px] border-b-main-white',
-            'border-r-[10px] border-r-transparent'
-          ].join(' ')}
-        ></div>
-
-        <div className={blockWrapper}>
-          {React.createElement(
-            ModalVariants[propsWithDefault.variant.type] as React.FC<
-              ModalVariantProps<keyof typeof ModalVariants>
-            >,
-            propsWithDefault.variant.props
-          )}
-        </div>
+      <div ref={modalRef} className={blockWrapper}>
+        {React.createElement(
+          ModalVariants[propsWithDefault.variant.type] as React.FC<
+            ModalVariantProps<keyof typeof ModalVariants>
+          >,
+          propsWithDefault.variant.props
+        )}
       </div>
     </div>
   );

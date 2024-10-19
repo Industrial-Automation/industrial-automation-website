@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import { merge } from 'src/utils';
 
+import Bin from 'src/assets/icons/bin.svg';
 import Bulb from 'src/assets/icons/bulb.svg';
 import File from 'src/assets/icons/file.svg';
 import Help from 'src/assets/icons/help.svg';
@@ -10,6 +11,7 @@ import User from 'src/assets/icons/user.svg';
 import Text from 'src/assets/icons/text.svg';
 import Close from 'src/assets/icons/close.svg';
 import Input from 'src/assets/icons/input.svg';
+import Pencil from 'src/assets/icons/pencil.svg';
 import Folder from 'src/assets/icons/folder.svg';
 import Upload from 'src/assets/icons/upload.svg';
 import Profile from 'src/assets/icons/profile.svg';
@@ -24,6 +26,7 @@ import DotsVertical from 'src/assets/icons/dots-vertical.svg';
 import DotsHorizontal from 'src/assets/icons/dots-horizontal.svg';
 
 const Icon = Object.freeze({
+  bin: Bin,
   bulb: Bulb,
   file: File,
   help: Help,
@@ -32,6 +35,7 @@ const Icon = Object.freeze({
   text: Text,
   close: Close,
   input: Input,
+  pencil: Pencil,
   folder: Folder,
   upload: Upload,
   profile: Profile,

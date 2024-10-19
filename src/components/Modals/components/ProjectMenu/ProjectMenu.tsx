@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
@@ -8,6 +8,24 @@ import Translations from './translations';
 
 export const ProjectMenu: React.FC = () => {
   const modal = useModal();
+
+  const buttonClass = useMemo(
+    () =>
+      [
+        '!w-full',
+        '!justify-start',
+        '!rounded',
+        '!px-2',
+        '!py-4',
+        '!text-xs',
+        '!font-medium',
+        'text-main-white',
+        'hover:bg-subtone-skyblue-1'
+      ]
+        .filter(Boolean)
+        .join(' '),
+    []
+  );
 
   const handleRenameProject = () => {
     modal({
@@ -24,19 +42,25 @@ export const ProjectMenu: React.FC = () => {
   };
 
   return (
-    <div className='flex flex-col items-center gap-5 px-10 pb-5'>
+    <div className='flex w-full flex-col items-center gap-2 p-2'>
       <Button
-        variant='secondary'
-        color='skyblue'
-        size='md'
+        className={buttonClass}
+        variant='primary'
+        size='sm'
+        icon='pencil'
+        iconSize='xs'
+        iconPosition='left'
         label={Translations.renameBtn}
         onClick={handleRenameProject}
       />
 
       <Button
-        variant='secondary'
-        color='skyblue'
-        size='md'
+        className={buttonClass}
+        variant='primary'
+        size='sm'
+        icon='bin'
+        iconSize='xs'
+        iconPosition='left'
         label={Translations.deleteBtn}
         onClick={handleDeleteProject}
       />

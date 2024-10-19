@@ -40,8 +40,8 @@ export const Sidebar = () => {
       name: ModalNames.ProjectMenu,
       show: true,
       frame: {
-        type: 'arrowModal',
-        props: { element, size: 'sm' }
+        type: 'contextModal',
+        props: { className: '!bg-subtone-black-5', element, size: 'sm' }
       },
       variant: {
         type: 'projectMenu',
