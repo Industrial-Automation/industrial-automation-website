@@ -21,10 +21,23 @@ export const routes = [
     path: Paths.Cabinet,
     element: LazyLoad(() => import('../scenes/Cabinet')),
     children: [
-      { path: Paths.Profile },
-      { path: Paths.Projects, children: [{ path: Paths.Project }] },
-      { path: Paths.Security },
-      { path: Paths.Settings }
+      {
+        path: Paths.Profile,
+        element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Profile'))
+      },
+      {
+        path: Paths.Projects,
+        element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Projects')),
+        children: [{ path: Paths.Project }]
+      },
+      {
+        path: Paths.Security,
+        element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Security'))
+      },
+      {
+        path: Paths.Settings,
+        element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Settings'))
+      }
     ]
   },
   {
