@@ -5,26 +5,26 @@ import { Input } from 'src/components/Input';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
-import { fetchUpdateProject } from 'src/reducers/projects';
+import { fetchUpdateProjectScreen } from 'src/reducers/project-screens';
 
 import Translations from './translations';
 
-interface UpdateProjectPropsType {
+interface UpdateProjectScreenPropsType {
   id: string;
   name: string;
 }
 
-export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
+export const UpdateProjectScreen: React.FC<UpdateProjectScreenPropsType> = (projectScreen) => {
   const modal = useModal();
 
-  const [name, setName] = useState(project.name);
+  const [name, setName] = useState(projectScreen.name);
 
-  const handleUpdateProject = async () => {
+  const handleUpdateProjectScreen = async () => {
     if (name) {
-      await fetchUpdateProject(project.id, { name });
+      await fetchUpdateProjectScreen(projectScreen.id, { name });
 
       modal({
-        name: ModalNames.UpdateProject,
+        name: ModalNames.UpdateProjectScreen,
         show: false
       });
     }
@@ -33,7 +33,7 @@ export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
-        {Translations.updateProjectHeading}
+        {Translations.updateProjectScreenHeading}
       </Text>
 
       <Input
@@ -49,8 +49,8 @@ export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
         variant='secondary'
         color='skyblue'
         size='md'
-        label={Translations.renameProjectBtn}
-        onClick={handleUpdateProject}
+        label={Translations.renameProjectScreenBtn}
+        onClick={handleUpdateProjectScreen}
       />
     </div>
   );

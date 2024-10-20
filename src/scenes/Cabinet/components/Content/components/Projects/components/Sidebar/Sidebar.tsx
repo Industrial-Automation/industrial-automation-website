@@ -136,7 +136,6 @@ export const Sidebar = () => {
         </div>
 
         <Button
-          className=''
           variant='primary'
           color='skyblue'
           size='sm'

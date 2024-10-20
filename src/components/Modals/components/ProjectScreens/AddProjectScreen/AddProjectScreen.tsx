@@ -5,26 +5,25 @@ import { Input } from 'src/components/Input';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
-import { fetchUpdateProject } from 'src/reducers/projects';
+import { fetchCreateProjectScreen } from 'src/reducers/project-screens';
 
 import Translations from './translations';
 
-interface UpdateProjectPropsType {
-  id: string;
-  name: string;
+interface AddProjectScreenPropsType {
+  projectId: string;
 }
 
-export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
+export const AddProjectScreen: React.FC<AddProjectScreenPropsType> = (props) => {
   const modal = useModal();
 
-  const [name, setName] = useState(project.name);
+  const [name, setName] = useState('');
 
-  const handleUpdateProject = async () => {
-    if (name) {
-      await fetchUpdateProject(project.id, { name });
+  const handleAddProjectScreen = async () => {
+    if (name && props.projectId) {
+      await fetchCreateProjectScreen({ name, project_id: props.projectId });
 
       modal({
-        name: ModalNames.UpdateProject,
+        name: ModalNames.AddProjectScreen,
         show: false
       });
     }
@@ -33,7 +32,7 @@ export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
-        {Translations.updateProjectHeading}
+        {Translations.addProjectScreenHeading}
       </Text>
 
       <Input
@@ -49,8 +48,8 @@ export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
         variant='secondary'
         color='skyblue'
         size='md'
-        label={Translations.renameProjectBtn}
-        onClick={handleUpdateProject}
+        label={Translations.newProjectScreenBtn}
+        onClick={handleAddProjectScreen}
       />
     </div>
   );

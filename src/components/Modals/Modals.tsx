@@ -4,6 +4,11 @@ import { merge } from 'src/utils';
 import { ModalNames } from 'src/constants/modals';
 import { ModalsContext, useModalProvider } from 'src/contexts/modals';
 
+import {
+  AddProjectScreen,
+  DeleteProjectScreen,
+  UpdateProjectScreen
+} from './components/ProjectScreens';
 import { Modal } from './components/Modal';
 import { Popup } from './components/Popup';
 import { ContextModal } from './components/ContextModal';
@@ -19,7 +24,10 @@ export const ModalVariants = {
   updateProject: UpdateProject,
   deleteProject: DeleteProject,
   resetPassword: ResetPassword,
-  forgotPassword: ForgotPassword
+  forgotPassword: ForgotPassword,
+  addProjectScreen: AddProjectScreen,
+  updateProjectScreen: UpdateProjectScreen,
+  deleteProjectScreen: DeleteProjectScreen
 };
 
 export const ModalFrames = {
