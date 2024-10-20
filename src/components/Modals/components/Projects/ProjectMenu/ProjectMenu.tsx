@@ -6,7 +6,12 @@ import { ModalNames } from 'src/constants/modals';
 
 import Translations from './translations';
 
-export const ProjectMenu: React.FC<{ id: string }> = ({ id }) => {
+interface ProjectMenuPropsType {
+  id: string;
+  name: string;
+}
+
+export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
   const modal = useModal();
 
   const buttonClass = useMemo(
@@ -29,6 +34,11 @@ export const ProjectMenu: React.FC<{ id: string }> = ({ id }) => {
 
   const handleRenameProject = () => {
     modal({
+      name: ModalNames.ProjectMenu,
+      show: false
+    });
+
+    modal({
       name: ModalNames.UpdateProject,
       show: true,
       isOverlay: true,
@@ -38,15 +48,29 @@ export const ProjectMenu: React.FC<{ id: string }> = ({ id }) => {
       },
       variant: {
         type: 'updateProject',
-        props: { id }
+        props: { id, name }
       }
     });
   };
 
   const handleDeleteProject = () => {
     modal({
-      name: ModalNames.AddProject,
+      name: ModalNames.ProjectMenu,
       show: false
+    });
+
+    modal({
+      name: ModalNames.DeleteProject,
+      show: true,
+      isOverlay: true,
+      frame: {
+        type: 'modal',
+        props: {}
+      },
+      variant: {
+        type: 'deleteProject',
+        props: { id, name }
+      }
     });
   };
 
@@ -64,12 +88,13 @@ export const ProjectMenu: React.FC<{ id: string }> = ({ id }) => {
       />
 
       <Button
-        className={buttonClass}
+        className={`${buttonClass} !text-main-red`}
         variant='primary'
         size='sm'
         icon='bin'
         iconSize='xs'
         iconPosition='left'
+        iconColor='red'
         label={Translations.deleteBtn}
         onClick={handleDeleteProject}
       />

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Paths } from 'src/routes';
@@ -7,7 +7,7 @@ import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
-import { fetchGetProjects, ProjectsStateType } from 'src/reducers/projects';
+import { fetchGetProjects, ProjectsStateType, ProjectType } from 'src/reducers/projects';
 
 import Translations from './translations';
 
@@ -17,6 +17,12 @@ export const Sidebar = () => {
   const params = useParams();
 
   const modal = useModal();
+
+  const sortedProjects = useMemo(
+    () =>
+      projects.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()),
+    [projects]
+  );
 
   const getProjectClass = (project: (typeof projects)[number]) =>
     [
@@ -33,7 +39,7 @@ export const Sidebar = () => {
       .filter(Boolean)
       .join(' ');
 
-  const handleOpenProjectMenu = (e: MouseEvent, id: string) => {
+  const handleOpenProjectMenu = (e: MouseEvent, project: ProjectType) => {
     const element = e.target as HTMLButtonElement;
 
     modal({
@@ -45,7 +51,7 @@ export const Sidebar = () => {
       },
       variant: {
         type: 'projectMenu',
-        props: { id }
+        props: { id: project.id, name: project.name }
       }
     });
   };
@@ -80,7 +86,7 @@ export const Sidebar = () => {
         </Text>
 
         <div className='modal-scrollbar flex flex-col gap-2 overflow-y-auto pr-2'>
-          {projects.map((project) => (
+          {sortedProjects.map((project) => (
             <div key={project.id} className={getProjectClass(project)}>
               <Text
                 as='a'
@@ -101,7 +107,7 @@ export const Sidebar = () => {
                 icon='dots_vertical'
                 iconSize='xs'
                 iconColor='white'
-                onClick={(e) => handleOpenProjectMenu(e, project.id)}
+                onClick={(e) => handleOpenProjectMenu(e, project)}
               />
             </div>
           ))}

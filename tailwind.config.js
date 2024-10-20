@@ -22,6 +22,9 @@ module.exports = {
         midnight: '#020A13'
       },
       subtone: {
+        red: {
+          1: '#CC0000'
+        },
         white: {
           1: '#F5F5F5'
         },

@@ -6,15 +6,9 @@ import { ModalsContext, useModalProvider } from 'src/contexts/modals';
 
 import { Modal } from './components/Modal';
 import { Popup } from './components/Popup';
-import { SignIn } from './components/SignIn';
-import { SignUp } from './components/SignUp';
-import { AddProject } from './components/AddProject';
-import { ProjectMenu } from './components/ProjectMenu';
-import { ConfirmCode } from './components/ConfirmCode';
 import { ContextModal } from './components/ContextModal';
-import { UpdateProject } from './components/UpdateProject';
-import { ResetPassword } from './components/ResetPassword';
-import { ForgotPassword } from './components/ForgotPassword';
+import { AddProject, DeleteProject, ProjectMenu, UpdateProject } from './components/Projects';
+import { ConfirmCode, ForgotPassword, ResetPassword, SignIn, SignUp } from './components/Auth';
 
 export const ModalVariants = {
   signIn: SignIn,
@@ -23,6 +17,7 @@ export const ModalVariants = {
   projectMenu: ProjectMenu,
   confirmCode: ConfirmCode,
   updateProject: UpdateProject,
+  deleteProject: DeleteProject,
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword
 };

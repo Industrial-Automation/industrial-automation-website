@@ -9,14 +9,19 @@ import { fetchUpdateProject } from 'src/reducers/projects';
 
 import Translations from './translations';
 
-export const UpdateProject: React.FC<{ id: string }> = ({ id }) => {
+interface UpdateProjectPropsType {
+  id: string;
+  name: string;
+}
+
+export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
   const modal = useModal();
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState(project.name);
 
   const handleAddProject = async () => {
     if (name) {
-      await fetchUpdateProject(id, { name });
+      await fetchUpdateProject(project.id, { name });
 
       modal({
         name: ModalNames.UpdateProject,
