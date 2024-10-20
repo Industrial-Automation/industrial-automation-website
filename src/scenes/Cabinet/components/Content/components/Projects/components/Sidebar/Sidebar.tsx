@@ -138,7 +138,7 @@ export const Sidebar = () => {
         <Button
           className=''
           variant='primary'
-          color='gray'
+          color='skyblue'
           size='sm'
           label={Translations.addProjectBtn}
           onClick={handleAddProject}
