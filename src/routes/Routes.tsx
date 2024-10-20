@@ -34,7 +34,7 @@ export const routes = [
             element: LazyLoad(
               () =>
                 import(
-                  '../scenes/Cabinet/components/Content/components/Projects/components/Content/components/Screen'
+                  '../scenes/Cabinet/components/Content/components/Projects/components/Content/components/Project'
                 )
             )
           }

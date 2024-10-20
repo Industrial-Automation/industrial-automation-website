@@ -3,7 +3,7 @@ import { Button } from 'src/components/Button';
 
 import { Schema } from './components/Schema';
 
-const Screen = () => {
+const Project = () => {
   return (
     <div className='flex h-full w-full flex-col items-center justify-between p-1'>
       <div className='mb-10 flex w-full flex-row items-center justify-between'>
@@ -35,4 +35,4 @@ const Screen = () => {
   );
 };
 
-export default Screen;
+export default Project;
