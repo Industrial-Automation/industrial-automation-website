@@ -79,9 +79,9 @@ export const Sidebar = () => {
   }, [projects.length]);
 
   return (
-    <div className='flex h-full w-72 flex-col justify-between border-r-4 border-r-main-midnight p-3 pr-1'>
+    <div className='flex h-full w-80 flex-col justify-between border-r-4 border-r-main-midnight p-3 pr-1'>
       <div className='flex h-4/5 flex-col gap-5 pr-1'>
-        <Text as='h2' variant='header_2' className='mt-2 p-2 text-center font-lato text-main-white'>
+        <Text as='h2' variant='header_2' className='p-2 text-center font-lato text-main-white'>
           {Translations.title}
         </Text>
 

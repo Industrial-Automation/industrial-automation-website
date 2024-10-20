@@ -28,7 +28,17 @@ export const routes = [
       {
         path: Paths.Projects,
         element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Projects')),
-        children: [{ path: Paths.Project }]
+        children: [
+          {
+            path: Paths.Project,
+            element: LazyLoad(
+              () =>
+                import(
+                  '../scenes/Cabinet/components/Content/components/Projects/components/Content/components/Screen'
+                )
+            )
+          }
+        ]
       },
       {
         path: Paths.Security,

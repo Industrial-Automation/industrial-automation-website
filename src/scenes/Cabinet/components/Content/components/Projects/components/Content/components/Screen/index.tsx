@@ -3,9 +3,9 @@ import { Button } from 'src/components/Button';
 
 import { Schema } from './components/Schema';
 
-export const Content = () => {
+const Screen = () => {
   return (
-    <div className='flex w-full flex-col items-center justify-between p-2'>
+    <div className='flex h-full w-full flex-col items-center justify-between p-1'>
       <div className='mb-10 flex w-full flex-row items-center justify-between'>
         <Button
           className='!rounded-full !py-5'
@@ -34,3 +34,5 @@ export const Content = () => {
     </div>
   );
 };
+
+export default Screen;
