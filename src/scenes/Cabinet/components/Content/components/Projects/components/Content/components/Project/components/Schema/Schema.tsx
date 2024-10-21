@@ -9,8 +9,8 @@ export const Schema = () => {
   const isImage = false;
 
   return (
-    <div className='flex w-full flex-1 flex-col items-center justify-between'>
-      <div className='h-5/6 w-5/6'>
+    <div className='flex w-full flex-1 flex-col items-center'>
+      <div className='mb-5 h-5/6 w-5/6'>
         {isImage ? (
           <img className='h-full w-full rounded-3xl object-fill' src={SchemaImage} alt='schema' />
         ) : (

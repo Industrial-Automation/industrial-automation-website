@@ -9,6 +9,8 @@ import { fetchGetProjectScreens, ProjectsStateType } from 'src/reducers/project-
 import { Schema } from './components/Schema';
 import { EmptyState } from './components/EmptyState';
 
+import Translations from './translations';
+
 const Project = () => {
   const { id: projectId } = useParams();
 
@@ -53,6 +55,30 @@ const Project = () => {
       </div>
 
       <Schema />
+
+      <div className='flex w-full items-center justify-between'>
+        <Button icon='dots_menu' iconSize='sm' iconColor='white' onClick={() => {}} />
+
+        <div className='flex w-52'>
+          <Button
+            className='w-1/2 !rounded-r-none'
+            variant='primary'
+            color='skyblue'
+            size='sm'
+            label={Translations.schemaBtn}
+            onClick={() => {}}
+          />
+
+          <Button
+            className='w-1/2 !rounded-l-none'
+            variant='primary'
+            color='white'
+            size='sm'
+            label={Translations.controlBtn}
+            onClick={() => {}}
+          />
+        </div>
+      </div>
     </div>
   );
 };

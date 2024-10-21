@@ -1,7 +1,6 @@
 const Translations = {
-  title: 'Projects',
-
-  addProjectBtn: '+ New Project'
+  schemaBtn: 'Schema',
+  controlBtn: 'Control'
 };
 
 export default Translations;

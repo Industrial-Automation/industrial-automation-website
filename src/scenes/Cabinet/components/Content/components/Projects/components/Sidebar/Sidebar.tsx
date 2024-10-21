@@ -103,7 +103,6 @@ export const Sidebar = () => {
               </Text>
 
               <Button
-                className='w-fit !rounded-full'
                 icon='dots_vertical'
                 iconSize='xs'
                 iconColor='white'
@@ -115,30 +114,10 @@ export const Sidebar = () => {
       </div>
 
       <div className='flex h-1/5 w-full flex-col justify-end pr-1'>
-        <div className='mb-10 flex'>
-          <Button
-            className='w-1/2 !rounded-r-none'
-            variant='primary'
-            color='skyblue'
-            size='sm'
-            label={Translations.schemaBtn}
-            onClick={() => {}}
-          />
-
-          <Button
-            className='w-1/2 !rounded-l-none'
-            variant='primary'
-            color='white'
-            size='sm'
-            label={Translations.controlBtn}
-            onClick={() => {}}
-          />
-        </div>
-
         <Button
           variant='primary'
           color='skyblue'
-          size='sm'
+          size='md'
           label={Translations.addProjectBtn}
           onClick={handleAddProject}
         />

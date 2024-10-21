@@ -17,6 +17,7 @@ import Upload from 'src/assets/icons/upload.svg';
 import Profile from 'src/assets/icons/profile.svg';
 import Security from 'src/assets/icons/security.svg';
 import Settings from 'src/assets/icons/settings.svg';
+import DotsMenu from 'src/assets/icons/dots-menu.svg';
 import Checkmark from 'src/assets/icons/checkmark.svg';
 import Mechanism from 'src/assets/icons/mechanism.svg';
 import ArrowLeft from 'src/assets/icons/arrow-left.svg';
@@ -41,6 +42,7 @@ const Icon = Object.freeze({
   profile: Profile,
   security: Security,
   settings: Settings,
+  dots_menu: DotsMenu,
   checkmark: Checkmark,
   mechanism: Mechanism,
   arrow_left: ArrowLeft,
