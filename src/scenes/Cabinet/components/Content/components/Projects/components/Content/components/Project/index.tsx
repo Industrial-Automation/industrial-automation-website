@@ -2,13 +2,18 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import {
+  fetchGetProjectScreens,
+  ProjectScreenType,
+  ProjectsStateType
+} from 'src/reducers/project-screens';
 import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
-import { fetchGetProjectScreens, ProjectsStateType } from 'src/reducers/project-screens';
 
 import { Schema } from './components/Schema';
+import { Control } from './components/Control';
 import { EmptyState } from './components/EmptyState';
 
 import Translations from './translations';
@@ -27,7 +32,7 @@ const Project = () => {
 
   const modal = useModal();
 
-  const [selectedScreen, setSelectedScreen] = useState(project_screens[0]);
+  const [selectedScreen, setSelectedScreen] = useState<ProjectScreenType | null>(null);
 
   const [mode, setMode] = useState<(typeof Modes)[keyof typeof Modes]>(Modes.SCHEMA);
 
@@ -61,9 +66,7 @@ const Project = () => {
   }, [projectId, project_screens.length]);
 
   useEffect(() => {
-    if (!selectedScreen) {
-      setSelectedScreen(project_screens[0]);
-    }
+    setSelectedScreen(project_screens[0]);
   }, [project_screens, selectedScreen]);
 
   if (!project_screens.length || !selectedScreen) {
@@ -96,7 +99,7 @@ const Project = () => {
         />
       </div>
 
-      <Schema />
+      {mode === Modes.SCHEMA ? <Schema /> : <Control />}
 
       <div className='flex w-full items-center justify-between'>
         <Button
