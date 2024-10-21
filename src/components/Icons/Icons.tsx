@@ -9,6 +9,7 @@ import Help from 'src/assets/icons/help.svg';
 import Exit from 'src/assets/icons/exit.svg';
 import User from 'src/assets/icons/user.svg';
 import Text from 'src/assets/icons/text.svg';
+import Plus from 'src/assets/icons/plus.svg';
 import Close from 'src/assets/icons/close.svg';
 import Input from 'src/assets/icons/input.svg';
 import Pencil from 'src/assets/icons/pencil.svg';
@@ -34,6 +35,7 @@ const Icon = Object.freeze({
   exit: Exit,
   user: User,
   text: Text,
+  plus: Plus,
   close: Close,
   input: Input,
   pencil: Pencil,

@@ -49,9 +49,14 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
     if (modalRef && modalRef.current) {
       const { left, top, height, width } = propsWithDefault.element.getBoundingClientRect();
 
+      const y = top - height;
+
       setModalPosition({
         left: left + width + 25,
-        top: top - height
+        top:
+          window.innerHeight < y + modalRef.current.offsetHeight
+            ? window.innerHeight - modalRef.current.offsetHeight - height
+            : y
       });
     }
   }, [modalRef, propsWithDefault.element]);

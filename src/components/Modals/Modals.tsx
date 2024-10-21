@@ -7,6 +7,7 @@ import { ModalsContext, useModalProvider } from 'src/contexts/modals';
 import {
   AddProjectScreen,
   DeleteProjectScreen,
+  ProjectScreenMenu,
   UpdateProjectScreen
 } from './components/ProjectScreens';
 import { Modal } from './components/Modal';
@@ -26,6 +27,7 @@ export const ModalVariants = {
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword,
   addProjectScreen: AddProjectScreen,
+  projectScreenMenu: ProjectScreenMenu,
   updateProjectScreen: UpdateProjectScreen,
   deleteProjectScreen: DeleteProjectScreen
 };

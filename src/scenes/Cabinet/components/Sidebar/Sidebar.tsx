@@ -76,7 +76,7 @@ export const Sidebar = () => {
         {Translations.title}
       </Text>
 
-      <div className='mb-10 mt-3 flex flex-row items-center gap-2 rounded-lg p-2 ring-1 ring-main-white'>
+      <div className='mb-10 mt-3 flex flex-row items-center gap-2 rounded-lg px-3 py-2 ring-1 ring-main-white'>
         <Icons variant='profile_card' size='md' color='white' />
 
         <div className='flex flex-col pt-0.5'>

@@ -10,7 +10,7 @@ const variantClasses = {
 };
 
 const colorClasses = {
-  white: 'bg-main-white hover:bg-subtone-white-1 active:bg-subtone-white-1 focus:ring-white',
+  white: 'bg-main-white hover:bg-subtone-gray-2 active:bg-subtone-gray-2 focus:ring-white',
   gray: 'bg-subtone-gray-3 hover:bg-subtone-gray-2 active:bg-subtone-gray-3 focus:ring-gray',
   skyblue:
     'bg-main-skyblue hover:bg-subtone-skyblue-1 active:bg-subtone-skyblue-1 focus:ring-white',
