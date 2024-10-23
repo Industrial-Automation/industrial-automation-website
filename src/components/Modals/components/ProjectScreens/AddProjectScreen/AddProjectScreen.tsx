@@ -22,7 +22,7 @@ export const AddProjectScreen: React.FC<AddProjectScreenPropsType> = (props) => 
 
   const handleAddProjectScreen = async () => {
     if (name && props.projectId) {
-      await fetchCreateProjectScreen({ name, order: props.order + 1, project_id: props.projectId });
+      await fetchCreateProjectScreen({ name, order: props.order, project_id: props.projectId });
 
       modal({
         name: ModalNames.AddProjectScreen,

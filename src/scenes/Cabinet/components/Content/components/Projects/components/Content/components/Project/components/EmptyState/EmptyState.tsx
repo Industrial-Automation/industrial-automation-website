@@ -9,6 +9,7 @@ import Translations from './translations';
 
 interface EmptyStatePropsType {
   projectId: string;
+  successAddCallback: () => void;
 }
 
 export const EmptyState: React.FC<EmptyStatePropsType> = (props) => {
@@ -26,7 +27,7 @@ export const EmptyState: React.FC<EmptyStatePropsType> = (props) => {
         },
         variant: {
           type: 'addProjectScreen',
-          props: { projectId: props.projectId, order: 0 }
+          props: { projectId: props.projectId, order: 1, successCallback: props.successAddCallback }
         }
       });
     }

@@ -28,7 +28,7 @@ const Project = () => {
 
   const modal = useModal();
 
-  const [selectedOrder, setSelectedOrder] = useState<number>(1);
+  const [selectedOrder, setSelectedOrder] = useState<number>(0);
 
   const [mode, setMode] = useState<(typeof Modes)[keyof typeof Modes]>(Modes.SCHEMA);
 
@@ -38,17 +38,17 @@ const Project = () => {
   );
 
   const selectedScreen = useMemo(
-    () => sortedProjectScreens[selectedOrder - 1],
+    () => sortedProjectScreens[selectedOrder],
     [selectedOrder, sortedProjectScreens]
   );
 
   const isFirstScreen = useMemo(
-    () => selectedOrder === sortedProjectScreens[0]?.order,
+    () => selectedOrder + 1 === sortedProjectScreens[0]?.order,
     [selectedOrder, sortedProjectScreens]
   );
 
   const isLastScreen = useMemo(
-    () => selectedOrder === sortedProjectScreens[sortedProjectScreens.length - 1]?.order,
+    () => selectedOrder + 1 === sortedProjectScreens[sortedProjectScreens.length - 1]?.order,
     [selectedOrder, sortedProjectScreens]
   );
 
@@ -97,7 +97,7 @@ const Project = () => {
   }, [projectId, project_screens.length]);
 
   if (!project_screens.length || !selectedScreen) {
-    return projectId && <EmptyState projectId={projectId} />;
+    return projectId && <EmptyState projectId={projectId} successAddCallback={handleNextScreen} />;
   }
 
   return (

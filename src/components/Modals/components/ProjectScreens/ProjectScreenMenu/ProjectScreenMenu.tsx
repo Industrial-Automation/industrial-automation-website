@@ -45,7 +45,7 @@ export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
 
   const handleAddScreen = () => {
     modal({
-      name: ModalNames.AddProjectScreen,
+      name: ModalNames.ProjectScreenMenu,
       show: false
     });
 
@@ -59,7 +59,7 @@ export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
       },
       variant: {
         type: 'addProjectScreen',
-        props: { order, projectId, successCallback: successAddCallback }
+        props: { order: order + 1, projectId, successCallback: successAddCallback }
       }
     });
   };
