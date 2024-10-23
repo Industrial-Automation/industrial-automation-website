@@ -54,13 +54,13 @@ const Project = () => {
 
   const handleNextScreen = () => {
     setSelectedOrder((prevSelectedOrder) =>
-      prevSelectedOrder === sortedProjectScreens.length ? prevSelectedOrder : prevSelectedOrder + 1
+      prevSelectedOrder > sortedProjectScreens.length ? prevSelectedOrder : prevSelectedOrder + 1
     );
   };
 
   const handlePrevScreen = () => {
     setSelectedOrder((prevSelectedOrder) =>
-      prevSelectedOrder - 1 === 0 ? prevSelectedOrder : prevSelectedOrder - 1
+      prevSelectedOrder - 1 <= 0 ? prevSelectedOrder : prevSelectedOrder - 1
     );
   };
 
