@@ -11,13 +11,17 @@ interface ProjectScreenMenuPropsType {
   order: number;
   name: string;
   projectId: string;
+  successAddCallback: () => void;
+  successDeleteCallback: () => void;
 }
 
 export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
   id,
   name,
   order,
-  projectId
+  projectId,
+  successAddCallback,
+  successDeleteCallback
 }) => {
   const modal = useModal();
 
@@ -55,7 +59,7 @@ export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
       },
       variant: {
         type: 'addProjectScreen',
-        props: { order, projectId }
+        props: { order, projectId, successCallback: successAddCallback }
       }
     });
   };
@@ -97,7 +101,7 @@ export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
       },
       variant: {
         type: 'deleteProjectScreen',
-        props: { id, name }
+        props: { id, name, successCallback: successDeleteCallback }
       }
     });
   };

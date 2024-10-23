@@ -12,6 +12,7 @@ import Translations from './translations';
 interface AddProjectScreenPropsType {
   order: number;
   projectId: string;
+  successCallback: () => void;
 }
 
 export const AddProjectScreen: React.FC<AddProjectScreenPropsType> = (props) => {
@@ -27,6 +28,8 @@ export const AddProjectScreen: React.FC<AddProjectScreenPropsType> = (props) => 
         name: ModalNames.AddProjectScreen,
         show: false
       });
+
+      props.successCallback();
     }
   };
 

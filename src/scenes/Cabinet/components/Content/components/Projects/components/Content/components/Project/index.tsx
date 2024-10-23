@@ -81,7 +81,9 @@ const Project = () => {
             id: selectedScreen.id,
             order: selectedScreen.order,
             name: selectedScreen.name,
-            projectId
+            projectId,
+            successAddCallback: handleNextScreen,
+            successDeleteCallback: handlePrevScreen
           }
         }
       });

@@ -11,19 +11,22 @@ import Translations from './translations';
 interface DeleteProjectScreenPropsType {
   id: string;
   name: string;
+  successCallback: () => void;
 }
 
-export const DeleteProjectScreen: React.FC<DeleteProjectScreenPropsType> = (projectScreen) => {
+export const DeleteProjectScreen: React.FC<DeleteProjectScreenPropsType> = (props) => {
   const modal = useModal();
 
   const handleDeleteProjectScreen = async () => {
-    if (projectScreen.id) {
-      await fetchDeleteProjectScreen(projectScreen.id);
+    if (props.id) {
+      await fetchDeleteProjectScreen(props.id);
 
       modal({
         name: ModalNames.DeleteProjectScreen,
         show: false
       });
+
+      props.successCallback();
     }
   };
 
@@ -49,7 +52,7 @@ export const DeleteProjectScreen: React.FC<DeleteProjectScreenPropsType> = (proj
           variant='base_medium'
           className='text-center font-lato text-main-white'
         >
-          {`("${projectScreen.name}")`}
+          {`("${props.name}")`}
         </Text>
       </div>
 
