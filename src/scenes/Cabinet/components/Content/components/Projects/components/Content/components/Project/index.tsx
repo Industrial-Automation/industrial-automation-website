@@ -28,7 +28,7 @@ const Project = () => {
 
   const modal = useModal();
 
-  const [selectedOrder, setSelectedOrder] = useState<number>(0);
+  const [selectedOrder, setSelectedOrder] = useState<number>(1);
 
   const [mode, setMode] = useState<(typeof Modes)[keyof typeof Modes]>(Modes.SCHEMA);
 
@@ -38,26 +38,30 @@ const Project = () => {
   );
 
   const selectedScreen = useMemo(
-    () => sortedProjectScreens[selectedOrder],
+    () => sortedProjectScreens[selectedOrder - 1],
     [selectedOrder, sortedProjectScreens]
   );
 
   const isFirstScreen = useMemo(
-    () => selectedOrder + 1 === sortedProjectScreens[0]?.order,
+    () => selectedOrder === sortedProjectScreens[0]?.order,
     [selectedOrder, sortedProjectScreens]
   );
 
   const isLastScreen = useMemo(
-    () => selectedOrder + 1 === sortedProjectScreens[sortedProjectScreens.length - 1]?.order,
+    () => selectedOrder === sortedProjectScreens[sortedProjectScreens.length - 1]?.order,
     [selectedOrder, sortedProjectScreens]
   );
 
   const handleNextScreen = () => {
-    setSelectedOrder((prevSelectedOrder) => prevSelectedOrder + 1);
+    setSelectedOrder((prevSelectedOrder) =>
+      prevSelectedOrder === sortedProjectScreens.length ? prevSelectedOrder : prevSelectedOrder + 1
+    );
   };
 
   const handlePrevScreen = () => {
-    setSelectedOrder((prevSelectedOrder) => prevSelectedOrder - 1);
+    setSelectedOrder((prevSelectedOrder) =>
+      prevSelectedOrder - 1 === 0 ? prevSelectedOrder : prevSelectedOrder - 1
+    );
   };
 
   const handleChangeMode = (newMode: (typeof Modes)[keyof typeof Modes]) => {
@@ -97,7 +101,7 @@ const Project = () => {
   }, [projectId, project_screens.length]);
 
   if (!project_screens.length || !selectedScreen) {
-    return projectId && <EmptyState projectId={projectId} successAddCallback={handleNextScreen} />;
+    return projectId && <EmptyState projectId={projectId} />;
   }
 
   return (
