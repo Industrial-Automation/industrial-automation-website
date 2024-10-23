@@ -4,13 +4,14 @@ import { ActionDispatchType } from 'src/store';
 export interface ProjectScreenType {
   id: string;
   project_id: string;
+  order: number;
   name: string;
   schema_url: string;
   created_at: string;
   last_updated_at: string;
 }
 
-export interface ProjectsStateType {
+export interface ProjectScreensStateType {
   project_screens: ProjectScreenType[];
 }
 
@@ -32,7 +33,7 @@ export const types = {
   DELETE_PROJECT_SCREEN_FAILURE: 'PROJECT_SCREENS/DELETE_PROJECT_SCREEN_FAILURE'
 };
 
-export const initialState: ProjectsStateType = {
+export const initialState: ProjectScreensStateType = {
   project_screens: []
 };
 
@@ -94,13 +95,9 @@ export default function (state = initialState, action: ActionDispatchType) {
       return { ...state, isLoading: true, error: null };
 
     case types.GET_PROJECT_SCREENS_SUCCESS:
-      return { ...state, project_screens: action.data?.data?.project_screens || [] };
-
     case types.CREATE_PROJECT_SCREEN_SUCCESS:
-      return {
-        ...state,
-        project_screens: [...state.project_screens, ...([action.data?.data?.project_screen] || [])]
-      };
+    case types.DELETE_PROJECT_SCREEN_SUCCESS:
+      return { ...state, project_screens: action.data?.data?.project_screens || [] };
 
     case types.UPDATE_PROJECT_SCREEN_SUCCESS: {
       const data = action.data?.data;
@@ -111,17 +108,6 @@ export default function (state = initialState, action: ActionDispatchType) {
           project_screen.id === (data?.project_screen as ProjectScreenType).id
             ? data?.project_screen
             : project_screen
-        )
-      };
-    }
-
-    case types.DELETE_PROJECT_SCREEN_SUCCESS: {
-      const data = action.data?.data;
-
-      return {
-        ...state,
-        project_screens: state.project_screens.filter(
-          (project_screen) => project_screen.id !== (data?.project_screen as ProjectScreenType).id
         )
       };
     }
