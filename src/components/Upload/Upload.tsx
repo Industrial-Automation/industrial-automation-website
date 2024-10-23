@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import { Text } from '../Text';
 import { Icons } from '../Icons';
@@ -13,9 +13,13 @@ export interface UploadType {
   readonly title: string;
   readonly description: string;
   readonly buttonText: string;
+
+  readonly onChangeFile: (files: FileList) => void;
 }
 
 export const Upload = (props: UploadType) => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const elementClasses = useMemo(
     () =>
       [
@@ -48,9 +52,17 @@ export const Upload = (props: UploadType) => {
   );
 
   const buttonClasses = useMemo(
-    () => ['mb-10', 'w-40', props.buttonClassName].filter(Boolean).join(' '),
+    () => ['mt-5', 'mb-10', 'w-40', props.buttonClassName].filter(Boolean).join(' '),
     [props.buttonClassName]
   );
+
+  const handleFileChange = (files: FileList | null) => {
+    if (!files) {
+      return;
+    }
+
+    props.onChangeFile(files);
+  };
 
   return (
     <div className={elementClasses}>
@@ -64,13 +76,21 @@ export const Upload = (props: UploadType) => {
         {props.description}
       </Text>
 
+      <input
+        ref={fileInputRef}
+        hidden
+        type='file'
+        onChange={(e) => handleFileChange(e.target.files)}
+        accept='.png, .jpg, .jpeg'
+      />
+
       <Button
         className={buttonClasses}
         variant='secondary'
         color='skyblue'
         size='md'
         label={props.buttonText}
-        onClick={() => {}}
+        onClick={() => fileInputRef.current?.click()}
       />
     </div>
   );

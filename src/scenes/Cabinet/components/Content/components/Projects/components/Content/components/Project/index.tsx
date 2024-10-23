@@ -100,8 +100,12 @@ const Project = () => {
     }
   }, [projectId, project_screens.length]);
 
+  if (!projectId) {
+    return;
+  }
+
   if (!project_screens.length || !selectedScreen) {
-    return projectId && <EmptyState projectId={projectId} />;
+    return <EmptyState projectId={projectId} />;
   }
 
   return (
@@ -136,7 +140,7 @@ const Project = () => {
         />
       </div>
 
-      {mode === Modes.SCHEMA ? <Schema /> : <Control />}
+      {mode === Modes.SCHEMA ? <Schema projectId={projectId} /> : <Control />}
 
       <div className='flex w-full items-center justify-between'>
         <Button

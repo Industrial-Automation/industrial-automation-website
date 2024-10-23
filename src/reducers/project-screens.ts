@@ -30,7 +30,11 @@ export const types = {
 
   DELETE_PROJECT_SCREEN_REQUEST: 'PROJECT_SCREENS/DELETE_PROJECT_SCREEN_REQUEST',
   DELETE_PROJECT_SCREEN_SUCCESS: 'PROJECT_SCREENS/DELETE_PROJECT_SCREEN_SUCCESS',
-  DELETE_PROJECT_SCREEN_FAILURE: 'PROJECT_SCREENS/DELETE_PROJECT_SCREEN_FAILURE'
+  DELETE_PROJECT_SCREEN_FAILURE: 'PROJECT_SCREENS/DELETE_PROJECT_SCREEN_FAILURE',
+
+  UPLOAD_PROJECT_SCREEN_REQUEST: 'PROJECT_SCREENS/UPLOAD_PROJECT_SCREEN_REQUEST',
+  UPLOAD_PROJECT_SCREEN_SUCCESS: 'PROJECT_SCREENS/UPLOAD_PROJECT_SCREEN_SUCCESS',
+  UPLOAD_PROJECT_SCREEN_FAILURE: 'PROJECT_SCREENS/UPLOAD_PROJECT_SCREEN_FAILURE'
 };
 
 export const initialState: ProjectScreensStateType = {
@@ -86,12 +90,26 @@ export const fetchDeleteProjectScreen = (id: string) => {
   });
 };
 
+export const fetchUploadProjectScreen = (id: string, file: File) => {
+  return apiHelper({
+    types: [
+      types.UPDATE_PROJECT_SCREEN_REQUEST,
+      types.UPDATE_PROJECT_SCREEN_SUCCESS,
+      types.UPDATE_PROJECT_SCREEN_FAILURE
+    ],
+    url: `/project-screens/upload/${id}`,
+    method: 'POST',
+    data: { file }
+  });
+};
+
 export default function (state = initialState, action: ActionDispatchType) {
   switch (action.type) {
     case types.GET_PROJECT_SCREENS_REQUEST:
     case types.CREATE_PROJECT_SCREEN_REQUEST:
     case types.UPDATE_PROJECT_SCREEN_REQUEST:
     case types.DELETE_PROJECT_SCREEN_REQUEST:
+    case types.UPLOAD_PROJECT_SCREEN_REQUEST:
       return { ...state, isLoading: true, error: null };
 
     case types.GET_PROJECT_SCREENS_SUCCESS:
@@ -99,7 +117,8 @@ export default function (state = initialState, action: ActionDispatchType) {
     case types.DELETE_PROJECT_SCREEN_SUCCESS:
       return { ...state, project_screens: action.data?.data?.project_screens || [] };
 
-    case types.UPDATE_PROJECT_SCREEN_SUCCESS: {
+    case types.UPDATE_PROJECT_SCREEN_SUCCESS:
+    case types.UPLOAD_PROJECT_SCREEN_SUCCESS: {
       const data = action.data?.data;
 
       return {
@@ -116,6 +135,7 @@ export default function (state = initialState, action: ActionDispatchType) {
     case types.CREATE_PROJECT_SCREEN_FAILURE:
     case types.UPDATE_PROJECT_SCREEN_FAILURE:
     case types.DELETE_PROJECT_SCREEN_FAILURE:
+    case types.UPLOAD_PROJECT_SCREEN_FAILURE:
       return { ...state, isLoading: false, error: action.error };
 
     default:
