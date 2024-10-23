@@ -12,7 +12,7 @@ export interface ActionType {
   type?: string;
   types?: string[];
   method?: Method;
-  data?: Record<string, unknown>;
+  data?: Record<string, unknown> | FormData;
   query?: Record<string, unknown>;
   timeout?: number;
   responseType?: ResponseType;

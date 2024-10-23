@@ -90,7 +90,7 @@ export const fetchDeleteProjectScreen = (id: string) => {
   });
 };
 
-export const fetchUploadProjectScreen = (id: string, file: File) => {
+export const fetchUploadProjectScreen = (id: string, data: FormData) => {
   return apiHelper({
     types: [
       types.UPDATE_PROJECT_SCREEN_REQUEST,
@@ -99,7 +99,9 @@ export const fetchUploadProjectScreen = (id: string, file: File) => {
     ],
     url: `/project-screens/upload/${id}`,
     method: 'POST',
-    data: { file }
+    contentType: 'multipart/form-data',
+    timeout: 60000,
+    data
   });
 };
 
