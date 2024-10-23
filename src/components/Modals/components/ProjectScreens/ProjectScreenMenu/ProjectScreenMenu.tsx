@@ -8,6 +8,7 @@ import Translations from './translations';
 
 interface ProjectScreenMenuPropsType {
   id: string;
+  order: number;
   name: string;
   projectId: string;
 }
@@ -15,6 +16,7 @@ interface ProjectScreenMenuPropsType {
 export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
   id,
   name,
+  order,
   projectId
 }) => {
   const modal = useModal();
@@ -53,7 +55,7 @@ export const ProjectScreenMenu: React.FC<ProjectScreenMenuPropsType> = ({
       },
       variant: {
         type: 'addProjectScreen',
-        props: { projectId }
+        props: { order, projectId }
       }
     });
   };

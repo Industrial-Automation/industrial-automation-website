@@ -26,7 +26,7 @@ export const EmptyState: React.FC<EmptyStatePropsType> = (props) => {
         },
         variant: {
           type: 'addProjectScreen',
-          props: { projectId: props.projectId }
+          props: { projectId: props.projectId, order: 0 }
         }
       });
     }

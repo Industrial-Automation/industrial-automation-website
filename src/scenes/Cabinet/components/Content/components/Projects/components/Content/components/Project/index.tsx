@@ -77,7 +77,12 @@ const Project = () => {
         },
         variant: {
           type: 'projectScreenMenu',
-          props: { id: selectedScreen.id, name: selectedScreen.name, projectId }
+          props: {
+            id: selectedScreen.id,
+            order: selectedScreen.order,
+            name: selectedScreen.name,
+            projectId
+          }
         }
       });
     }
