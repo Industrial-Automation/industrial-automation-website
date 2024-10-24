@@ -110,7 +110,7 @@ const Project = () => {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-between p-1'>
-      <div className='mb-10 flex w-full flex-row items-center justify-between'>
+      <div className='mb-5 flex w-full flex-row items-center justify-between'>
         <Button
           className={`!rounded-full !py-5 ${
             isFirstScreen ? 'cursor-auto opacity-0' : 'opacity-100'
@@ -142,7 +142,7 @@ const Project = () => {
 
       {mode === Modes.SCHEMA ? <Schema projectScreen={selectedScreen} /> : <Control />}
 
-      <div className='flex w-full items-center justify-between'>
+      <div className='mt-5 flex w-full items-center justify-between'>
         <Button
           icon='dots_menu'
           iconSize='sm'

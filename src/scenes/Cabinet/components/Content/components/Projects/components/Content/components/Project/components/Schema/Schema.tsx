@@ -32,8 +32,8 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   };
 
   return (
-    <div className='flex w-full flex-1 flex-col items-center'>
-      <div className='mb-5 h-5/6 w-5/6'>
+    <div className='flex h-full w-full flex-col items-center overflow-hidden'>
+      <div className='mb-5 h-full w-full overflow-hidden px-14'>
         {projectScreen.schema_url ? (
           <img
             className='h-full w-full rounded-3xl object-fill'
