@@ -51,7 +51,7 @@
     "guard-for-in": "error",
     "indent": "off",
     "max-classes-per-file": "off",
-    "max-len": ["error", {"code": 100, "ignoreStrings": true}],
+    "max-len": ["error", {"code": 100, "ignoreStrings": true, "ignoreTemplateLiterals": true}],
     "new-parens": "error",
     "newline-before-return": "error",
     "no-alert": "error",
