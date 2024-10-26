@@ -1,5 +1,6 @@
 import { Text } from 'src/components/Text';
 import { Icons } from 'src/components/Icons';
+import { Button } from 'src/components/Button';
 import { Switcher } from 'src/components/Switcher';
 import { CircleProgress } from 'src/components/CircleProgress';
 
@@ -19,7 +20,7 @@ const controlElements = [
     value: 20,
     unit: '0^C',
     title: 'Title 2',
-    description: 'Temperature dfsdfsd ds d as loren fsf as gfdcivfd',
+    description: 'Temperature',
     isEditable: false
   },
   {
@@ -37,7 +38,7 @@ const controlElements = [
     value: 1,
     unit: '0^C',
     title: 'Title 2',
-    description: 'Temperature dfsdfsd ds d as loren fsf as gfdcivfd',
+    description: 'Temperature',
     isEditable: false
   },
   {
@@ -55,7 +56,7 @@ const controlElements = [
     value: 1,
     unit: '0^C',
     title: 'Title 2',
-    description: 'Temperature dfsdfsd ds d as loren fsf as gfdcivfd',
+    description: 'Temperature',
     isEditable: false
   }
 ];
@@ -66,7 +67,7 @@ export const Control = () => {
       {controlElements.map((controlElement) => (
         <div
           key={controlElement.id}
-          className='flex h-80 flex-col justify-between gap-2 rounded-3xl bg-subtone-black-5 p-3'
+          className='flex flex-col justify-between gap-4 rounded-3xl bg-subtone-black-5 p-3'
         >
           <div className='flex flex-row items-center justify-between'>
             <Text as='p' variant='header_3' className='text-main-white'>
@@ -87,22 +88,42 @@ export const Control = () => {
                 circleColor='white'
               />
             ) : (
-              <CircleProgress
-                className='w-48'
-                barColor='gray'
-                circleColor='white'
-                strokeWidth={8}
-                reduction={0.15}
-                value={controlElement.value as number}
-              />
+              <div className='flex flex-col items-center'>
+                <CircleProgress
+                  className='w-48'
+                  barColor='gray'
+                  circleColor='white'
+                  strokeWidth={8}
+                  reduction={0.15}
+                  value={controlElement.value as number}
+                />
+
+                <div className='flex flex-row items-center gap-10'>
+                  <Button
+                    className='!h-4 !w-4 !p-4 text-main-white'
+                    variant='secondary'
+                    color='graphite'
+                    size='md'
+                    label='-'
+                    onClick={() => {}}
+                  />
+
+                  <Button
+                    className='!h-4 !w-4 !p-4 text-main-white'
+                    variant='secondary'
+                    color='graphite'
+                    size='md'
+                    label='+'
+                    onClick={() => {}}
+                  />
+                </div>
+              </div>
             )}
           </div>
 
-          <div className=''>
-            <Text as='p' variant='sm_medium' className='text-main-white'>
-              {controlElement.description}
-            </Text>
-          </div>
+          <Text as='p' align='center' variant='sm_medium' className='text-center text-main-white'>
+            {controlElement.description}
+          </Text>
         </div>
       ))}
     </div>

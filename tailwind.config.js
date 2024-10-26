@@ -31,7 +31,8 @@ module.exports = {
         gray: {
           1: '#EEEEEE',
           2: '#E0E0E0',
-          3: '#D8D8D8'
+          3: '#D8D8D8',
+          4: '#7B7D80'
         },
         skyblue: {
           1: '#5bb3d6',

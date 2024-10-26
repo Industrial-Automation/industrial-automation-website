@@ -87,7 +87,7 @@ export const CircleProgress = (props: CircleProgressType) => {
           </linearGradient>
         </defs>
 
-        <text x={center} y={center} textAnchor='middle' fontSize='30' fill='#ffffff'>
+        <text x={center + 5} y={center + 10} textAnchor='middle' fontSize='40' fill='#ffffff'>
           {progress}
           {propsWithDefault.unit}
         </text>
