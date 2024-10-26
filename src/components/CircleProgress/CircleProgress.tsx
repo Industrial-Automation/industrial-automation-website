@@ -64,8 +64,16 @@ export const CircleProgress = (props: CircleProgressType) => {
   const circumference = Math.PI * r * 2;
   const offset = (circumference * (100 - progress * (1 - propsWithDefault.reduction))) / 100;
 
+  const style = useMemo(
+    () =>
+      ['flex', 'justify-center', 'items-center', propsWithDefault.className]
+        .filter(Boolean)
+        .join(' '),
+    [propsWithDefault.className]
+  );
+
   return (
-    <div className={propsWithDefault.className}>
+    <div className={style}>
       <svg
         viewBox={`0 0 ${propsWithDefault.width} ${propsWithDefault.height}`}
         className={'block w-full'}
@@ -78,7 +86,7 @@ export const CircleProgress = (props: CircleProgressType) => {
           </linearGradient>
         </defs>
 
-        <text x={center} y={center} textAnchor='middle' fontSize='30' fill='#3c3c3c'>
+        <text x={center} y={center} textAnchor='middle' fontSize='30' fill='#ffffff'>
           {progress}
           {propsWithDefault.unit}
         </text>

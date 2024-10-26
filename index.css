@@ -30,4 +30,19 @@ html {
         max-height: 50px;
         min-height: 50px;
     }
+
+    .scrollbar::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+        margin: 5px 0;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: theme('colors.main.skyblue');
+        border-radius: 100vh;
+        max-height: 50px;
+        min-height: 50px;
+    }
 }

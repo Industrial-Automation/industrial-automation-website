@@ -4,6 +4,7 @@ import { merge } from 'src/utils';
 
 import Bin from 'src/assets/icons/bin.svg';
 import Bulb from 'src/assets/icons/bulb.svg';
+import Menu from 'src/assets/icons/menu.svg';
 import File from 'src/assets/icons/file.svg';
 import Help from 'src/assets/icons/help.svg';
 import Exit from 'src/assets/icons/exit.svg';
@@ -30,6 +31,7 @@ import DotsHorizontal from 'src/assets/icons/dots-horizontal.svg';
 const Icon = Object.freeze({
   bin: Bin,
   bulb: Bulb,
+  menu: Menu,
   file: File,
   help: Help,
   exit: Exit,
