@@ -16,7 +16,7 @@ const controlElements = [
   {
     id: '2',
     type: 'regulator',
-    value: 1,
+    value: 20,
     unit: '0^C',
     title: 'Title 2',
     description: 'Temperature dfsdfsd ds d as loren fsf as gfdcivfd',
@@ -87,7 +87,14 @@ export const Control = () => {
                 circleColor='white'
               />
             ) : (
-              <CircleProgress className='w-48' value={controlElement.value as number} />
+              <CircleProgress
+                className='w-48'
+                barColor='gray'
+                circleColor='white'
+                strokeWidth={8}
+                reduction={0.15}
+                value={controlElement.value as number}
+              />
             )}
           </div>
 

@@ -4,6 +4,7 @@ import { merge } from 'src/utils';
 
 const colorClasses = {
   white: 'bg-main-white',
+  gray: 'bg-main-gray',
   skyblue: 'bg-main-skyblue',
   midnight: 'bg-main-midnight'
 };
@@ -29,7 +30,9 @@ interface CircleProgressType {
   readonly transitionDuration?: number;
   readonly transitionTimingFunction?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 
-  readonly background?: keyof typeof colorClasses;
+  readonly barColor?: keyof typeof colorClasses;
+  readonly circleColor?: keyof typeof colorClasses;
+
   readonly gradient?: CircleProgressGradientType[];
 }
 
@@ -45,7 +48,8 @@ export const CircleProgress = (props: CircleProgressType) => {
       reduction: 0.25,
       transitionDuration: 0.5,
       transitionTimingFunction: 'ease',
-      background: 'white',
+      barColor: 'white',
+      circleColor: 'skyblue',
       gradient: [
         { stop: 0.0, color: 'skyblue' },
         { stop: 1, color: 'skyblue' }
@@ -65,10 +69,7 @@ export const CircleProgress = (props: CircleProgressType) => {
   const offset = (circumference * (100 - progress * (1 - propsWithDefault.reduction))) / 100;
 
   const style = useMemo(
-    () =>
-      ['flex', 'justify-center', 'items-center', propsWithDefault.className]
-        .filter(Boolean)
-        .join(' '),
+    () => ['relative', propsWithDefault.className].filter(Boolean).join(' '),
     [propsWithDefault.className]
   );
 
@@ -101,7 +102,7 @@ export const CircleProgress = (props: CircleProgressType) => {
           strokeDasharray={circumference}
           strokeDashoffset={circumference * propsWithDefault.reduction}
           fill='none'
-          stroke={propsWithDefault.background}
+          stroke={propsWithDefault.barColor}
           strokeLinecap='round'
         />
 
@@ -135,7 +136,7 @@ export const CircleProgress = (props: CircleProgressType) => {
           strokeDasharray={`1 ${circumference}`}
           strokeDashoffset={offset}
           fill='none'
-          stroke={`url(#gradient${id})`}
+          stroke={propsWithDefault.circleColor}
           strokeLinecap='round'
         />
       </svg>
