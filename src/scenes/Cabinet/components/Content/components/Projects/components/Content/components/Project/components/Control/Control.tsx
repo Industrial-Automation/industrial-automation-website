@@ -1,5 +1,6 @@
 import { Text } from 'src/components/Text';
 import { Icons } from 'src/components/Icons';
+import { Switcher } from 'src/components/Switcher';
 import { CircleProgress } from 'src/components/CircleProgress';
 
 const controlElements = [
@@ -79,7 +80,12 @@ export const Control = () => {
 
           <div className='flex w-full flex-row items-center justify-center'>
             {controlElement.type === 'switcher' ? (
-              <>f</>
+              <Switcher
+                className='mb-9'
+                barColor='gray'
+                checkedBarColor='skyblue'
+                circleColor='white'
+              />
             ) : (
               <CircleProgress className='w-48' value={controlElement.value as number} />
             )}
