@@ -5,6 +5,12 @@ import { ModalNames } from 'src/constants/modals';
 import { ModalsContext, useModalProvider } from 'src/contexts/modals';
 
 import {
+  AddControlSwitch,
+  ControlSwitchMenu,
+  DeleteControlSwitch,
+  UpdateControlSwitch
+} from './components/ControlSwitch';
+import {
   AddProjectScreen,
   DeleteProjectScreen,
   ProjectScreenMenu,
@@ -15,7 +21,6 @@ import { Popup } from './components/Popup';
 import { ContextModal } from './components/ContextModal';
 import { AddProject, DeleteProject, ProjectMenu, UpdateProject } from './components/Projects';
 import { ConfirmCode, ForgotPassword, ResetPassword, SignIn, SignUp } from './components/Auth';
-import { AddControlSwitch } from './components/ControlSwitch';
 
 export const ModalVariants = {
   signIn: SignIn,
@@ -30,8 +35,11 @@ export const ModalVariants = {
   addControlSwitch: AddControlSwitch,
   addProjectScreen: AddProjectScreen,
   projectScreenMenu: ProjectScreenMenu,
+  controlSwitchMenu: ControlSwitchMenu,
   updateProjectScreen: UpdateProjectScreen,
-  deleteProjectScreen: DeleteProjectScreen
+  deleteProjectScreen: DeleteProjectScreen,
+  updateControlSwitch: UpdateControlSwitch,
+  deleteControlSwitch: DeleteControlSwitch
 };
 
 export const ModalFrames = {

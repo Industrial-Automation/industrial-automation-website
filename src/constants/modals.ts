@@ -11,6 +11,9 @@ export enum ModalNames {
   AddProjectScreen = 'AddProjectScreen',
   AddControlSwitch = 'AddControlSwitch',
   ProjectScreenMenu = 'ProjectScreenMenu',
+  ControlSwitchMenu = 'ControlSwitchMenu',
   UpdateProjectScreen = 'UpdateProjectScreen',
-  DeleteProjectScreen = 'DeleteProjectScreen'
+  UpdateControlSwitch = 'UpdateControlSwitch',
+  DeleteProjectScreen = 'DeleteProjectScreen',
+  DeleteControlSwitch = 'DeleteControlSwitch'
 }

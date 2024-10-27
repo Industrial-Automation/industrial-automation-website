@@ -4,24 +4,24 @@ import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
-import { fetchDeleteProject } from 'src/reducers/projects';
+import { fetchDeleteControlSwitch } from 'src/reducers/control-switches';
 
 import Translations from './translations';
 
-interface DeleteProjectPropsType {
+interface DeleteControlSwitchPropsType {
   id: string;
-  name: string;
+  title: string;
 }
 
-export const DeleteProject: React.FC<DeleteProjectPropsType> = (project) => {
+export const DeleteControlSwitch: React.FC<DeleteControlSwitchPropsType> = (controlSwitch) => {
   const modal = useModal();
 
-  const handleDeleteProject = async () => {
-    if (project.id) {
-      await fetchDeleteProject(project.id);
+  const handleDeleteControlSwitch = async () => {
+    if (controlSwitch.id) {
+      await fetchDeleteControlSwitch(controlSwitch.id);
 
       modal({
-        name: ModalNames.DeleteProject,
+        name: ModalNames.DeleteControlSwitch,
         show: false
       });
     }
@@ -30,7 +30,7 @@ export const DeleteProject: React.FC<DeleteProjectPropsType> = (project) => {
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
-        {Translations.deleteProjectHeading}
+        {Translations.deleteSwitchHeading}
       </Text>
 
       <div className='mb-5 flex flex-col gap-1'>
@@ -40,7 +40,7 @@ export const DeleteProject: React.FC<DeleteProjectPropsType> = (project) => {
           variant='base_medium'
           className='text-center font-lato text-main-white'
         >
-          {Translations.deleteProjectQuestion}
+          {Translations.deleteSwitchQuestion}
         </Text>
 
         <Text
@@ -49,7 +49,7 @@ export const DeleteProject: React.FC<DeleteProjectPropsType> = (project) => {
           variant='base_medium'
           className='text-center font-lato text-main-white'
         >
-          {`("${project.name}")`}
+          {`("${controlSwitch.title}")`}
         </Text>
       </div>
 
@@ -58,8 +58,8 @@ export const DeleteProject: React.FC<DeleteProjectPropsType> = (project) => {
         variant='secondary'
         color='red'
         size='md'
-        label={Translations.deleteProjectBtn}
-        onClick={handleDeleteProject}
+        label={Translations.deleteSwitchBtn}
+        onClick={handleDeleteControlSwitch}
       />
     </div>
   );

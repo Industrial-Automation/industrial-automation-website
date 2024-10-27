@@ -6,12 +6,19 @@ import { ModalNames } from 'src/constants/modals';
 
 import Translations from './translations';
 
-interface ProjectMenuPropsType {
+interface ControlSwitchMenuPropsType {
   id: string;
-  name: string;
+  title: string;
+  description: string;
+  editable: boolean;
 }
 
-export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
+export const ControlSwitchMenu: React.FC<ControlSwitchMenuPropsType> = ({
+  id,
+  title,
+  description,
+  editable
+}) => {
   const modal = useModal();
 
   const buttonClass = useMemo(
@@ -32,14 +39,14 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
     []
   );
 
-  const handleRenameProject = () => {
+  const handleUpdateControlSwitch = () => {
     modal({
-      name: ModalNames.ProjectMenu,
+      name: ModalNames.ControlSwitchMenu,
       show: false
     });
 
     modal({
-      name: ModalNames.UpdateProject,
+      name: ModalNames.UpdateControlSwitch,
       show: true,
       isOverlay: true,
       frame: {
@@ -47,20 +54,20 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
         props: {}
       },
       variant: {
-        type: 'updateProject',
-        props: { id, name }
+        type: 'updateControlSwitch',
+        props: { id, title, description, editable }
       }
     });
   };
 
-  const handleDeleteProject = () => {
+  const handleDeleteControlSwitch = () => {
     modal({
-      name: ModalNames.ProjectMenu,
+      name: ModalNames.ControlSwitchMenu,
       show: false
     });
 
     modal({
-      name: ModalNames.DeleteProject,
+      name: ModalNames.DeleteControlSwitch,
       show: true,
       isOverlay: true,
       frame: {
@@ -68,8 +75,8 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
         props: {}
       },
       variant: {
-        type: 'deleteProject',
-        props: { id, name }
+        type: 'deleteControlSwitch',
+        props: { id, title }
       }
     });
   };
@@ -83,8 +90,8 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
         icon='pencil'
         iconSize='xs'
         iconPosition='left'
-        label={Translations.renameBtn}
-        onClick={handleRenameProject}
+        label={Translations.editBtn}
+        onClick={handleUpdateControlSwitch}
       />
 
       <Button
@@ -96,7 +103,7 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
         iconPosition='left'
         iconColor='red'
         label={Translations.deleteBtn}
-        onClick={handleDeleteProject}
+        onClick={handleDeleteControlSwitch}
       />
     </div>
   );
