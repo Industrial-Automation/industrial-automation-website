@@ -1,6 +1,7 @@
 import React, { KeyboardEvent, useMemo, useState } from 'react';
 
 import { merge } from 'src/utils';
+import { Label } from 'src/components/Label';
 
 const sizeClasses = {
   sm: {
@@ -29,6 +30,8 @@ const colorClasses = {
 
 interface SwitcherType {
   readonly className?: React.HTMLAttributes<HTMLDivElement>['className'];
+  readonly labelClassName?: React.HTMLAttributes<HTMLDivElement>['className'];
+  readonly containerClassName?: React.HTMLAttributes<HTMLDivElement>['className'];
 
   readonly barColor?: keyof typeof colorClasses;
   readonly checkedBarColor?: keyof typeof colorClasses;
@@ -38,6 +41,8 @@ interface SwitcherType {
   readonly size?: keyof typeof sizeClasses;
 
   readonly value?: boolean;
+
+  readonly label?: string;
 
   readonly onChange?: (isChecked: boolean) => void;
 }
@@ -55,6 +60,14 @@ export const Switcher = (props: SwitcherType) => {
   );
 
   const [isChecked, setIsChecked] = useState(propsWithDefault.value);
+
+  const containerStyle = useMemo(
+    () =>
+      ['flex', 'flex-row', 'items-center', 'gap-3', propsWithDefault.containerClassName]
+        .filter(Boolean)
+        .join(' '),
+    [propsWithDefault.containerClassName]
+  );
 
   const barStyle = useMemo(
     () =>
@@ -97,11 +110,15 @@ export const Switcher = (props: SwitcherType) => {
   );
 
   const handleSwitch = () => {
-    setIsChecked((prevState) => !prevState);
+    setIsChecked((prevState) => {
+      const newCheckedState = !prevState;
 
-    if (propsWithDefault.onChange) {
-      propsWithDefault.onChange(isChecked);
-    }
+      if (propsWithDefault.onChange) {
+        propsWithDefault.onChange(newCheckedState);
+      }
+
+      return newCheckedState;
+    });
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -111,15 +128,23 @@ export const Switcher = (props: SwitcherType) => {
   };
 
   return (
-    <div
-      role='button'
-      tabIndex={0}
-      aria-pressed={isChecked}
-      className={barStyle}
-      onClick={handleSwitch}
-      onKeyDown={handleKeyDown}
-    >
-      <div className={circleStyle}></div>
+    <div className={containerStyle}>
+      <Label
+        className={propsWithDefault.labelClassName}
+        text={propsWithDefault.label}
+        variant={propsWithDefault.size === 'sm' ? 'base_medium' : 'header_3'}
+      />
+
+      <div
+        role='button'
+        tabIndex={0}
+        aria-pressed={isChecked}
+        className={barStyle}
+        onClick={handleSwitch}
+        onKeyDown={handleKeyDown}
+      >
+        <div className={circleStyle}></div>
+      </div>
     </div>
   );
 };

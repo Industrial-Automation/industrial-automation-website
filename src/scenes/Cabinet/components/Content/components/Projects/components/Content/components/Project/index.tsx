@@ -94,6 +94,24 @@ const Project = () => {
     }
   };
 
+  const handleAddControlSwitch = () => {
+    if (selectedScreen) {
+      modal({
+        name: ModalNames.AddControlSwitch,
+        show: true,
+        isOverlay: true,
+        frame: {
+          type: 'modal',
+          props: {}
+        },
+        variant: {
+          type: 'addControlSwitch',
+          props: { screenId: selectedScreen.id }
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     if (!project_screens.length && projectId) {
       fetchGetProjectScreens(projectId);
@@ -159,7 +177,12 @@ const Project = () => {
             <>
               <Button icon='gauge' iconSize='md' iconColor='white' onClick={() => {}} />
 
-              <Button icon='switch' iconSize='md' iconColor='white' onClick={() => {}} />
+              <Button
+                icon='switch'
+                iconSize='md'
+                iconColor='white'
+                onClick={handleAddControlSwitch}
+              />
             </>
           ) : (
             <div></div>

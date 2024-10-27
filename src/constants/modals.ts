@@ -9,6 +9,7 @@ export enum ModalNames {
   ResetPassword = 'ResetPassword',
   ForgotPassword = 'ForgotPassword',
   AddProjectScreen = 'AddProjectScreen',
+  AddControlSwitch = 'AddControlSwitch',
   ProjectScreenMenu = 'ProjectScreenMenu',
   UpdateProjectScreen = 'UpdateProjectScreen',
   DeleteProjectScreen = 'DeleteProjectScreen'
