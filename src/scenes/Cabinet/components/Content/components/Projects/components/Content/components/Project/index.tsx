@@ -140,7 +140,11 @@ const Project = () => {
         />
       </div>
 
-      {mode === Modes.SCHEMA ? <Schema projectScreen={selectedScreen} /> : <Control />}
+      {mode === Modes.SCHEMA ? (
+        <Schema projectScreen={selectedScreen} />
+      ) : (
+        <Control projectScreen={selectedScreen} />
+      )}
 
       <div className='mt-5 flex w-full items-center justify-between'>
         <Button

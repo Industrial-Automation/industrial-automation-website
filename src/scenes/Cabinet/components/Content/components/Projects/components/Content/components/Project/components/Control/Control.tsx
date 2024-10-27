@@ -1,67 +1,73 @@
+import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+
 import { Text } from 'src/components/Text';
 import { Icons } from 'src/components/Icons';
 import { Button } from 'src/components/Button';
 import { Switcher } from 'src/components/Switcher';
 import { CircleProgress } from 'src/components/CircleProgress';
+import { ProjectScreenType } from 'src/reducers/project-screens';
+import { ControlGaugesStateType, fetchGetControlGauges } from 'src/reducers/control-gauges';
+import { ControlSwitchesStateType, fetchGetControlSwitches } from 'src/reducers/control-switches';
 
-const controlElements = [
-  {
-    id: '1',
-    type: 'switcher',
-    value: false,
-    unit: null,
-    title: 'Title 1',
-    description: 'Start/Stop motor',
-    isEditable: false
-  },
-  {
-    id: '2',
-    type: 'regulator',
-    value: 20,
-    unit: '0^C',
-    title: 'Title 2',
-    description: 'Temperature',
-    isEditable: false
-  },
-  {
-    id: '1',
-    type: 'switcher',
-    value: false,
-    unit: null,
-    title: 'Title 1',
-    description: 'Start/Stop motor',
-    isEditable: false
-  },
-  {
-    id: '2',
-    type: 'regulator',
-    value: 1,
-    unit: '0^C',
-    title: 'Title 2',
-    description: 'Temperature',
-    isEditable: false
-  },
-  {
-    id: '1',
-    type: 'switcher',
-    value: false,
-    unit: null,
-    title: 'Title 1',
-    description: 'Start/Stop motor',
-    isEditable: false
-  },
-  {
-    id: '2',
-    type: 'regulator',
-    value: 1,
-    unit: '0^C',
-    title: 'Title 2',
-    description: 'Temperature',
-    isEditable: false
-  }
-];
+interface ControlStatePropsType {
+  projectScreen: ProjectScreenType;
+}
 
-export const Control = () => {
+const ControlElementTypes = Object.freeze({
+  GAUGE: 'gauge',
+  SWITCH: 'switch'
+});
+
+export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
+  const { control_switches } = useSelector<any>(
+    (state) => state.control_switches
+  ) as ControlSwitchesStateType;
+
+  const { control_gauges } = useSelector<any>(
+    (state) => state.control_gauges
+  ) as ControlGaugesStateType;
+
+  const formattedControlSwitches = useMemo(
+    () =>
+      control_switches.map((control_switch) => ({
+        ...control_switch,
+        type: ControlElementTypes.SWITCH
+      })),
+    [control_switches]
+  );
+
+  const formattedControlGauges = useMemo(
+    () =>
+      control_gauges.map((control_gauge) => ({
+        ...control_gauge,
+        type: ControlElementTypes.GAUGE
+      })),
+    [control_gauges]
+  );
+
+  const controlElements = useMemo(
+    () =>
+      [...formattedControlGauges, ...formattedControlSwitches].sort(
+        (b, a) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      ),
+    [formattedControlGauges, formattedControlSwitches]
+  );
+
+  useEffect(() => {
+    const fetchControlData = async () => {
+      await fetchGetControlSwitches(projectScreen.id);
+
+      await fetchGetControlGauges(projectScreen.id);
+    };
+
+    fetchControlData();
+
+    const intervalId = setInterval(fetchControlData, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [projectScreen.id]);
+
   return (
     <div className='scrollbar grid h-full w-full grid-cols-3 gap-5 overflow-y-auto p-2'>
       {controlElements.map((controlElement) => (
@@ -80,14 +86,16 @@ export const Control = () => {
           </div>
 
           <div className='flex w-full flex-row items-center justify-center'>
-            {controlElement.type === 'switcher' ? (
+            {controlElement.type === ControlElementTypes.SWITCH && (
               <Switcher
                 className='mb-9'
                 barColor='gray'
                 checkedBarColor='skyblue'
                 circleColor='white'
               />
-            ) : (
+            )}
+
+            {controlElement.type === ControlElementTypes.GAUGE && (
               <div className='flex flex-col items-center'>
                 <CircleProgress
                   className='w-48'
