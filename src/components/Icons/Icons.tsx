@@ -12,10 +12,12 @@ import User from 'src/assets/icons/user.svg';
 import Text from 'src/assets/icons/text.svg';
 import Plus from 'src/assets/icons/plus.svg';
 import Close from 'src/assets/icons/close.svg';
+import Gauge from 'src/assets/icons/gauge.svg';
 import Input from 'src/assets/icons/input.svg';
 import Pencil from 'src/assets/icons/pencil.svg';
 import Folder from 'src/assets/icons/folder.svg';
 import Upload from 'src/assets/icons/upload.svg';
+import Switch from 'src/assets/icons/switch.svg';
 import Profile from 'src/assets/icons/profile.svg';
 import Security from 'src/assets/icons/security.svg';
 import Settings from 'src/assets/icons/settings.svg';
@@ -39,10 +41,12 @@ const Icon = Object.freeze({
   text: Text,
   plus: Plus,
   close: Close,
+  gauge: Gauge,
   input: Input,
   pencil: Pencil,
   folder: Folder,
   upload: Upload,
+  switch: Switch,
   profile: Profile,
   security: Security,
   settings: Settings,

@@ -150,6 +150,18 @@ const Project = () => {
           onClick={handleOpenProjectScreenMenu}
         />
 
+        <div className='flex flex-row items-center gap-2'>
+          {mode === Modes.CONTROL ? (
+            <>
+              <Button icon='gauge' iconSize='md' iconColor='white' onClick={() => {}} />
+
+              <Button icon='switch' iconSize='md' iconColor='white' onClick={() => {}} />
+            </>
+          ) : (
+            <div></div>
+          )}
+        </div>
+
         <div className='flex w-52'>
           <Button
             className='w-1/2 !rounded-r-none'
