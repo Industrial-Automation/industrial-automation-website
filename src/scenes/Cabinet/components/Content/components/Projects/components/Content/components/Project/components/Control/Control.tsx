@@ -1,14 +1,19 @@
 import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo } from 'react';
 
+import {
+  ControlSwitchesStateType,
+  ControlSwitchType,
+  fetchGetControlSwitches
+} from 'src/reducers/control-switches';
 import { Text } from 'src/components/Text';
-import { Icons } from 'src/components/Icons';
+import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
+import { ModalNames } from 'src/constants/modals';
 import { Switcher } from 'src/components/Switcher';
 import { CircleProgress } from 'src/components/CircleProgress';
 import { ProjectScreenType } from 'src/reducers/project-screens';
 import { ControlGaugesStateType, fetchGetControlGauges } from 'src/reducers/control-gauges';
-import { ControlSwitchesStateType, fetchGetControlSwitches } from 'src/reducers/control-switches';
 
 interface ControlStatePropsType {
   projectScreen: ProjectScreenType;
@@ -27,6 +32,8 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
   const { control_gauges } = useSelector<any>(
     (state) => state.control_gauges
   ) as ControlGaugesStateType;
+
+  const modal = useModal();
 
   const formattedControlSwitches = useMemo(
     () =>
@@ -54,6 +61,28 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
     [formattedControlGauges, formattedControlSwitches]
   );
 
+  const handleOpenControlSwitchMenu = (e: MouseEvent, controlSwitch: ControlSwitchType) => {
+    const element = e.target as HTMLButtonElement;
+
+    modal({
+      name: ModalNames.ControlSwitchMenu,
+      show: true,
+      frame: {
+        type: 'contextModal',
+        props: { className: '!bg-subtone-black-6', element, size: 'sm' }
+      },
+      variant: {
+        type: 'controlSwitchMenu',
+        props: {
+          id: controlSwitch.id,
+          title: controlSwitch.title,
+          description: controlSwitch.description || '',
+          editable: controlSwitch.editable
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     const fetchControlData = async () => {
       await fetchGetControlSwitches(projectScreen.id);
@@ -80,9 +109,20 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
               {controlElement.title}
             </Text>
 
-            <div className='rounded-full bg-subtone-black-4 p-2'>
-              <Icons variant='menu' size='sm' color='white' />
-            </div>
+            <Button
+              className='!p-2'
+              variant='secondary'
+              color='black'
+              size='md'
+              icon='menu'
+              iconSize='sm'
+              iconColor='white'
+              onClick={(e) =>
+                controlElement.type === ControlElementTypes.SWITCH
+                  ? handleOpenControlSwitchMenu(e, controlElement)
+                  : () => {}
+              }
+            />
           </div>
 
           <div className='flex w-full flex-row items-center justify-center'>

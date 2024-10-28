@@ -47,7 +47,7 @@ export const Sidebar = () => {
       show: true,
       frame: {
         type: 'contextModal',
-        props: { className: '!bg-subtone-black-5', element, size: 'sm' }
+        props: { className: '!bg-subtone-black-6', element, size: 'sm' }
       },
       variant: {
         type: 'projectMenu',

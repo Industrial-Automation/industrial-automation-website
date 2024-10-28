@@ -15,7 +15,8 @@ const colorClasses = {
   graphite: 'bg-main-gray hover:bg-subtone-gray-4 active:bg-subtone-gray-4 focus:ring-gray',
   skyblue:
     'bg-main-skyblue hover:bg-subtone-skyblue-1 active:bg-subtone-skyblue-1 focus:ring-white',
-  red: 'bg-main-red hover:bg-subtone-red-1 active:bg-subtone-red-1 focus:ring-white'
+  red: 'bg-main-red hover:bg-subtone-red-1 active:bg-subtone-red-1 focus:ring-white',
+  black: 'bg-subtone-black-4 hover:bg-subtone-black-3 active:bg-subtone-black-3 focus:ring-black'
 };
 
 const sizeClasses = {
