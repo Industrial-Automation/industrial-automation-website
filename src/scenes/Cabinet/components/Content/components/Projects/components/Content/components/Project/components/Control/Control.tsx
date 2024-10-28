@@ -62,7 +62,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
   const controlElements = useMemo(
     () =>
       [...formattedControlGauges, ...formattedControlSwitches].sort(
-        (b, a) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        (b, a) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       ),
     [formattedControlGauges, formattedControlSwitches]
   );
