@@ -21,6 +21,11 @@ type ContextModalType = {
   readonly element: Element;
 } & ModalFrameDefaultProps<ModalNames, keyof typeof ModalVariants>;
 
+interface ModalPositionType {
+  top: number;
+  left: number;
+}
+
 export const ContextModal: React.FC<ContextModalType> = (props) => {
   const propsWithDefault = merge(
     {
@@ -40,26 +45,7 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
     propsWithDefault.element
   );
 
-  const [modalPosition, setModalPosition] = useState({
-    top: 0,
-    left: 0
-  });
-
-  useEffect(() => {
-    if (modalRef && modalRef.current) {
-      const { left, top, height, width } = propsWithDefault.element.getBoundingClientRect();
-
-      const y = top - height;
-
-      setModalPosition({
-        left: left + width + 25,
-        top:
-          window.innerHeight < y + modalRef.current.offsetHeight
-            ? window.innerHeight - modalRef.current.offsetHeight - height
-            : y
-      });
-    }
-  }, [modalRef, propsWithDefault.element]);
+  const [modalPosition, setModalPosition] = useState<ModalPositionType | null>(null);
 
   const blockWrapper = useMemo(
     () =>
@@ -70,14 +56,41 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
         'justify-center',
         'bg-main-midnight',
         'rounded-lg',
+        'invisible',
         sizeClasses[propsWithDefault.size],
         propsWithDefault.className
       ].join(' '),
     [propsWithDefault.className, propsWithDefault.size]
   );
 
+  useEffect(() => {
+    if (modalRef && modalRef.current) {
+      const { left, top, height, width } = propsWithDefault.element.getBoundingClientRect();
+
+      const x = left + width + 25;
+      const y = top - height;
+
+      setModalPosition({
+        left:
+          window.innerWidth < x + modalRef.current.offsetWidth
+            ? left - modalRef.current.offsetWidth - 25
+            : x,
+        top:
+          window.innerHeight < y + modalRef.current.offsetHeight
+            ? window.innerHeight - modalRef.current.offsetHeight - height
+            : y
+      });
+    }
+  }, [modalRef, propsWithDefault.element]);
+
+  useEffect(() => {
+    if (modalRef && modalRef.current && modalPosition) {
+      modalRef.current.style.visibility = 'visible';
+    }
+  }, [modalPosition, modalRef]);
+
   return (
-    <div className='absolute w-full' style={modalPosition}>
+    <div className='absolute w-full' style={modalPosition || {}}>
       <div ref={modalRef} className={blockWrapper}>
         {React.createElement(
           ModalVariants[propsWithDefault.variant.type] as React.FC<
