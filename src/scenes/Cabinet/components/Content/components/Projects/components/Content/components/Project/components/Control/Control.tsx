@@ -98,7 +98,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
         props: { className: '!bg-subtone-black-6', element, size: 'sm' }
       },
       variant: {
-        type: 'controlSwitchMenu',
+        type: 'controlGaugeMenu',
         props: {
           id: controlGauge.id,
           title: controlGauge.title,

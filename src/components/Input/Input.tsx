@@ -19,7 +19,7 @@ interface InputType extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 's
   readonly className?: React.HTMLAttributes<HTMLDivElement>['className'];
   readonly labelClassName?: React.HTMLAttributes<HTMLDivElement>['className'];
 
-  readonly type?: 'text' | 'password' | 'email' | 'tel' | 'radio';
+  readonly type?: 'text' | 'number' | 'password' | 'email' | 'tel' | 'radio';
 
   readonly icon?: IconsType['variant'];
 
