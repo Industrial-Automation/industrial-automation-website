@@ -42,7 +42,7 @@ export const AddControlSwitch: React.FC<AddControlSwitchPropsType> = ({ screenId
 
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
-      <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
+      <Text as='h2' variant='header_2' className='font-lato text-main-white'>
         {Translations.addSwitchHeading}
       </Text>
 
