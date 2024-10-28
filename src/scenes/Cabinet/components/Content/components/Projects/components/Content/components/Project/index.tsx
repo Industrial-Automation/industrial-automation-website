@@ -119,7 +119,7 @@ const Project = () => {
   }, [projectId, project_screens.length]);
 
   if (!projectId) {
-    return;
+    return <></>;
   }
 
   if (!project_screens.length || !selectedScreen) {
