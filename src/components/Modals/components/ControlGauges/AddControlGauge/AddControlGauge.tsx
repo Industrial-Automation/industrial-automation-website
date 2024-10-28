@@ -30,7 +30,7 @@ export const AddControlGauge: React.FC<AddControlGaugePropsType> = ({ screenId }
   const [isEditable, setIsEditable] = useState(false);
 
   const handleAddControlGauge = async () => {
-    if (screenId && title) {
+    if (screenId && title && unit) {
       await fetchCreateControlGauge({
         screen_id: screenId,
         title,
