@@ -132,6 +132,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
                 barColor='gray'
                 checkedBarColor='skyblue'
                 circleColor='white'
+                editable={controlElement.editable}
               />
             )}
 

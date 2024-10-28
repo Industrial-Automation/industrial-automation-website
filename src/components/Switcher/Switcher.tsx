@@ -44,6 +44,8 @@ interface SwitcherType {
 
   readonly label?: string;
 
+  readonly editable?: boolean;
+
   readonly onChange?: (isChecked: boolean) => void;
 }
 
@@ -54,7 +56,8 @@ export const Switcher = (props: SwitcherType) => {
       checkedBarColor: 'white',
       circleColor: 'skyblue',
       size: 'md',
-      value: false
+      value: false,
+      editable: true
     } as Required<SwitcherType>,
     props
   );
@@ -110,6 +113,10 @@ export const Switcher = (props: SwitcherType) => {
   );
 
   const handleSwitch = () => {
+    if (!propsWithDefault.editable) {
+      return;
+    }
+
     setIsChecked((prevState) => {
       const newCheckedState = !prevState;
 
