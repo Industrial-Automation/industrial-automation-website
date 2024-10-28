@@ -2,6 +2,11 @@ import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo } from 'react';
 
 import {
+  ControlGaugesStateType,
+  ControlGaugeType,
+  fetchGetControlGauges
+} from 'src/reducers/control-gauges';
+import {
   ControlSwitchesStateType,
   ControlSwitchType,
   fetchGetControlSwitches
@@ -13,7 +18,6 @@ import { ModalNames } from 'src/constants/modals';
 import { Switcher } from 'src/components/Switcher';
 import { CircleProgress } from 'src/components/CircleProgress';
 import { ProjectScreenType } from 'src/reducers/project-screens';
-import { ControlGaugesStateType, fetchGetControlGauges } from 'src/reducers/control-gauges';
 
 interface ControlStatePropsType {
   projectScreen: ProjectScreenType;
@@ -83,6 +87,28 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
     });
   };
 
+  const handleOpenControlGaugeMenu = (e: MouseEvent, controlGauge: ControlGaugeType) => {
+    const element = e.target as HTMLButtonElement;
+
+    modal({
+      name: ModalNames.ControlGaugeMenu,
+      show: true,
+      frame: {
+        type: 'contextModal',
+        props: { className: '!bg-subtone-black-6', element, size: 'sm' }
+      },
+      variant: {
+        type: 'controlSwitchMenu',
+        props: {
+          id: controlGauge.id,
+          title: controlGauge.title,
+          description: controlGauge.description || '',
+          editable: controlGauge.editable
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     const fetchControlData = async () => {
       await fetchGetControlSwitches(projectScreen.id);
@@ -120,7 +146,9 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
               onClick={(e) =>
                 controlElement.type === ControlElementTypes.SWITCH
                   ? handleOpenControlSwitchMenu(e, controlElement)
-                  : () => {}
+                  : controlElement.type === ControlElementTypes.GAUGE
+                    ? handleOpenControlGaugeMenu(e, controlElement)
+                    : () => {}
               }
             />
           </div>

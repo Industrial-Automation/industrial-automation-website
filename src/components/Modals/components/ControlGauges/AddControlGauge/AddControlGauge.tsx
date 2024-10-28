@@ -7,15 +7,15 @@ import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
 import { Textarea } from 'src/components/Textarea';
 import { Switcher } from 'src/components/Switcher';
-import { fetchCreateControlSwitch } from 'src/reducers/control-switches';
+import { fetchCreateControlGauge } from 'src/reducers/control-gauges';
 
 import Translations from './translations';
 
-interface AddControlSwitchPropsType {
+interface AddControlGaugePropsType {
   screenId: string;
 }
 
-export const AddControlSwitch: React.FC<AddControlSwitchPropsType> = ({ screenId }) => {
+export const AddControlGauge: React.FC<AddControlGaugePropsType> = ({ screenId }) => {
   const modal = useModal();
 
   const [title, setTitle] = useState('');
@@ -23,18 +23,18 @@ export const AddControlSwitch: React.FC<AddControlSwitchPropsType> = ({ screenId
 
   const [isEditable, setIsEditable] = useState(false);
 
-  const handleAddProject = async () => {
+  const handleAddControlGauge = async () => {
     if (screenId && title) {
-      await fetchCreateControlSwitch({
+      await fetchCreateControlGauge({
         screen_id: screenId,
         title,
         description,
         editable: isEditable,
-        value: false
+        value: 0
       });
 
       modal({
-        name: ModalNames.AddControlSwitch,
+        name: ModalNames.AddControlGauge,
         show: false
       });
     }
@@ -43,7 +43,7 @@ export const AddControlSwitch: React.FC<AddControlSwitchPropsType> = ({ screenId
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
-        {Translations.addSwitchHeading}
+        {Translations.addGaugeHeading}
       </Text>
 
       <Input
@@ -83,8 +83,8 @@ export const AddControlSwitch: React.FC<AddControlSwitchPropsType> = ({ screenId
         variant='secondary'
         color='skyblue'
         size='md'
-        label={Translations.newSwitchBtn}
-        onClick={handleAddProject}
+        label={Translations.newGaugeBtn}
+        onClick={handleAddControlGauge}
       />
     </div>
   );

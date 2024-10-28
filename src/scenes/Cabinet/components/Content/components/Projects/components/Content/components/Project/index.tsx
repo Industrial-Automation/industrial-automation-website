@@ -112,6 +112,24 @@ const Project = () => {
     }
   };
 
+  const handleAddControlGauge = () => {
+    if (selectedScreen) {
+      modal({
+        name: ModalNames.AddControlGauge,
+        show: true,
+        isOverlay: true,
+        frame: {
+          type: 'modal',
+          props: {}
+        },
+        variant: {
+          type: 'addControlGauge',
+          props: { screenId: selectedScreen.id }
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     if (!project_screens.length && projectId) {
       fetchGetProjectScreens(projectId);
@@ -175,7 +193,12 @@ const Project = () => {
         <div className='flex flex-row items-center gap-2'>
           {mode === Modes.CONTROL ? (
             <>
-              <Button icon='gauge' iconSize='md' iconColor='white' onClick={() => {}} />
+              <Button
+                icon='gauge'
+                iconSize='md'
+                iconColor='white'
+                onClick={handleAddControlGauge}
+              />
 
               <Button
                 icon='switch'

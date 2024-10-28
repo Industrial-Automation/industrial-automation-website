@@ -5,11 +5,17 @@ import { ModalNames } from 'src/constants/modals';
 import { ModalsContext, useModalProvider } from 'src/contexts/modals';
 
 import {
+  AddControlGauge,
+  ControlGaugeMenu,
+  DeleteControlGauge,
+  UpdateControlGauge
+} from './components/ControlGauges';
+import {
   AddControlSwitch,
   ControlSwitchMenu,
   DeleteControlSwitch,
   UpdateControlSwitch
-} from './components/ControlSwitch';
+} from './components/ControlSwitches';
 import {
   AddProjectScreen,
   DeleteProjectScreen,
@@ -32,10 +38,14 @@ export const ModalVariants = {
   deleteProject: DeleteProject,
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword,
+  addControlGauge: AddControlGauge,
   addControlSwitch: AddControlSwitch,
   addProjectScreen: AddProjectScreen,
+  controlGaugeMenu: ControlGaugeMenu,
   projectScreenMenu: ProjectScreenMenu,
   controlSwitchMenu: ControlSwitchMenu,
+  updateControlGauge: UpdateControlGauge,
+  deleteControlGauge: DeleteControlGauge,
   updateProjectScreen: UpdateProjectScreen,
   deleteProjectScreen: DeleteProjectScreen,
   updateControlSwitch: UpdateControlSwitch,
