@@ -3,10 +3,15 @@ const Translations = {
 
   titleLabel: 'Title',
   descriptionLabel: 'Description',
+  minValueLabel: 'Min',
+  maxValueLabel: 'Max',
+  intervalValueLabel: 'Interval',
+  unitLabel: 'Unit',
   editableLabel: 'Editable:',
 
   titlePlaceholder: 'Enter Title',
   descriptionPlaceholder: 'Enter Description',
+  unitPlaceholder: 'Enter Unit',
 
   updatedGaugeBtn: 'Update Gauge'
 };

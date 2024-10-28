@@ -15,6 +15,10 @@ interface UpdateControlGaugePropsType {
   id: string;
   title: string;
   description: string;
+  min_value: number;
+  max_value: number;
+  interval_value: number;
+  unit: string;
   editable: boolean;
 }
 
@@ -24,13 +28,23 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
   const [title, setTitle] = useState(controlGauge.title);
   const [description, setDescription] = useState(controlGauge.description);
 
+  const [minValue, setMinValue] = useState(controlGauge.min_value);
+  const [maxValue, setMaxValue] = useState(controlGauge.max_value);
+  const [intervalValue, setIntervalValue] = useState(controlGauge.interval_value);
+
+  const [unit, setUnit] = useState(controlGauge.unit);
+
   const [isEditable, setIsEditable] = useState(controlGauge.editable);
 
   const handleUpdateControlGauge = async () => {
-    if (controlGauge.id && title) {
+    if (controlGauge.id && title && unit) {
       await fetchUpdateControlGauge(controlGauge.id, {
         title,
         description,
+        min_value: minValue,
+        max_value: maxValue,
+        interval_value: intervalValue,
+        unit,
         editable: isEditable
       });
 
@@ -42,7 +56,7 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
   };
 
   return (
-    <div className='flex flex-col items-center gap-5 px-10 pb-5'>
+    <div className='modal-scrollbar flex flex-col items-center gap-5 overflow-auto px-10 pb-5'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
         {Translations.editGaugeHeading}
       </Text>
@@ -66,6 +80,48 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
         onChange={(e) => setDescription(e.target.value)}
         maxLength={150}
       />
+
+      <div className='flex w-80 flex-col gap-2'>
+        <div className='flex flex-row items-center gap-5'>
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            type='number'
+            value={minValue.toString()}
+            label={Translations.minValueLabel}
+            onChange={(e) => setMinValue(Number(e.target.value))}
+          />
+
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            type='number'
+            value={maxValue.toString()}
+            label={Translations.maxValueLabel}
+            onChange={(e) => setMaxValue(Number(e.target.value))}
+          />
+        </div>
+
+        <div className='flex flex-row items-center gap-5'>
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            type='number'
+            value={intervalValue.toString()}
+            label={Translations.intervalValueLabel}
+            onChange={(e) => setIntervalValue(Number(e.target.value))}
+          />
+
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            value={unit}
+            label={Translations.unitLabel}
+            placeholder={Translations.unitPlaceholder}
+            onChange={(e) => setUnit(e.target.value)}
+          />
+        </div>
+      </div>
 
       <Switcher
         containerClassName='w-80 mb-5'

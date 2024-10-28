@@ -103,6 +103,10 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
           id: controlGauge.id,
           title: controlGauge.title,
           description: controlGauge.description || '',
+          min_value: controlGauge.min_value,
+          max_value: controlGauge.max_value,
+          interval_value: controlGauge.interval_value,
+          unit: controlGauge.unit,
           editable: controlGauge.editable
         }
       }
