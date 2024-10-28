@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { merge } from 'src/utils';
+import { Button } from 'src/components/Button';
 
 const colorClasses = {
   white: 'bg-main-white',
@@ -18,6 +19,10 @@ interface CircleProgressType {
   readonly className?: React.HTMLAttributes<HTMLDivElement>['className'];
 
   readonly value?: number;
+  readonly minValue?: number;
+  readonly maxValue?: number;
+  readonly intervalValue?: number;
+
   readonly unit?: string;
 
   readonly width?: number;
@@ -34,13 +39,19 @@ interface CircleProgressType {
   readonly circleColor?: keyof typeof colorClasses;
 
   readonly gradient?: CircleProgressGradientType[];
+
+  readonly editable?: boolean;
+
+  readonly onChange?: (value: number) => void;
 }
 
 export const CircleProgress = (props: CircleProgressType) => {
   const propsWithDefault = merge(
     {
       value: 0,
-      unit: '%',
+      minValue: 0,
+      maxValue: 10,
+      intervalValue: 1,
       width: 200,
       height: 200,
       strokeWidth: 4,
@@ -58,9 +69,14 @@ export const CircleProgress = (props: CircleProgressType) => {
     props
   );
 
+  const [currentValue, setCurrentValue] = useState(propsWithDefault.value);
+
   const id = useMemo(() => Math.random().toString(), []);
 
-  const progress = Math.round(propsWithDefault.value * 100) / 100;
+  const progress =
+    ((currentValue - propsWithDefault.minValue) /
+      (propsWithDefault.maxValue - propsWithDefault.minValue)) *
+    100;
 
   const center = propsWithDefault.width / 2;
   const rotate = 90 + 180 * propsWithDefault.reduction;
@@ -73,73 +89,129 @@ export const CircleProgress = (props: CircleProgressType) => {
     [propsWithDefault.className]
   );
 
+  const handleIncrementValue = () => {
+    setCurrentValue((prevValue) => {
+      const newValue = prevValue + propsWithDefault.intervalValue;
+
+      if (newValue > propsWithDefault.maxValue) {
+        return prevValue;
+      }
+
+      if (propsWithDefault.onChange) {
+        propsWithDefault.onChange(newValue);
+      }
+
+      return newValue;
+    });
+  };
+
+  const handleDecrementValue = () => {
+    setCurrentValue((prevValue) => {
+      const newValue = prevValue - propsWithDefault.intervalValue;
+
+      if (newValue < propsWithDefault.minValue) {
+        return prevValue;
+      }
+
+      if (propsWithDefault.onChange) {
+        propsWithDefault.onChange(newValue);
+      }
+
+      return newValue;
+    });
+  };
+
   return (
-    <div className={style}>
-      <svg
-        viewBox={`0 0 ${propsWithDefault.width} ${propsWithDefault.height}`}
-        className={'block w-full'}
-      >
-        <defs>
-          <linearGradient id={'gradient' + id} x1='0%' y1='0%' x2='0%' y2='100%'>
-            {propsWithDefault.gradient.map(({ stop, color }) => (
-              <stop key={stop} offset={stop * 100 + ('%' || '')} stopColor={color} />
-            ))}
-          </linearGradient>
-        </defs>
+    <div className='flex flex-col items-center'>
+      <div className={style}>
+        <svg
+          viewBox={`0 0 ${propsWithDefault.width} ${propsWithDefault.height}`}
+          className={'block w-full'}
+        >
+          <defs>
+            <linearGradient id={'gradient' + id} x1='0%' y1='0%' x2='0%' y2='100%'>
+              {propsWithDefault.gradient.map(({ stop, color }) => (
+                <stop key={stop} offset={stop * 100 + ('%' || '')} stopColor={color} />
+              ))}
+            </linearGradient>
+          </defs>
 
-        <text x={center + 5} y={center + 10} textAnchor='middle' fontSize='40' fill='#ffffff'>
-          {progress}
-          {propsWithDefault.unit}
-        </text>
+          <text x={center + 5} y={center + 10} textAnchor='middle' fontSize='40' fill='#ffffff'>
+            {progress}
+            {propsWithDefault.unit}
+          </text>
 
-        <circle
-          transform={`rotate(${rotate} ${center} ${center})`}
-          id='path'
-          cx={center}
-          cy={center}
-          r={r}
-          strokeWidth={propsWithDefault.strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference * propsWithDefault.reduction}
-          fill='none'
-          stroke={propsWithDefault.barColor}
-          strokeLinecap='round'
-        />
+          <circle
+            transform={`rotate(${rotate} ${center} ${center})`}
+            id='path'
+            cx={center}
+            cy={center}
+            r={r}
+            strokeWidth={propsWithDefault.strokeWidth}
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference * propsWithDefault.reduction}
+            fill='none'
+            stroke={propsWithDefault.barColor}
+            strokeLinecap='round'
+          />
 
-        <circle
-          style={{
-            transition: `stroke-dashoffset ${propsWithDefault.transitionDuration}s ${propsWithDefault.transitionTimingFunction}`
-          }}
-          transform={`rotate(${rotate} ${center} ${center})`}
-          id='path'
-          cx={center}
-          cy={center}
-          r={r}
-          strokeWidth={propsWithDefault.strokeWidth}
-          strokeDasharray={`${circumference}`}
-          strokeDashoffset={offset}
-          fill='none'
-          stroke={`url(#gradient${id})`}
-          strokeLinecap='round'
-        />
+          <circle
+            style={{
+              transition: `stroke-dashoffset ${propsWithDefault.transitionDuration}s ${propsWithDefault.transitionTimingFunction}`
+            }}
+            transform={`rotate(${rotate} ${center} ${center})`}
+            id='path'
+            cx={center}
+            cy={center}
+            r={r}
+            strokeWidth={propsWithDefault.strokeWidth}
+            strokeDasharray={`${circumference}`}
+            strokeDashoffset={offset}
+            fill='none'
+            stroke={`url(#gradient${id})`}
+            strokeLinecap='round'
+          />
 
-        <circle
-          style={{
-            transition: `stroke-dashoffset ${propsWithDefault.transitionDuration}s ${propsWithDefault.transitionTimingFunction}`
-          }}
-          transform={`rotate(${rotate} ${center} ${center})`}
-          id='path'
-          cx={center}
-          cy={center}
-          r={r}
-          strokeWidth={propsWithDefault.ballStrokeWidth}
-          strokeDasharray={`1 ${circumference}`}
-          strokeDashoffset={offset}
-          fill='none'
-          stroke={propsWithDefault.circleColor}
-          strokeLinecap='round'
-        />
-      </svg>
+          <circle
+            style={{
+              transition: `stroke-dashoffset ${propsWithDefault.transitionDuration}s ${propsWithDefault.transitionTimingFunction}`
+            }}
+            transform={`rotate(${rotate} ${center} ${center})`}
+            id='path'
+            cx={center}
+            cy={center}
+            r={r}
+            strokeWidth={propsWithDefault.ballStrokeWidth}
+            strokeDasharray={`1 ${circumference}`}
+            strokeDashoffset={offset}
+            fill='none'
+            stroke={propsWithDefault.circleColor}
+            strokeLinecap='round'
+          />
+        </svg>
+      </div>
+
+      {propsWithDefault.editable && (
+        <div className='flex flex-row items-center gap-10'>
+          <Button
+            className='!h-4 !w-4 !p-4 text-main-white'
+            variant='secondary'
+            color='graphite'
+            size='md'
+            label='-'
+            onClick={handleDecrementValue}
+          />
+
+          <Button
+            className='!h-4 !w-4 !p-4 text-main-white'
+            variant='secondary'
+            color='graphite'
+            size='md'
+            label='+'
+            onClick={handleIncrementValue}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -4,13 +4,15 @@ import React, { useEffect, useMemo } from 'react';
 import {
   ControlGaugesStateType,
   ControlGaugeType,
-  fetchGetControlGauges
+  fetchGetControlGauges,
+  fetchUpdateControlGauge
 } from 'src/reducers/control-gauges';
 import {
   ControlSwitchesStateType,
   ControlSwitchType,
   fetchGetControlSwitches
 } from 'src/reducers/control-switches';
+import { debounce } from 'src/utils';
 import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
@@ -113,6 +115,11 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
     });
   };
 
+  const handleChangeControlGaugeValue = useMemo(
+    () => debounce((id: string, value: number) => fetchUpdateControlGauge(id, { value }), 800),
+    []
+  );
+
   useEffect(() => {
     const fetchControlData = async () => {
       await fetchGetControlSwitches(projectScreen.id);
@@ -169,36 +176,20 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
             )}
 
             {controlElement.type === ControlElementTypes.GAUGE && (
-              <div className='flex flex-col items-center'>
-                <CircleProgress
-                  className='w-48'
-                  barColor='gray'
-                  circleColor='white'
-                  strokeWidth={8}
-                  reduction={0.15}
-                  value={controlElement.value as number}
-                />
-
-                <div className='flex flex-row items-center gap-10'>
-                  <Button
-                    className='!h-4 !w-4 !p-4 text-main-white'
-                    variant='secondary'
-                    color='graphite'
-                    size='md'
-                    label='-'
-                    onClick={() => {}}
-                  />
-
-                  <Button
-                    className='!h-4 !w-4 !p-4 text-main-white'
-                    variant='secondary'
-                    color='graphite'
-                    size='md'
-                    label='+'
-                    onClick={() => {}}
-                  />
-                </div>
-              </div>
+              <CircleProgress
+                className='w-48'
+                barColor='gray'
+                circleColor='white'
+                strokeWidth={8}
+                reduction={0.15}
+                value={controlElement.value}
+                minValue={controlElement.min_value}
+                maxValue={controlElement.max_value}
+                intervalValue={controlElement.interval_value}
+                unit={controlElement.unit}
+                editable={controlElement.editable}
+                onChange={(value) => handleChangeControlGaugeValue(controlElement.id, value)}
+              />
             )}
           </div>
 
