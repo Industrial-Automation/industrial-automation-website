@@ -14,9 +14,12 @@ export const AddProject: React.FC = () => {
 
   const [name, setName] = useState('');
 
+  const [opcUrl, setOpcUrl] = useState('');
+  const [opcNamespaceIndex, setOpcNamespaceIndex] = useState<number | null>(null);
+
   const handleAddProject = async () => {
-    if (name) {
-      await fetchCreateProject({ name });
+    if (name && opcUrl && typeof opcNamespaceIndex === 'number') {
+      await fetchCreateProject({ name, opc_url: opcUrl, opc_namespace_index: opcNamespaceIndex });
 
       modal({
         name: ModalNames.AddProject,
@@ -27,16 +30,36 @@ export const AddProject: React.FC = () => {
 
   return (
     <div className='flex flex-col items-center gap-5 px-10 pb-5'>
-      <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
+      <Text as='h2' variant='header_2' className='font-lato text-main-white'>
         {Translations.addProjectHeading}
       </Text>
 
       <Input
-        className='mb-5 h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+        className='h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
         labelClassName='text-main-white'
         value={name}
         placeholder={Translations.namePlaceholder}
+        label={Translations.nameLabel}
         onChange={(e) => setName(e.target.value)}
+      />
+
+      <Input
+        className='h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+        labelClassName='text-main-white'
+        value={opcUrl}
+        placeholder={Translations.opcUrlPlaceholder}
+        label={Translations.opcUrlLabel}
+        onChange={(e) => setOpcUrl(e.target.value)}
+      />
+
+      <Input
+        className='mb-5 h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+        type='number'
+        labelClassName='text-main-white'
+        value={opcNamespaceIndex?.toString()}
+        placeholder={Translations.opcNamespaceIndexPlaceholder}
+        label={Translations.opcNamespaceIndexLabel}
+        onChange={(e) => setOpcNamespaceIndex(Number(e.target.value))}
       />
 
       <Button

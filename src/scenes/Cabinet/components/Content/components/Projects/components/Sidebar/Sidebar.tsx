@@ -51,7 +51,12 @@ export const Sidebar = () => {
       },
       variant: {
         type: 'projectMenu',
-        props: { id: project.id, name: project.name }
+        props: {
+          id: project.id,
+          name: project.name,
+          opc_url: project.opc_url,
+          opc_namespace_index: project.opc_namespace_index
+        }
       }
     });
   };

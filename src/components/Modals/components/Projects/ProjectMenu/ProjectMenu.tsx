@@ -9,9 +9,16 @@ import Translations from './translations';
 interface ProjectMenuPropsType {
   id: string;
   name: string;
+  opc_url: string;
+  opc_namespace_index: number;
 }
 
-export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
+export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({
+  id,
+  name,
+  opc_url,
+  opc_namespace_index
+}) => {
   const modal = useModal();
 
   const buttonClass = useMemo(
@@ -48,7 +55,7 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({ id, name }) => {
       },
       variant: {
         type: 'updateProject',
-        props: { id, name }
+        props: { id, name, opc_url, opc_namespace_index }
       }
     });
   };
