@@ -1,5 +1,5 @@
 const Translations = {
-  renameBtn: 'Rename Project',
+  editBtn: 'Edit Project',
 
   deleteBtn: 'Delete Project'
 };

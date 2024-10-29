@@ -39,7 +39,7 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({
     []
   );
 
-  const handleRenameProject = () => {
+  const handleEditProject = () => {
     modal({
       name: ModalNames.ProjectMenu,
       show: false
@@ -90,8 +90,8 @@ export const ProjectMenu: React.FC<ProjectMenuPropsType> = ({
         icon='pencil'
         iconSize='xs'
         iconPosition='left'
-        label={Translations.renameBtn}
-        onClick={handleRenameProject}
+        label={Translations.editBtn}
+        onClick={handleEditProject}
       />
 
       <Button

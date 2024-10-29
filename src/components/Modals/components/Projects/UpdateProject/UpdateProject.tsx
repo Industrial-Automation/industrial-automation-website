@@ -78,7 +78,7 @@ export const UpdateProject: React.FC<UpdateProjectPropsType> = (project) => {
         variant='secondary'
         color='skyblue'
         size='md'
-        label={Translations.renameProjectBtn}
+        label={Translations.updateProjectBtn}
         onClick={handleUpdateProject}
       />
     </div>

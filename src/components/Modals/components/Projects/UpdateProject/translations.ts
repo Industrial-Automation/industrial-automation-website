@@ -9,7 +9,7 @@ const Translations = {
   opcUrlLabel: 'OPC URL',
   opcNamespaceIndexLabel: 'OPC Namespace Index',
 
-  renameProjectBtn: 'Rename Project'
+  updateProjectBtn: 'Update Project'
 };
 
 export default Translations;
