@@ -29,7 +29,7 @@ export const Popup: React.FC<PopupModalType> = (props) => {
 
   const modal = useModal();
 
-  const modalRef = useClickOutside(() =>
+  const modalRef = useClickOutside<HTMLDivElement>(() =>
     modal({
       name: propsWithDefault.name,
       show: false

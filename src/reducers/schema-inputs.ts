@@ -10,7 +10,8 @@ export interface SchemaInputType {
   unit: string;
   width: number;
   height: number;
-  coords: string;
+  x: number;
+  y: number;
   tag: string;
   created_at: string;
   last_updated_at: string;

@@ -12,9 +12,11 @@ import Translations from './translations';
 
 interface AddControlSwitchPropsType {
   screenId: string;
+  x: number;
+  y: number;
 }
 
-export const AddSchemaInput: React.FC<AddControlSwitchPropsType> = ({ screenId }) => {
+export const AddSchemaInput: React.FC<AddControlSwitchPropsType> = ({ screenId, x, y }) => {
   const modal = useModal();
 
   const [title, setTitle] = useState('');
@@ -33,9 +35,10 @@ export const AddSchemaInput: React.FC<AddControlSwitchPropsType> = ({ screenId }
         value: 0,
         unit,
         tag,
-        width: 10,
-        height: 10,
-        coords: 'fdsf'
+        width: 75,
+        height: 25,
+        x,
+        y
       });
 
       modal({

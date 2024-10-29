@@ -36,7 +36,7 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
 
   const modal = useModal();
 
-  const modalRef = useClickOutside(
+  const modalRef = useClickOutside<HTMLDivElement>(
     () =>
       modal({
         name: propsWithDefault.name,

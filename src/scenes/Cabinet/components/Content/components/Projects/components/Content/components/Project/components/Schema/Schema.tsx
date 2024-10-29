@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { Upload } from 'src/components/Upload';
 import { ModalNames } from 'src/constants/modals';
-import { SchemaInputsStateType } from 'src/reducers/schema-inputs';
+import { fetchGetSchemaInputs, SchemaInputsStateType } from 'src/reducers/schema-inputs';
 import { fetchUploadProjectScreen, ProjectScreenType } from 'src/reducers/project-screens';
 
 import { BulbElement } from './components/BulbElement';
@@ -21,6 +21,8 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   const { schema_inputs } = useSelector<any>(
     (state) => state.schema_inputs
   ) as SchemaInputsStateType;
+
+  const imageRef = useRef(null);
 
   const modal = useModal();
 
@@ -58,7 +60,9 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   };
 
   const handleAddSchemaInput = () => {
-    if (projectScreen.id) {
+    if (projectScreen.id && projectScreen.schema_url && imageRef && imageRef.current) {
+      const imageElement = imageRef.current as HTMLImageElement;
+
       modal({
         name: ModalNames.AddSchemaInput,
         show: true,
@@ -69,11 +73,21 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
         },
         variant: {
           type: 'addSchemaInput',
-          props: { screenId: projectScreen.id }
+          props: {
+            screenId: projectScreen.id,
+            x: imageElement.offsetLeft + imageElement.offsetWidth / 2,
+            y: imageElement.offsetTop + imageElement.offsetHeight / 2
+          }
         }
       });
     }
   };
+
+  useEffect(() => {
+    if (!schema_inputs.length && projectScreen.id) {
+      fetchGetSchemaInputs(projectScreen.id);
+    }
+  }, [projectScreen.id, schema_inputs.length]);
 
   return (
     <div className='flex h-full w-full flex-col items-center overflow-hidden'>
@@ -81,6 +95,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
         {isImageExists ? (
           <div className='relative'>
             <img
+              ref={imageRef}
               className='h-full w-full rounded-3xl object-fill'
               src={projectScreen.schema_url}
               alt='schema'
