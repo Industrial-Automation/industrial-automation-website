@@ -25,6 +25,7 @@ import {
 import { Modal } from './components/Modal';
 import { Popup } from './components/Popup';
 import { ContextModal } from './components/ContextModal';
+import { AddSchemaInput } from './components/SchemaInputs';
 import { AddProject, DeleteProject, ProjectMenu, UpdateProject } from './components/Projects';
 import { ConfirmCode, ForgotPassword, ResetPassword, SignIn, SignUp } from './components/Auth';
 
@@ -38,6 +39,7 @@ export const ModalVariants = {
   deleteProject: DeleteProject,
   resetPassword: ResetPassword,
   forgotPassword: ForgotPassword,
+  addSchemaInput: AddSchemaInput,
   addControlGauge: AddControlGauge,
   addControlSwitch: AddControlSwitch,
   addProjectScreen: AddProjectScreen,

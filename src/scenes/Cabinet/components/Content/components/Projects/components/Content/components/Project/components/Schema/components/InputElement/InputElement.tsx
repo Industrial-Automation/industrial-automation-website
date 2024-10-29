@@ -2,17 +2,10 @@ import React, { useState } from 'react';
 import Moveable, { OnDrag, OnResize } from 'react-moveable';
 
 import { useClickOutside } from 'src/hooks/useClickOutside';
-
-interface InputType {
-  id: string;
-  size: { width: number; height: number };
-  coords: { x: number; y: number };
-  value: string | number;
-  tag: string;
-}
+import { SchemaInputType } from 'src/reducers/schema-inputs';
 
 interface InputElementType {
-  input: InputType;
+  input: SchemaInputType;
 }
 
 export const InputElement: React.FC<InputElementType> = ({ input }) => {

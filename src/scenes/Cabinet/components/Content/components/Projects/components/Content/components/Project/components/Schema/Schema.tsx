@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
+import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { Upload } from 'src/components/Upload';
+import { ModalNames } from 'src/constants/modals';
+import { SchemaInputsStateType } from 'src/reducers/schema-inputs';
 import { fetchUploadProjectScreen, ProjectScreenType } from 'src/reducers/project-screens';
 
-import { TextElement } from './components/TextElement';
 import { BulbElement } from './components/BulbElement';
 import { InputElement } from './components/InputElement';
 
@@ -15,27 +18,13 @@ interface SchemaStatePropsType {
 }
 
 export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
+  const { schema_inputs } = useSelector<any>(
+    (state) => state.schema_inputs
+  ) as SchemaInputsStateType;
+
+  const modal = useModal();
+
   const isImageExists = useMemo(() => projectScreen.schema_url, [projectScreen.schema_url]);
-
-  const inputElements = [
-    {
-      id: '1',
-      size: { width: 10, height: 3 },
-      coords: { x: 0, y: 0 },
-      value: 1,
-      tag: ''
-    }
-  ];
-
-  const textElements = [
-    {
-      id: '1',
-      width: 1,
-      height: 2,
-      coords: [10, 1],
-      value: 1
-    }
-  ];
 
   const bulbElements = [
     {
@@ -68,6 +57,24 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
     await fetchUploadProjectScreen(projectScreen.id, formData);
   };
 
+  const handleAddSchemaInput = () => {
+    if (projectScreen.id) {
+      modal({
+        name: ModalNames.AddSchemaInput,
+        show: true,
+        isOverlay: true,
+        frame: {
+          type: 'modal',
+          props: {}
+        },
+        variant: {
+          type: 'addSchemaInput',
+          props: { screenId: projectScreen.id }
+        }
+      });
+    }
+  };
+
   return (
     <div className='flex h-full w-full flex-col items-center overflow-hidden'>
       <div className='mb-5 h-full w-full overflow-hidden px-14'>
@@ -79,12 +86,8 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
               alt='schema'
             />
 
-            {inputElements.map((inputElement) => (
+            {schema_inputs.map((inputElement) => (
               <InputElement key={inputElement.id} input={inputElement} />
-            ))}
-
-            {textElements.map((textElement) => (
-              <TextElement key={textElement.id} />
             ))}
 
             {bulbElements.map((bulbElement) => (
@@ -102,9 +105,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
       </div>
 
       <div className='flex flex-row gap-5'>
-        <Button icon='text' iconSize='xs' iconColor='white' onClick={() => {}} />
-
-        <Button icon='input' iconSize='xs' iconColor='white' onClick={() => {}} />
+        <Button icon='input' iconSize='xs' iconColor='white' onClick={handleAddSchemaInput} />
 
         <Button icon='bulb' iconSize='xs' iconColor='white' onClick={() => {}} />
       </div>
