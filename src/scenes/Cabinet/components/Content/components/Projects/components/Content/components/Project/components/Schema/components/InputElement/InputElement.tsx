@@ -18,7 +18,7 @@ interface InputElementType {
 export const InputElement: React.FC<InputElementType> = ({ input }) => {
   const [isSelected, setIsSelected] = useState(false);
 
-  const inputElementRef = useClickOutside<HTMLInputElement>(() => setIsSelected(false));
+  const inputElementRef = useClickOutside(() => setIsSelected(false));
 
   const handleOnSelect = () => {
     setIsSelected(true);
@@ -39,13 +39,8 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
   };
 
   return (
-    <>
-      <input
-        className='w-20 rounded-2xl px-3'
-        ref={inputElementRef}
-        value={input.value}
-        onClick={handleOnSelect}
-      />
+    <div className='w-20' ref={inputElementRef}>
+      <input className='w-full rounded-2xl px-3' value={input.value} onClick={handleOnSelect} />
 
       <Moveable
         className='ring-0'
@@ -57,6 +52,6 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
         onResize={handleOnResize}
         edge={false}
       />
-    </>
+    </div>
   );
 };
