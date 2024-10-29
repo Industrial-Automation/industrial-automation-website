@@ -12,6 +12,7 @@ export interface ControlGaugeType {
   interval_value: number;
   unit: string;
   editable: boolean;
+  tag: string;
   created_at: string;
   last_updated_at: string;
 }

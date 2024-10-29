@@ -19,6 +19,7 @@ interface UpdateControlGaugePropsType {
   max_value: number;
   interval_value: number;
   unit: string;
+  tag: string;
   editable: boolean;
 }
 
@@ -34,10 +35,12 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
 
   const [unit, setUnit] = useState(controlGauge.unit);
 
+  const [tag, setTag] = useState(controlGauge.tag);
+
   const [isEditable, setIsEditable] = useState(controlGauge.editable);
 
   const handleUpdateControlGauge = async () => {
-    if (controlGauge.id && title && unit) {
+    if (controlGauge.id && title && unit && tag) {
       await fetchUpdateControlGauge(controlGauge.id, {
         title,
         description,
@@ -45,6 +48,7 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
         max_value: maxValue,
         interval_value: intervalValue,
         unit,
+        tag,
         editable: isEditable
       });
 
@@ -123,6 +127,15 @@ export const UpdateControlGauge: React.FC<UpdateControlGaugePropsType> = (contro
             />
           </div>
         </div>
+
+        <Input
+          className='h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+          labelClassName='text-main-white'
+          value={tag}
+          placeholder={Translations.tagPlaceholder}
+          label={Translations.tabLabel}
+          onChange={(e) => setTag(e.target.value)}
+        />
 
         <Switcher
           containerClassName='w-80 mb-5'

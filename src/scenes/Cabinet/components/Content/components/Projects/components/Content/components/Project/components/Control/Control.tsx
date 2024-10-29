@@ -83,6 +83,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
           id: controlSwitch.id,
           title: controlSwitch.title,
           description: controlSwitch.description || '',
+          tag: controlSwitch.tag,
           editable: controlSwitch.editable
         }
       }
@@ -109,6 +110,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
           max_value: controlGauge.max_value,
           interval_value: controlGauge.interval_value,
           unit: controlGauge.unit,
+          tag: controlGauge.tag,
           editable: controlGauge.editable
         }
       }

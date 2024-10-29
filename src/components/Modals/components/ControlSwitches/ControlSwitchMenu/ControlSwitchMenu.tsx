@@ -10,6 +10,7 @@ interface ControlSwitchMenuPropsType {
   id: string;
   title: string;
   description: string;
+  tag: string;
   editable: boolean;
 }
 
@@ -17,6 +18,7 @@ export const ControlSwitchMenu: React.FC<ControlSwitchMenuPropsType> = ({
   id,
   title,
   description,
+  tag,
   editable
 }) => {
   const modal = useModal();
@@ -55,7 +57,7 @@ export const ControlSwitchMenu: React.FC<ControlSwitchMenuPropsType> = ({
       },
       variant: {
         type: 'updateControlSwitch',
-        props: { id, title, description, editable }
+        props: { id, title, description, tag, editable }
       }
     });
   };

@@ -7,11 +7,13 @@ const Translations = {
   maxValueLabel: 'Max',
   intervalValueLabel: 'Interval',
   unitLabel: 'Unit',
+  tabLabel: 'Tag',
   editableLabel: 'Editable:',
 
   titlePlaceholder: 'Enter Title',
   descriptionPlaceholder: 'Enter Description',
   unitPlaceholder: 'Enter Unit',
+  tagPlaceholder: 'Enter Tag',
 
   updatedGaugeBtn: 'Update Gauge'
 };

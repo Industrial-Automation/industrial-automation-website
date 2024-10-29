@@ -27,10 +27,12 @@ export const AddControlGauge: React.FC<AddControlGaugePropsType> = ({ screenId }
 
   const [unit, setUnit] = useState('');
 
+  const [tag, setTag] = useState('');
+
   const [isEditable, setIsEditable] = useState(false);
 
   const handleAddControlGauge = async () => {
-    if (screenId && title && unit) {
+    if (screenId && title && unit && tag) {
       await fetchCreateControlGauge({
         screen_id: screenId,
         title,
@@ -39,6 +41,7 @@ export const AddControlGauge: React.FC<AddControlGaugePropsType> = ({ screenId }
         max_value: maxValue,
         interval_value: intervalValue,
         unit,
+        tag,
         editable: isEditable,
         value: 0
       });
@@ -118,6 +121,15 @@ export const AddControlGauge: React.FC<AddControlGaugePropsType> = ({ screenId }
             />
           </div>
         </div>
+
+        <Input
+          className='h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+          labelClassName='text-main-white'
+          value={tag}
+          placeholder={Translations.tagPlaceholder}
+          label={Translations.tabLabel}
+          onChange={(e) => setTag(e.target.value)}
+        />
 
         <Switcher
           containerClassName='w-80 mb-5'

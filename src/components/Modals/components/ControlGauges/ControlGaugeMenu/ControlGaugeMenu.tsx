@@ -14,6 +14,7 @@ interface ControlGaugeMenuPropsType {
   max_value: number;
   interval_value: number;
   unit: string;
+  tag: string;
   editable: boolean;
 }
 
@@ -25,6 +26,7 @@ export const ControlGaugeMenu: React.FC<ControlGaugeMenuPropsType> = ({
   max_value,
   interval_value,
   unit,
+  tag,
   editable
 }) => {
   const modal = useModal();
@@ -63,7 +65,7 @@ export const ControlGaugeMenu: React.FC<ControlGaugeMenuPropsType> = ({
       },
       variant: {
         type: 'updateControlGauge',
-        props: { id, title, description, min_value, max_value, interval_value, unit, editable }
+        props: { id, title, description, min_value, max_value, interval_value, unit, tag, editable }
       }
     });
   };
