@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export const useClickOutside = <T extends Element>(callback: VoidFunction, el?: T) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
     const onClick = (e: Event) =>
