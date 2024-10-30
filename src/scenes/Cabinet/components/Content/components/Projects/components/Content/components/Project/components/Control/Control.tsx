@@ -140,7 +140,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
     <div className='scrollbar grid h-full w-full grid-cols-3 gap-5 overflow-y-auto p-2'>
       {controlElements.map((controlElement) => (
         <div
-          key={controlElement.id}
+          key={controlElement.last_updated_at}
           className='flex flex-col justify-between gap-4 rounded-3xl bg-subtone-black-5 p-3'
         >
           <div className='flex flex-row items-center justify-between'>

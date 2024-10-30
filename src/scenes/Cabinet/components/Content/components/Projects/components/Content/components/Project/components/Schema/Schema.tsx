@@ -84,10 +84,16 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   };
 
   useEffect(() => {
-    if (!schema_inputs.length && projectScreen.id) {
-      fetchGetSchemaInputs(projectScreen.id);
-    }
-  }, [projectScreen.id, schema_inputs.length]);
+    const fetchSchemaData = async () => {
+      await fetchGetSchemaInputs(projectScreen.id);
+    };
+
+    fetchSchemaData();
+
+    const intervalId = setInterval(fetchSchemaData, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [projectScreen.id]);
 
   return (
     <div className='flex h-full w-full flex-col items-center overflow-hidden'>
@@ -102,7 +108,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
             />
 
             {schema_inputs.map((inputElement) => (
-              <InputElement key={inputElement.id} input={inputElement} />
+              <InputElement key={inputElement.last_updated_at} input={inputElement} />
             ))}
 
             {bulbElements.map((bulbElement) => (
