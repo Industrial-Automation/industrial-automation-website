@@ -2,6 +2,11 @@ import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 import {
+  fetchGetSchemaBulbs,
+  fetchUpdateSchemaBulb,
+  SchemaBulbsStateType
+} from 'src/reducers/schema-bulbs';
+import {
   fetchGetSchemaInputs,
   fetchUpdateSchemaInput,
   SchemaInputsStateType
@@ -27,22 +32,13 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
     (state) => state.schema_inputs
   ) as SchemaInputsStateType;
 
+  const { schema_bulbs } = useSelector<any>((state) => state.schema_bulbs) as SchemaBulbsStateType;
+
   const imageRef = useRef(null);
 
   const modal = useModal();
 
   const isImageExists = useMemo(() => projectScreen.schema_url, [projectScreen.schema_url]);
-
-  const bulbElements = [
-    {
-      id: '1',
-      width: 1,
-      height: 2,
-      coords: [10, 1],
-      value: 1,
-      tag: ''
-    }
-  ];
 
   const handleSelectFile = async (files: FileList) => {
     if (!files.length || files.length > 1) {
@@ -93,9 +89,40 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
     []
   );
 
+  const handleAddSchemaBulb = () => {
+    if (projectScreen.id && projectScreen.schema_url && imageRef && imageRef.current) {
+      const imageElement = imageRef.current as HTMLImageElement;
+
+      modal({
+        name: ModalNames.AddSchemaBulb,
+        show: true,
+        isOverlay: true,
+        frame: {
+          type: 'modal',
+          props: {}
+        },
+        variant: {
+          type: 'addSchemaBulb',
+          props: {
+            screenId: projectScreen.id,
+            x: imageElement.offsetLeft + imageElement.offsetWidth / 2,
+            y: imageElement.offsetTop + imageElement.offsetHeight / 2
+          }
+        }
+      });
+    }
+  };
+
+  const handleUpdateSchemaBulb = useMemo(
+    () => debounce((id, data) => fetchUpdateSchemaBulb(id, data), 800),
+    []
+  );
+
   useEffect(() => {
     const fetchSchemaData = async () => {
       await fetchGetSchemaInputs(projectScreen.id);
+
+      await fetchGetSchemaBulbs(projectScreen.id);
     };
 
     fetchSchemaData();
@@ -125,8 +152,12 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
               />
             ))}
 
-            {bulbElements.map((bulbElement) => (
-              <BulbElement key={bulbElement.id} />
+            {schema_bulbs.map((bulbElement) => (
+              <BulbElement
+                key={bulbElement.last_updated_at}
+                bulb={bulbElement}
+                onChange={handleUpdateSchemaBulb}
+              />
             ))}
           </div>
         ) : (
@@ -142,7 +173,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
       <div className='flex flex-row gap-5'>
         <Button icon='input' iconSize='xs' iconColor='white' onClick={handleAddSchemaInput} />
 
-        <Button icon='bulb' iconSize='xs' iconColor='white' onClick={() => {}} />
+        <Button icon='bulb' iconSize='xs' iconColor='white' onClick={handleAddSchemaBulb} />
       </div>
     </div>
   );

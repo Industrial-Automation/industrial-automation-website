@@ -6,43 +6,48 @@ import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { ModalNames } from 'src/constants/modals';
 import { Textarea } from 'src/components/Textarea';
-import { fetchCreateSchemaInput } from 'src/reducers/schema-inputs';
+import { fetchCreateSchemaBulb } from 'src/reducers/schema-bulbs';
 
 import Translations from './translations';
 
-interface AddSchemaInputPropsType {
+interface AddSchemaBulbPropsType {
   screenId: string;
   x: number;
   y: number;
 }
 
-export const AddSchemaInput: React.FC<AddSchemaInputPropsType> = ({ screenId, x, y }) => {
+export const AddSchemaBulb: React.FC<AddSchemaBulbPropsType> = ({ screenId, x, y }) => {
   const modal = useModal();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(0);
+
   const [unit, setUnit] = useState('');
 
   const [tag, setTag] = useState('');
 
-  const handleAddSchemaInput = async () => {
-    if (screenId && title && tag) {
-      await fetchCreateSchemaInput({
+  const handleAddSchemaBulb = async () => {
+    if (screenId && title && unit && tag) {
+      await fetchCreateSchemaBulb({
         screen_id: screenId,
         title,
         description,
         value: 0,
+        min_value: minValue,
+        max_value: maxValue,
         unit,
         tag,
-        width: 75,
-        height: 25,
+        width: 20,
+        height: 20,
         x,
         y
       });
 
       modal({
-        name: ModalNames.AddSchemaInput,
+        name: ModalNames.AddSchemaBulb,
         show: false
       });
     }
@@ -51,7 +56,7 @@ export const AddSchemaInput: React.FC<AddSchemaInputPropsType> = ({ screenId, x,
   return (
     <div className='flex flex-col items-center overflow-hidden'>
       <Text as='h2' variant='header_2' className='mb-5 font-lato text-main-white'>
-        {Translations.addInputHeading}
+        {Translations.addBulbHeading}
       </Text>
 
       <div className='modal-scrollbar flex flex-col items-center gap-5 overflow-y-auto px-10 pb-5'>
@@ -74,6 +79,26 @@ export const AddSchemaInput: React.FC<AddSchemaInputPropsType> = ({ screenId, x,
           onChange={(e) => setDescription(e.target.value)}
           maxLength={150}
         />
+
+        <div className='flex w-80 flex-row items-center gap-5'>
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            type='number'
+            value={minValue.toString()}
+            label={Translations.minValueLabel}
+            onChange={(e) => setMinValue(Number(e.target.value))}
+          />
+
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            labelClassName='text-main-white'
+            type='number'
+            value={maxValue.toString()}
+            label={Translations.maxValueLabel}
+            onChange={(e) => setMaxValue(Number(e.target.value))}
+          />
+        </div>
 
         <Input
           className='h-14 w-80 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
@@ -98,8 +123,8 @@ export const AddSchemaInput: React.FC<AddSchemaInputPropsType> = ({ screenId, x,
           variant='secondary'
           color='skyblue'
           size='md'
-          label={Translations.newInputBtn}
-          onClick={handleAddSchemaInput}
+          label={Translations.newBulbBtn}
+          onClick={handleAddSchemaBulb}
         />
       </div>
     </div>

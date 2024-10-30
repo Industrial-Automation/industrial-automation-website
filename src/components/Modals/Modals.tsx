@@ -25,6 +25,7 @@ import {
 import { Modal } from './components/Modal';
 import { Popup } from './components/Popup';
 import { ContextModal } from './components/ContextModal';
+import { AddSchemaBulb, SchemaBulbMenu } from './components/SchemaBulbs';
 import { AddSchemaInput, SchemaInputMenu } from './components/SchemaInputs';
 import { AddProject, DeleteProject, ProjectMenu, UpdateProject } from './components/Projects';
 import { ConfirmCode, ForgotPassword, ResetPassword, SignIn, SignUp } from './components/Auth';
@@ -38,8 +39,10 @@ export const ModalVariants = {
   updateProject: UpdateProject,
   deleteProject: DeleteProject,
   resetPassword: ResetPassword,
+  addSchemaBulb: AddSchemaBulb,
   forgotPassword: ForgotPassword,
   addSchemaInput: AddSchemaInput,
+  schemaBulbMenu: SchemaBulbMenu,
   addControlGauge: AddControlGauge,
   schemaInputMenu: SchemaInputMenu,
   addControlSwitch: AddControlSwitch,
