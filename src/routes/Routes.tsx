@@ -9,7 +9,8 @@ export const enum Paths {
   Projects = '/cabinet/projects',
   Security = '/cabinet/security',
   Settings = '/cabinet/settings',
-  Project = '/cabinet/projects/:id'
+  Project = '/cabinet/projects/:id',
+  SignOut = '/cabinet/sign-out'
 }
 
 export const routes = [
@@ -47,6 +48,10 @@ export const routes = [
       {
         path: Paths.Settings,
         element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/Settings'))
+      },
+      {
+        path: Paths.SignOut,
+        element: LazyLoad(() => import('../scenes/Cabinet/components/Content/components/SignOut'))
       }
     ]
   },

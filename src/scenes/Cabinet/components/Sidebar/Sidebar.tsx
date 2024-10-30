@@ -41,7 +41,7 @@ const additionalMenu = [
   {
     title: Translations.signOut,
     icon: 'exit',
-    link: '/sign-out'
+    link: Paths.SignOut
   }
 ];
 
