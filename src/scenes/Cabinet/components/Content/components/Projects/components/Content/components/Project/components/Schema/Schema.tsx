@@ -1,11 +1,16 @@
 import { useSelector } from 'react-redux';
 import React, { useEffect, useMemo, useRef } from 'react';
 
+import {
+  fetchGetSchemaInputs,
+  fetchUpdateSchemaInput,
+  SchemaInputsStateType
+} from 'src/reducers/schema-inputs';
+import { debounce } from 'src/utils';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
 import { Upload } from 'src/components/Upload';
 import { ModalNames } from 'src/constants/modals';
-import { fetchGetSchemaInputs, SchemaInputsStateType } from 'src/reducers/schema-inputs';
 import { fetchUploadProjectScreen, ProjectScreenType } from 'src/reducers/project-screens';
 
 import { BulbElement } from './components/BulbElement';
@@ -83,6 +88,11 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
     }
   };
 
+  const handleUpdateSchemaInput = useMemo(
+    () => debounce((id, data) => fetchUpdateSchemaInput(id, data), 800),
+    []
+  );
+
   useEffect(() => {
     const fetchSchemaData = async () => {
       await fetchGetSchemaInputs(projectScreen.id);
@@ -108,7 +118,11 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
             />
 
             {schema_inputs.map((inputElement) => (
-              <InputElement key={inputElement.last_updated_at} input={inputElement} />
+              <InputElement
+                key={inputElement.last_updated_at}
+                input={inputElement}
+                onChange={handleUpdateSchemaInput}
+              />
             ))}
 
             {bulbElements.map((bulbElement) => (

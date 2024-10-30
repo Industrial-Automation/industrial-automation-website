@@ -8,9 +8,10 @@ import { SchemaInputType } from 'src/reducers/schema-inputs';
 
 interface InputElementType {
   input: SchemaInputType;
+  onChange: (id: string, data: Partial<SchemaInputType>) => void;
 }
 
-export const InputElement: React.FC<InputElementType> = ({ input }) => {
+export const InputElement: React.FC<InputElementType> = ({ input, onChange }) => {
   const modal = useModal();
 
   const [isSelected, setIsSelected] = useState(false);
@@ -28,16 +29,15 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
   const handleOnDrag = ({ target, top, left }: OnDrag) => {
     target.style.top = top + 'px';
     target.style.left = left + 'px';
+
+    onChange(input.id, { x: left, y: top });
   };
 
-  const handleOnResize = ({ delta, target, width, height }: OnResize) => {
-    if (delta[0]) {
-      target.style.width = width + 'px';
-    }
+  const handleOnResize = ({ target, width, height }: OnResize) => {
+    target.style.width = width + 'px';
+    target.style.height = height + 'px';
 
-    if (delta[1]) {
-      target.style.height = height + 'px';
-    }
+    onChange(input.id, { width, height });
   };
 
   useEffect(() => {
