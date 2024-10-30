@@ -19,6 +19,8 @@ type ContextModalType = {
   readonly size?: keyof typeof sizeClasses;
 
   readonly element: Element;
+
+  readonly prioritySide?: 'left' | 'right';
 } & ModalFrameDefaultProps<ModalNames, keyof typeof ModalVariants>;
 
 interface ModalPositionType {
@@ -29,7 +31,8 @@ interface ModalPositionType {
 export const ContextModal: React.FC<ContextModalType> = (props) => {
   const propsWithDefault = merge(
     {
-      size: 'md'
+      size: 'md',
+      prioritySide: 'right'
     } as Required<ContextModalType>,
     props
   );
@@ -65,9 +68,12 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
 
   useEffect(() => {
     if (modalRef && modalRef.current) {
-      const { left, top, height, width } = propsWithDefault.element.getBoundingClientRect();
+      const { left, top, right, height, width } = propsWithDefault.element.getBoundingClientRect();
 
-      const x = left + width + 25;
+      const x =
+        propsWithDefault.prioritySide === 'right'
+          ? left + width + 25
+          : right - width - modalRef.current.offsetWidth - 25;
       const y = top - height;
 
       setModalPosition({
@@ -81,7 +87,7 @@ export const ContextModal: React.FC<ContextModalType> = (props) => {
             : y
       });
     }
-  }, [modalRef, propsWithDefault.element]);
+  }, [modalRef, propsWithDefault.element, propsWithDefault.prioritySide]);
 
   useEffect(() => {
     if (modalRef && modalRef.current && modalPosition) {

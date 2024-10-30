@@ -10,6 +10,7 @@ export enum ModalNames {
   ForgotPassword = 'ForgotPassword',
   AddSchemaInput = 'AddSchemaInput',
   AddControlGauge = 'AddControlGauge',
+  SchemaInputMenu = 'SchemaInputMenu',
   AddProjectScreen = 'AddProjectScreen',
   AddControlSwitch = 'AddControlSwitch',
   ControlGaugeMenu = 'ControlGaugeMenu',
