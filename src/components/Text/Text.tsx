@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { merge } from 'src/utils';
 
@@ -81,6 +82,23 @@ export const Text = (props: TextType) => {
       propsWithDefault.variant
     ]
   );
+
+  if (propsWithDefault.as === 'a' && propsWithDefault.href) {
+    return (
+      <Link className={elementClasses} to={propsWithDefault.href}>
+        {propsWithDefault.children}
+
+        {propsWithDefault.icon && (
+          <Icons
+            className={propsWithDefault.iconClassName}
+            variant={propsWithDefault.icon}
+            color={propsWithDefault.iconColor}
+            size={propsWithDefault.iconSize}
+          />
+        )}
+      </Link>
+    );
+  }
 
   return React.createElement(
     propsWithDefault.as,
