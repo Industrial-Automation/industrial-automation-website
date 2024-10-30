@@ -15,7 +15,11 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
 
   const [isSelected, setIsSelected] = useState(false);
 
-  const inputElementRef = useClickOutside<HTMLInputElement>(() => setIsSelected(false));
+  const inputElementRef = useClickOutside<HTMLInputElement>(
+    () => setIsSelected(false),
+    undefined,
+    'schema-input-menu'
+  );
 
   const handleOnSelect = () => {
     setIsSelected(true);
@@ -48,6 +52,15 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
 
   useEffect(() => {
     if (isSelected && inputElementRef && inputElementRef.current) {
+      const callback = () => {
+        modal({
+          name: ModalNames.SchemaInputMenu,
+          show: false
+        });
+
+        setIsSelected(false);
+      };
+
       modal({
         name: ModalNames.SchemaInputMenu,
         show: true,
@@ -67,7 +80,8 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
             title: input.title,
             description: input.description || '',
             unit: input.unit,
-            tag: input.tag
+            tag: input.tag,
+            callback
           }
         }
       });
@@ -77,7 +91,15 @@ export const InputElement: React.FC<InputElementType> = ({ input }) => {
         show: false
       });
     }
-  }, [inputElementRef, isSelected]);
+  }, [
+    input.description,
+    input.id,
+    input.tag,
+    input.title,
+    input.unit,
+    inputElementRef,
+    isSelected
+  ]);
 
   return (
     <>

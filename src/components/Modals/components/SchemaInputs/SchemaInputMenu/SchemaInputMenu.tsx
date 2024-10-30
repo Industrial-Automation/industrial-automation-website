@@ -14,6 +14,7 @@ interface SchemaInputMenuPropsType {
   description: string;
   unit: string;
   tag: string;
+  callback: () => void;
 }
 
 export const SchemaInputMenu: React.FC<SchemaInputMenuPropsType> = (schemaInput) => {
@@ -27,17 +28,24 @@ export const SchemaInputMenu: React.FC<SchemaInputMenuPropsType> = (schemaInput)
   const handleUpdateSchemaInput = async () => {
     if (schemaInput.id && title && unit && tag) {
       await fetchUpdateSchemaInput(schemaInput.id, { title, description, unit, tag });
+
+      schemaInput.callback();
     }
   };
 
   const handleDeleteSchemaInput = async () => {
     if (schemaInput.id) {
       await fetchDeleteSchemaInput(schemaInput.id);
+
+      schemaInput.callback();
     }
   };
 
   return (
-    <div className='flex w-full flex-col items-center overflow-hidden pr-2'>
+    <div
+      id='schema-input-menu'
+      className='flex w-full flex-col items-center overflow-hidden pb-3 pr-2'
+    >
       <Text as='h3' variant='header_3' className='my-2 font-lato text-main-white'>
         {Translations.inputHeading}
       </Text>
@@ -81,7 +89,7 @@ export const SchemaInputMenu: React.FC<SchemaInputMenuPropsType> = (schemaInput)
           onChange={(e) => setTag(e.target.value)}
         />
 
-        <div className='mb-5 flex w-44 flex-row items-center justify-between'>
+        <div className='flex w-44 flex-row items-center justify-between'>
           <Button
             className='w-20'
             variant='primary'

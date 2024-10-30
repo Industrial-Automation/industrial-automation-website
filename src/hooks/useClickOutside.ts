@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 
 export const useClickOutside = <T extends HTMLElement, F extends Element = Element>(
   callback: VoidFunction,
-  el?: F
+  el?: F,
+  id?: string
 ) => {
   const ref = useRef<T | null>(null);
 
@@ -11,6 +12,7 @@ export const useClickOutside = <T extends HTMLElement, F extends Element = Eleme
       ref.current &&
       !ref.current.contains(e.target as Node | null) &&
       (el ? !el.contains(e.target as Node | null) : true) &&
+      (id && e.target ? !(e.target as Element).closest(`#${id}`) : true) &&
       callback();
 
     const timeoutId = setTimeout(() => {
@@ -22,7 +24,7 @@ export const useClickOutside = <T extends HTMLElement, F extends Element = Eleme
 
       document.body.removeEventListener('click', onClick);
     };
-  }, [callback, el]);
+  }, [callback, el, id]);
 
   return ref;
 };

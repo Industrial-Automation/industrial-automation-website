@@ -114,7 +114,7 @@ export default function (state = initialState, action: ActionDispatchType) {
 
       return {
         ...state,
-        control_switches: state.schema_inputs.map((schema_input) =>
+        schema_inputs: state.schema_inputs.map((schema_input) =>
           schema_input.id === (data?.schema_input as SchemaInputType).id
             ? data?.schema_input
             : schema_input
