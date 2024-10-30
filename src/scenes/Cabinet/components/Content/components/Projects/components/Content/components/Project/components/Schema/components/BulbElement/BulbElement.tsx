@@ -1,5 +1,5 @@
-import React, { KeyboardEvent, useEffect, useState } from 'react';
 import Moveable, { OnDrag, OnResize } from 'react-moveable';
+import React, { KeyboardEvent, useEffect, useMemo, useState } from 'react';
 
 import { useModal } from 'src/hooks/useModal';
 import { ModalNames } from 'src/constants/modals';
@@ -21,6 +21,30 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
     undefined,
     'schema-bulb-menu'
   );
+
+  const colorClass = useMemo(() => {
+    if (
+      (bulb.critical_min_value && bulb.value <= bulb.critical_min_value) ||
+      (bulb.critical_max_value && bulb.value >= bulb.critical_max_value)
+    ) {
+      return 'bg-main-red';
+    }
+
+    if (
+      (bulb.warning_min_value && bulb.value <= bulb.warning_min_value) ||
+      (bulb.warning_max_value && bulb.value >= bulb.warning_max_value)
+    ) {
+      return 'bg-main-red';
+    }
+
+    return 'bg-main-green';
+  }, [
+    bulb.critical_max_value,
+    bulb.critical_min_value,
+    bulb.value,
+    bulb.warning_max_value,
+    bulb.warning_min_value
+  ]);
 
   const handleOnSelect = () => {
     setIsSelected(true);
@@ -85,8 +109,10 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
             id: bulb.id,
             title: bulb.title,
             description: bulb.description || '',
-            min_value: bulb.min_value,
-            max_value: bulb.max_value,
+            warning_min_value: bulb.warning_min_value,
+            warning_max_value: bulb.warning_max_value,
+            critical_min_value: bulb.critical_min_value,
+            critical_max_value: bulb.critical_max_value,
             unit: bulb.unit,
             tag: bulb.tag,
             callback
@@ -100,13 +126,15 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
       });
     }
   }, [
+    bulb.critical_max_value,
+    bulb.critical_min_value,
     bulb.description,
     bulb.id,
-    bulb.max_value,
-    bulb.min_value,
     bulb.tag,
     bulb.title,
     bulb.unit,
+    bulb.warning_max_value,
+    bulb.warning_min_value,
     bulbElementRef,
     isSelected
   ]);
@@ -116,7 +144,7 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
       <div
         role='button'
         tabIndex={0}
-        className='absolute h-2 w-2 rounded-full bg-main-white'
+        className={`absolute h-2 w-2 rounded-full ring-1 ring-main-gray ${colorClass}`}
         onClick={handleOnSelect}
         ref={bulbElementRef}
         onKeyDown={handleKeyDown}

@@ -22,8 +22,11 @@ export const AddSchemaBulb: React.FC<AddSchemaBulbPropsType> = ({ screenId, x, y
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(0);
+  const [warningMinValue, setWarningMinValue] = useState<number | null>(null);
+  const [warningMaxValue, setWarningMaxValue] = useState<number | null>(null);
+
+  const [criticalMinValue, setCriticalMinValue] = useState<number | null>(null);
+  const [criticalMaxValue, setCriticalMaxValue] = useState<number | null>(null);
 
   const [unit, setUnit] = useState('');
 
@@ -36,8 +39,10 @@ export const AddSchemaBulb: React.FC<AddSchemaBulbPropsType> = ({ screenId, x, y
         title,
         description,
         value: 0,
-        min_value: minValue,
-        max_value: maxValue,
+        warning_min_value: warningMinValue,
+        warning_max_value: warningMaxValue,
+        critical_min_value: criticalMinValue,
+        critical_max_value: criticalMaxValue,
         unit,
         tag,
         width: 20,
@@ -82,21 +87,45 @@ export const AddSchemaBulb: React.FC<AddSchemaBulbPropsType> = ({ screenId, x, y
 
         <div className='flex w-80 flex-row items-center gap-5'>
           <Input
-            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
             labelClassName='text-main-white'
             type='number'
-            value={minValue.toString()}
-            label={Translations.minValueLabel}
-            onChange={(e) => setMinValue(Number(e.target.value))}
+            placeholder={Translations.warningMinValuePlaceholder}
+            value={warningMinValue?.toString()}
+            label={Translations.warningMinValueLabel}
+            onChange={(e) => setWarningMinValue(Number(e.target.value))}
           />
 
           <Input
-            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
             labelClassName='text-main-white'
             type='number'
-            value={maxValue.toString()}
-            label={Translations.maxValueLabel}
-            onChange={(e) => setMaxValue(Number(e.target.value))}
+            placeholder={Translations.warningMaxValuePlaceholder}
+            value={warningMaxValue?.toString()}
+            label={Translations.warningMaxValueLabel}
+            onChange={(e) => setWarningMaxValue(Number(e.target.value))}
+          />
+        </div>
+
+        <div className='flex w-80 flex-row items-center gap-5'>
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+            labelClassName='text-main-white'
+            type='number'
+            placeholder={Translations.criticalMinValuePlaceholder}
+            value={criticalMinValue?.toString()}
+            label={Translations.criticalMinValueLabel}
+            onChange={(e) => setCriticalMinValue(Number(e.target.value))}
+          />
+
+          <Input
+            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-sm'
+            labelClassName='text-main-white'
+            type='number'
+            placeholder={Translations.criticalMaxValuePlaceholder}
+            value={criticalMaxValue?.toString()}
+            label={Translations.criticalMaxValueLabel}
+            onChange={(e) => setCriticalMaxValue(Number(e.target.value))}
           />
         </div>
 

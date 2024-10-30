@@ -12,8 +12,10 @@ interface SchemaBulbMenuPropsType {
   id: string;
   title: string;
   description: string;
-  min_value: number;
-  max_value: number;
+  warning_min_value: number | null;
+  warning_max_value: number | null;
+  critical_min_value: number | null;
+  critical_max_value: number | null;
   unit: string;
   tag: string;
   callback: () => void;
@@ -23,8 +25,19 @@ export const SchemaBulbMenu: React.FC<SchemaBulbMenuPropsType> = (schemaBulb) =>
   const [title, setTitle] = useState(schemaBulb.title);
   const [description, setDescription] = useState(schemaBulb.description);
 
-  const [minValue, setMinValue] = useState(schemaBulb.min_value);
-  const [maxValue, setMaxValue] = useState(schemaBulb.max_value);
+  const [warningMinValue, setWarningMinValue] = useState<number | null>(
+    schemaBulb.warning_min_value
+  );
+  const [warningMaxValue, setWarningMaxValue] = useState<number | null>(
+    schemaBulb.warning_max_value
+  );
+
+  const [criticalMinValue, setCriticalMinValue] = useState<number | null>(
+    schemaBulb.critical_min_value
+  );
+  const [criticalMaxValue, setCriticalMaxValue] = useState<number | null>(
+    schemaBulb.critical_max_value
+  );
 
   const [unit, setUnit] = useState(schemaBulb.unit);
 
@@ -35,8 +48,10 @@ export const SchemaBulbMenu: React.FC<SchemaBulbMenuPropsType> = (schemaBulb) =>
       await fetchUpdateSchemaBulb(schemaBulb.id, {
         title,
         description,
-        min_value: minValue,
-        max_value: maxValue,
+        warning_min_value: warningMinValue,
+        warning_max_value: warningMaxValue,
+        critical_min_value: criticalMinValue,
+        critical_max_value: criticalMaxValue,
         unit,
         tag
       });
@@ -83,25 +98,45 @@ export const SchemaBulbMenu: React.FC<SchemaBulbMenuPropsType> = (schemaBulb) =>
           maxLength={150}
         />
 
-        <div className='flex w-44 flex-row items-center gap-5'>
-          <Input
-            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
-            labelClassName='text-main-white'
-            type='number'
-            value={minValue.toString()}
-            label={Translations.minValueLabel}
-            onChange={(e) => setMinValue(Number(e.target.value))}
-          />
+        <Input
+          className='h-8 w-44 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+          labelClassName='text-main-white'
+          type='number'
+          placeholder={Translations.warningMinValuePlaceholder}
+          value={warningMinValue?.toString()}
+          label={Translations.warningMinValueLabel}
+          onChange={(e) => setWarningMinValue(Number(e.target.value))}
+        />
 
-          <Input
-            className='h-8 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
-            labelClassName='text-main-white'
-            type='number'
-            value={maxValue.toString()}
-            label={Translations.maxValueLabel}
-            onChange={(e) => setMaxValue(Number(e.target.value))}
-          />
-        </div>
+        <Input
+          className='h-8 w-44 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+          labelClassName='text-main-white'
+          type='number'
+          placeholder={Translations.warningMaxValuePlaceholder}
+          value={warningMaxValue?.toString()}
+          label={Translations.warningMaxValueLabel}
+          onChange={(e) => setWarningMaxValue(Number(e.target.value))}
+        />
+
+        <Input
+          className='h-8 w-44 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+          labelClassName='text-main-white'
+          type='number'
+          placeholder={Translations.criticalMinValuePlaceholder}
+          value={criticalMinValue?.toString()}
+          label={Translations.criticalMinValueLabel}
+          onChange={(e) => setCriticalMinValue(Number(e.target.value))}
+        />
+
+        <Input
+          className='h-8 w-44 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'
+          labelClassName='text-main-white'
+          type='number'
+          placeholder={Translations.criticalMaxValuePlaceholder}
+          value={criticalMaxValue?.toString()}
+          label={Translations.criticalMaxValueLabel}
+          onChange={(e) => setCriticalMaxValue(Number(e.target.value))}
+        />
 
         <Input
           className='h-8 w-44 bg-main-white shadow-skyblue ring-0 [&>input]:text-xs'

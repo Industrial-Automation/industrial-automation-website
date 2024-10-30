@@ -12,6 +12,7 @@ module.exports = {
       current: 'currentColor',
       main: {
         red: '#FF0000',
+        green: '#13c613',
         white: '#FFF',
         gold: '#FFC43F',
         orange: '#FFA500',
