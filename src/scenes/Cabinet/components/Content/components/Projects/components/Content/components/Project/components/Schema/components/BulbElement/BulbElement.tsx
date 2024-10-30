@@ -34,7 +34,7 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
       (bulb.warning_min_value && bulb.value <= bulb.warning_min_value) ||
       (bulb.warning_max_value && bulb.value >= bulb.warning_max_value)
     ) {
-      return 'bg-main-red';
+      return 'bg-main-gold';
     }
 
     return 'bg-main-green';
