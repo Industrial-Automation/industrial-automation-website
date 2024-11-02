@@ -131,10 +131,10 @@ const Project = () => {
   };
 
   useEffect(() => {
-    if (!project_screens.length && projectId) {
+    if (projectId) {
       fetchGetProjectScreens(projectId);
     }
-  }, [projectId, project_screens.length]);
+  }, [projectId]);
 
   if (!projectId) {
     return <></>;
