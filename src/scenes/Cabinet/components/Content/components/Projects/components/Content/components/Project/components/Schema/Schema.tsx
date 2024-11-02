@@ -85,7 +85,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   };
 
   const handleUpdateSchemaInput = useMemo(
-    () => debounce((id, data) => fetchUpdateSchemaInput(id, data), 800),
+    () => debounce((id, data) => fetchUpdateSchemaInput(id, data), 2000),
     []
   );
 
@@ -114,7 +114,7 @@ export const Schema: React.FC<SchemaStatePropsType> = ({ projectScreen }) => {
   };
 
   const handleUpdateSchemaBulb = useMemo(
-    () => debounce((id, data) => fetchUpdateSchemaBulb(id, data), 800),
+    () => debounce((id, data) => fetchUpdateSchemaBulb(id, data), 2000),
     []
   );
 
