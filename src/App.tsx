@@ -14,13 +14,21 @@ function App() {
 
   useEffect(() => {
     const getLoggedUser = async () => {
-      const { data } = await fetchMe();
+      try {
+        const { data } = await fetchMe();
 
-      if (data.user) {
-        return;
+        if (data.user) {
+          return;
+        }
+
+        navigate(Paths.Main, { replace: true });
+      } catch (e) {
+        const error = e as Error;
+
+        if (error.message.includes('401')) {
+          navigate(Paths.Main, { replace: true });
+        }
       }
-
-      navigate(Paths.Main, { replace: true });
     };
 
     if (!user) {
