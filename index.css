@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Arsenal:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -17,4 +15,42 @@ html {
     }
 }
 
-@layer utilities {}
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+@layer utilities {
+    .modal-scrollbar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .modal-scrollbar::-webkit-scrollbar-track {
+        margin: 5px 0;
+    }
+
+    .modal-scrollbar::-webkit-scrollbar-thumb {
+        background: theme('colors.main.skyblue');
+        border-radius: 100vh;
+        max-height: 50px;
+        min-height: 50px;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+        margin: 5px 0;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: theme('colors.main.skyblue');
+        border-radius: 100vh;
+        max-height: 50px;
+        min-height: 50px;
+    }
+}
