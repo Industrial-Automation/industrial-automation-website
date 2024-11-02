@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Text } from 'src/components/Text';
 import { useModal } from 'src/hooks/useModal';
 import { Button } from 'src/components/Button';
+import { Loader } from 'src/components/Loader';
 import { ModalNames } from 'src/constants/modals';
 import { fetchGetProjectScreens, ProjectScreensStateType } from 'src/reducers/project-screens';
 
@@ -29,6 +30,8 @@ const Project = () => {
   const modal = useModal();
 
   const [selectedOrder, setSelectedOrder] = useState<number>(1);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [mode, setMode] = useState<(typeof Modes)[keyof typeof Modes]>(Modes.SCHEMA);
 
@@ -131,13 +134,25 @@ const Project = () => {
   };
 
   useEffect(() => {
-    if (projectId) {
-      fetchGetProjectScreens(projectId);
-    }
+    const fetchProjectData = async () => {
+      if (projectId) {
+        setIsLoading(true);
+
+        await fetchGetProjectScreens(projectId);
+
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjectData();
   }, [projectId]);
 
   if (!projectId) {
     return <></>;
+  }
+
+  if (isLoading) {
+    return <Loader size='lg' color='skyblue' />;
   }
 
   if (!project_screens.length || !selectedScreen) {
