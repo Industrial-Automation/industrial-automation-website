@@ -24,15 +24,15 @@ export const BulbElement: React.FC<BulbElementType> = ({ bulb, onChange }) => {
 
   const colorClass = useMemo(() => {
     if (
-      (bulb.critical_min_value && bulb.value <= bulb.critical_min_value) ||
-      (bulb.critical_max_value && bulb.value >= bulb.critical_max_value)
+      (typeof bulb.critical_min_value === 'number' && bulb.value <= bulb.critical_min_value) ||
+      (typeof bulb.critical_max_value === 'number' && bulb.value >= bulb.critical_max_value)
     ) {
       return 'bg-main-red';
     }
 
     if (
-      (bulb.warning_min_value && bulb.value <= bulb.warning_min_value) ||
-      (bulb.warning_max_value && bulb.value >= bulb.warning_max_value)
+      (typeof bulb.warning_min_value === 'number' && bulb.value <= bulb.warning_min_value) ||
+      (typeof bulb.warning_max_value === 'number' && bulb.value >= bulb.warning_max_value)
     ) {
       return 'bg-main-gold';
     }
