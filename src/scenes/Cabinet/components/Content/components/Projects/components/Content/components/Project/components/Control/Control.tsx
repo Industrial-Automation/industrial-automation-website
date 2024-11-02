@@ -118,7 +118,7 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
   };
 
   const handleChangeControlGaugeValue = useMemo(
-    () => debounce((id: string, value: number) => fetchUpdateControlGauge(id, { value }), 800),
+    () => debounce((id: string, value: number) => fetchUpdateControlGauge(id, { value }), 2000),
     []
   );
 

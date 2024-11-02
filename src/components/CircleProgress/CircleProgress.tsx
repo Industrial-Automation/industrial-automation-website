@@ -137,7 +137,7 @@ export const CircleProgress = (props: CircleProgressType) => {
           </defs>
 
           <text x={center + 5} y={center + 10} textAnchor='middle' fontSize='40' fill='#ffffff'>
-            {progress}
+            {currentValue}
             {propsWithDefault.unit}
           </text>
 
