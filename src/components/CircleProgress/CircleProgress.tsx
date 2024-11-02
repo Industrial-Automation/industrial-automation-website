@@ -91,7 +91,7 @@ export const CircleProgress = (props: CircleProgressType) => {
 
   const handleIncrementValue = () => {
     setCurrentValue((prevValue) => {
-      const newValue = prevValue + propsWithDefault.intervalValue;
+      const newValue = Math.round((prevValue + propsWithDefault.intervalValue) * 100) / 100;
 
       if (newValue > propsWithDefault.maxValue) {
         return prevValue;
@@ -107,7 +107,7 @@ export const CircleProgress = (props: CircleProgressType) => {
 
   const handleDecrementValue = () => {
     setCurrentValue((prevValue) => {
-      const newValue = prevValue - propsWithDefault.intervalValue;
+      const newValue = Math.round((prevValue - propsWithDefault.intervalValue) * 100) / 100;
 
       if (newValue < propsWithDefault.minValue) {
         return prevValue;
