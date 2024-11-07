@@ -10,7 +10,8 @@ import {
 import {
   ControlSwitchesStateType,
   ControlSwitchType,
-  fetchGetControlSwitches
+  fetchGetControlSwitches,
+  fetchUpdateControlSwitch
 } from 'src/reducers/control-switches';
 import { debounce } from 'src/utils';
 import { Text } from 'src/components/Text';
@@ -122,6 +123,11 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
     []
   );
 
+  const handleChangeControlSwitchValue = useMemo(
+    () => debounce((id: string, value: boolean) => fetchUpdateControlSwitch(id, { value }), 2000),
+    []
+  );
+
   useEffect(() => {
     const fetchControlData = async () => {
       await fetchGetControlSwitches(projectScreen.id);
@@ -173,7 +179,9 @@ export const Control: React.FC<ControlStatePropsType> = ({ projectScreen }) => {
                 barColor='gray'
                 checkedBarColor='skyblue'
                 circleColor='white'
+                value={controlElement.value}
                 editable={controlElement.editable}
+                onChange={(value) => handleChangeControlSwitchValue(controlElement.id, value)}
               />
             )}
 
