@@ -1,6 +1,7 @@
 const Translations = {
   schemaBtn: 'Schema',
-  controlBtn: 'Control'
+  controlBtn: 'Control',
+  trendsBtn: 'Trends'
 };
 
 export default Translations;
