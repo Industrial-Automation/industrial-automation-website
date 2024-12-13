@@ -10,6 +10,7 @@ import { ModalNames } from 'src/constants/modals';
 import { fetchGetProjectScreens, ProjectScreensStateType } from 'src/reducers/project-screens';
 
 import { Schema } from './components/Schema';
+import { Trends } from './components/Trends';
 import { Control } from './components/Control';
 import { EmptyState } from './components/EmptyState';
 
@@ -17,7 +18,8 @@ import Translations from './translations';
 
 const Modes = Object.freeze({
   SCHEMA: 'schema',
-  CONTROL: 'control'
+  CONTROL: 'control',
+  TRENDS: 'trends'
 });
 
 const Project = () => {
@@ -193,8 +195,10 @@ const Project = () => {
 
       {mode === Modes.SCHEMA ? (
         <Schema projectScreen={selectedScreen} />
-      ) : (
+      ) : mode === Modes.CONTROL ? (
         <Control projectScreen={selectedScreen} />
+      ) : (
+        <Trends projectScreen={selectedScreen} />
       )}
 
       <div className='mt-5 flex w-full items-center justify-between'>
@@ -227,9 +231,9 @@ const Project = () => {
           )}
         </div>
 
-        <div className='flex w-52'>
+        <div className='flex w-64'>
           <Button
-            className='w-1/2 !rounded-r-none'
+            className='w-1/2 !rounded-r-none border-r-2 border-r-main-gray'
             variant='primary'
             color={mode === Modes.SCHEMA ? 'skyblue' : 'white'}
             size='sm'
@@ -238,12 +242,21 @@ const Project = () => {
           />
 
           <Button
-            className='w-1/2 !rounded-l-none'
+            className='w-1/2 !rounded-l-none !rounded-r-none border-r-2 border-r-main-gray'
             variant='primary'
             color={mode === Modes.CONTROL ? 'skyblue' : 'white'}
             size='sm'
             label={Translations.controlBtn}
             onClick={() => handleChangeMode(Modes.CONTROL)}
+          />
+
+          <Button
+            className='w-1/2  !rounded !rounded-l-none'
+            variant='primary'
+            color={mode === Modes.TRENDS ? 'skyblue' : 'white'}
+            size='sm'
+            label={Translations.trendsBtn}
+            onClick={() => handleChangeMode(Modes.TRENDS)}
           />
         </div>
       </div>
