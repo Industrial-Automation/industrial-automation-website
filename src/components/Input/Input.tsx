@@ -19,7 +19,7 @@ interface InputType extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 's
   readonly className?: React.HTMLAttributes<HTMLDivElement>['className'];
   readonly labelClassName?: React.HTMLAttributes<HTMLDivElement>['className'];
 
-  readonly type?: 'text' | 'number' | 'password' | 'email' | 'tel' | 'radio';
+  readonly type?: 'text' | 'number' | 'password' | 'email' | 'tel' | 'radio' | 'datetime-local';
 
   readonly icon?: IconsType['variant'];
 
@@ -27,6 +27,8 @@ interface InputType extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 's
   readonly required?: boolean;
 
   readonly size?: keyof typeof sizeClasses;
+
+  readonly step?: number;
 
   readonly leftBar?: () => React.JSX.Element;
   readonly rightBar?: () => React.JSX.Element;
@@ -133,6 +135,7 @@ export const Input = (props: InputType) => {
           onInput={propsWithDefault.onInput}
           readOnly={propsWithDefault.readOnly}
           maxLength={propsWithDefault.maxLength}
+          step={propsWithDefault.step}
         />
 
         {propsWithDefault.rightBar && propsWithDefault.rightBar()}
